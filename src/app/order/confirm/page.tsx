@@ -1,0 +1,52 @@
+import Button from "@/components/ui/Button";
+
+interface ConfirmPageProps {
+  searchParams: Promise<{ orderId?: string }>;
+}
+
+export default async function OrderConfirmPage({
+  searchParams,
+}: ConfirmPageProps) {
+  const { orderId } = await searchParams;
+
+  return (
+    <div className="pt-20">
+      <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-hnd-red/10">
+          <svg
+            className="h-8 w-8 text-hnd-red"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+        <h1 className="mt-8 font-display text-3xl font-bold md:text-4xl">
+          Order Confirmed
+        </h1>
+        <p className="mt-4 text-hnd-gray-500">
+          Thank you for your purchase. A confirmation email will be sent shortly.
+        </p>
+        {orderId && (
+          <p className="mt-4 font-mono text-sm">
+            Order ID: <span className="text-hnd-red">{orderId}</span>
+          </p>
+        )}
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+          <Button href="/shop" size="lg">
+            Continue Shopping
+          </Button>
+          <Button href="/account" variant="outline" size="lg">
+            View Account
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}

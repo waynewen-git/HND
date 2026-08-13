@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-hnd-red: #c41e3a;
+  --color-hnd-red-dark: #9e1830;
+  --color-hnd-steel: #8b9daf;
+  --color-hnd-steel-light: #a8b8c8;
+  --color-hnd-black: #0a0a0a;
+  --color-hnd-gray-950: #111111;
+  --color-hnd-gray-900: #1a1a1a;
+  --color-hnd-gray-800: #2a2a2a;
+  --color-hnd-gray-700: #404040;
+  --color-hnd-gray-500: #737373;
+  --color-hnd-gray-300: #d4d4d4;
+  --color-hnd-gray-100: #f5f5f5;
+  --color-hnd-white: #fafafa;
+
+  --font-display: var(--font-syne), system-ui, sans-serif;
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-hnd-white text-hnd-black antialiased;
+    font-family: var(--font-body);
+  }
+
+  .dark body,
+  body:where(.dark *) {
+    @apply bg-hnd-black text-hnd-white;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+
+  ::selection {
+    @apply bg-hnd-red/30 text-inherit;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .section-padding {
+    @apply px-6 md:px-12 lg:px-20;
+  }
+
+  .container-max {
+    @apply mx-auto max-w-7xl;
+  }
+}
