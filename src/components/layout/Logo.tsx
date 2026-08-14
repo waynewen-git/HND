@@ -23,8 +23,8 @@ const assets = {
 } as const;
 
 const sizeMap = {
-  sm: "h-8 w-auto md:h-9",
-  md: "h-10 w-auto",
+  sm: "h-9 w-auto md:h-10",
+  md: "h-10 w-auto md:h-11",
   lg: "h-14 w-auto md:h-16",
 };
 

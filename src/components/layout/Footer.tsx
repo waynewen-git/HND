@@ -33,6 +33,8 @@ export default function Footer() {
               Musical Instruments
               <br />
               Live is Life
+              <br />
+              Bring Rock Closer to Life.
             </p>
           </div>
 

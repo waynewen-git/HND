@@ -27,7 +27,7 @@ export const categories: CategoryInfo[] = [
     name: "Bluetooth Speakers",
     description:
       "Diode-driven Bluetooth audio with studio-grade clarity. One model, two finishes, uncompromising sound.",
-    heroImage: "/images/pic-holder.jpg",
+    heroImage: "/images/hero-speaker-0.png",
   },
 ];
 
@@ -37,18 +37,32 @@ const guitarPngs = [
   "/images/hero-guitar-3.png",
   "/images/hero-guitar-4.png",
   "/images/hero-guitar-5.png",
+  "/images/hero-guitar-6.png",
 ];
 
-const ampImages = [
-  "/images/hero-amps-1.png",
-  "/images/hero-amps-2.jpg",
-  "/images/hero-amps-1.png",
+const guitarDetailImages = [
+  "/images/guitar-detail-1.jpg",
+  "/images/guitar-detail-2.jpg",
+  "/images/guitar-detail-3.jpg",
+  "/images/guitar-detail-4.jpg",
+  "/images/guitar-detail-5.jpg",
+  "/images/guitar-detail-6.jpg",
+  "/images/guitar-detail-7.jpg",
 ];
 
-const speakerImages = [
-  "/images/pic-holder.jpg",
-  "/images/pic-holder.jpg",
-  "/images/pic-holder.jpg",
+const ampPngs = [
+  "/images/hero-amps-1.png",
+  "/images/hero-amps-2.png",
+  "/images/hero-amps-3.png",
+  "/images/hero-amps-4.png",
+];
+
+const speakerImage = "/images/hero-speaker-0.png";
+
+const livePngs = [
+  "/images/hero-live-0.png",
+  "/images/hero-live-1.png",
+  "/images/hero-live-2.png",
 ];
 
 const guitarPrices = [699, 739, 779, 819, 859, 899];
@@ -77,7 +91,7 @@ export const products: Product[] = [
       "A precision-crafted electric guitar built for heavy rock. Features a contoured body, high-output pickups, and a fast-playing neck designed for aggressive riffing and soaring solos.",
     price: guitarPrices[i],
     colors: ["black", "white", "red", "blue"] as ProductColor[],
-    images: [guitarImage, guitarPngs[(i + 1) % guitarPngs.length], guitarImage],
+    images: [guitarImage, ...guitarDetailImages],
     navImage: guitarImage,
     ...(i < 3
       ? { video: `/videos/products/hnd-g0${i + 1}-demo.mp4` }
@@ -99,7 +113,9 @@ export const products: Product[] = [
     featured: i < 3,
   };
   }),
-  ...Array.from({ length: 4 }, (_, i) => ({
+  ...Array.from({ length: 4 }, (_, i) => {
+    const ampImage = ampPngs[i];
+    return {
     id: `amp-0${i + 1}`,
     slug: `hnd-a0${i + 1}`,
     sku: `HND-A0${i + 1}`,
@@ -110,7 +126,8 @@ export const products: Product[] = [
       "A professional tube amp head delivering massive gain and articulate clean tones. Built with premium components for reliability on tour and in the studio.",
     price: ampPrices[i],
     colors: ["black", "white"] as ProductColor[],
-    images: ampImages,
+    images: [ampImage, ampPngs[(i + 1) % ampPngs.length], ampImage],
+    navImage: ampImage,
     specs: [
       { label: "Power", value: `${50 + i * 10}W` },
       { label: "Channels", value: "2 (Clean / Lead)" },
@@ -125,7 +142,8 @@ export const products: Product[] = [
       "Tour-grade chassis and components",
     ],
     featured: i < 2,
-  })),
+  };
+  }),
   {
     id: "speaker-01",
     slug: "hnd-s01",
@@ -137,7 +155,8 @@ export const products: Product[] = [
       "A premium diode-driven Bluetooth speaker delivering studio-grade clarity in a compact form. Engineered for accurate reproduction with deep, controlled bass.",
     price: 699,
     colors: ["black", "white"],
-    images: speakerImages,
+    images: [speakerImage, speakerImage, speakerImage],
+    navImage: speakerImage,
     specs: [
       { label: "Driver", value: '6.5" woofer + 1" tweeter' },
       { label: "Power", value: "120W RMS" },
@@ -159,11 +178,10 @@ export const heroSlides: HeroSlide[] = [
   {
     id: "hero-1",
     title: "Live is Life",
-    subtitle: "Precision electric guitars built for heavy rock",
+    subtitle: "Bring Rock Closer to Life.",
     cta: "Explore Guitars",
     ctaHref: "/products/guitars",
-    image: "/images/hero-guitar-1.png",
-    productId: "guitar-01",
+    image: "/images/hnd-0.png",
   },
   {
     id: "hero-2",
@@ -171,8 +189,7 @@ export const heroSlides: HeroSlide[] = [
     subtitle: "Aggressive tone, stage-ready performance",
     cta: "Explore Guitars",
     ctaHref: "/products/guitars",
-    image: "/images/hero-guitar-2.png",
-    productId: "guitar-02",
+    image: "/images/hnd-1.png",
   },
   {
     id: "hero-3",
@@ -180,8 +197,7 @@ export const heroSlides: HeroSlide[] = [
     subtitle: "Professional amp heads for stage and studio",
     cta: "Explore Amps",
     ctaHref: "/products/amps",
-    image: "/images/hero-amps-1.png",
-    productId: "amp-01",
+    image: "/images/hnd-2.png",
   },
   {
     id: "hero-4",
@@ -189,8 +205,7 @@ export const heroSlides: HeroSlide[] = [
     subtitle: "All-tube circuitry built for the tour",
     cta: "Explore Amps",
     ctaHref: "/products/amps",
-    image: "/images/hero-amps-2.jpg",
-    productId: "amp-02",
+    image: "/images/hnd-3.png",
   },
   {
     id: "hero-5",
@@ -198,7 +213,25 @@ export const heroSlides: HeroSlide[] = [
     subtitle: "Continuously creating passion",
     cta: "Shop All",
     ctaHref: "/shop",
-    image: "/images/pic-holder.jpg",
+    image: "/images/hnd-4.png",
+  },
+];
+
+export const liveNavItems = [
+  {
+    href: "/shop",
+    label: "HND-L01",
+    image: livePngs[0],
+  },
+  {
+    href: "/configure",
+    label: "HND-L02",
+    image: livePngs[1],
+  },
+  {
+    href: "/stores",
+    label: "HND-L03",
+    image: livePngs[2],
   },
 ];
 

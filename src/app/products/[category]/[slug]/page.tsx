@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "@/components/products/AddToCartButton";
 import ProductCard from "@/components/products/ProductCard";
 import ProductDemoVideo from "@/components/products/ProductDemoVideo";
+import ProductImageGallery from "@/components/products/ProductImageGallery";
 import {
   formatPrice,
   getProductBySlug,
@@ -40,36 +40,10 @@ export default async function ProductDetailPage({
       {/* Hero */}
       <section className="section-padding container-max py-12 md:py-20">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="space-y-4">
-            <div className="relative aspect-square overflow-hidden rounded-sm bg-hnd-gray-100 dark:bg-hnd-gray-900">
-              <Image
-                src={product.images[0]}
-                alt={product.name}
-                fill
-                unoptimized
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              {product.images.slice(1).map((img, i) => (
-                <div
-                  key={i}
-                  className="relative aspect-square overflow-hidden rounded-sm bg-hnd-gray-100 dark:bg-hnd-gray-900"
-                >
-                  <Image
-                    src={img}
-                    alt={`${product.name} view ${i + 2}`}
-                    fill
-                    unoptimized
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 33vw, 16vw"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <ProductImageGallery
+            images={product.images}
+            productName={product.name}
+          />
 
           <div className="flex flex-col justify-center">
             <p className="text-sm tracking-wider text-hnd-steel uppercase">

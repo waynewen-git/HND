@@ -35,25 +35,31 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
   return (
     <section className="w-full pt-20 md:pt-24" aria-label="Featured products">
       {/* Full-bleed image stage — edge to edge, scales with viewport */}
-      <div className="relative w-full overflow-hidden bg-hnd-black">
-        <div className="relative h-[clamp(280px,55vh,620px)] w-full">
+      <div className="relative w-full overflow-hidden bg-hnd-white dark:bg-hnd-black">
+        <div className="relative w-full overflow-hidden">
           {slides.map((s, i) => (
             <div
               key={s.id}
-              className={`absolute inset-0 transition-opacity duration-700 ${
-                i === current ? "opacity-100" : "opacity-0"
+              className={`w-full overflow-hidden transition-opacity duration-700 ${
+                i === current
+                  ? "relative opacity-100"
+                  : "pointer-events-none absolute inset-0 opacity-0"
               }`}
               aria-hidden={i !== current}
             >
-              <Image
-                src={s.image}
-                alt={s.title}
-                fill
-                priority={i === 0}
-                unoptimized
-                className="object-contain object-center"
-                sizes="100vw"
-              />
+              {/* Crop ~20% height (10% top + 10% bottom), keep full width */}
+              <div className="-my-[10%] w-full">
+                <Image
+                  src={s.image}
+                  alt={s.title}
+                  width={2400}
+                  height={1200}
+                  priority={i === 0}
+                  unoptimized
+                  className="h-auto w-full object-contain object-center"
+                  sizes="100vw"
+                />
+              </div>
             </div>
           ))}
 
@@ -90,12 +96,12 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
       {/* Copy below — Tesla rhythm, centered with padding */}
       <div
         id="home-content"
-        className="section-padding container-max mx-auto py-12 text-center md:py-16"
+        className="section-padding container-max mx-auto py-8 text-center md:py-10"
       >
-        <h1 className="font-display text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl">
+        <h1 className="font-body text-2xl font-medium tracking-wide text-hnd-black md:text-3xl lg:text-4xl dark:text-hnd-white">
           {slide.title}
         </h1>
-        <p className="mt-4 text-base text-hnd-gray-500 md:text-lg">
+        <p className="mt-3 font-body text-sm tracking-wide text-hnd-gray-500 md:text-base">
           {slide.subtitle}
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">

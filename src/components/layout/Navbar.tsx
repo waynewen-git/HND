@@ -10,13 +10,14 @@ import { useTheme } from "@/components/providers/ThemeProvider";
 import Logo from "@/components/layout/Logo";
 import GuitarLineup from "@/components/products/GuitarLineup";
 import { cn } from "@/lib/utils";
-import { getProductsByCategory } from "@/data/products";
+import { getProductsByCategory, liveNavItems } from "@/data/products";
 import type { ProductCategory } from "@/types";
 
 interface NavChild {
   href: string;
   label: string;
   description?: string;
+  image?: string;
 }
 
 interface NavItem {
@@ -63,7 +64,7 @@ function NavMenuItem({
   const active = isNavActive(pathname, item);
   const isOpen = openMenu === item.label;
   const labelClass = cn(
-    "rounded-sm px-3 py-1.5 text-xs tracking-wide uppercase transition-colors duration-200 lg:text-sm",
+    "rounded-sm px-3 py-1.5 text-[13px] font-semibold tracking-wide uppercase transition-colors duration-200 lg:text-sm",
     isOpen
       ? "bg-hnd-gray-100 text-hnd-black dark:bg-hnd-gray-800 dark:text-hnd-white"
       : active
@@ -111,26 +112,14 @@ export default function Navbar() {
         children: buildProductChildren("speakers"),
       },
       {
-        label: "Live Products",
+        label: "Live",
         href: "/shop",
         matchPath: "/shop",
-        children: [
-          {
-            href: "/shop",
-            label: "Shop All",
-            description: "Full catalog with filters",
-          },
-          {
-            href: "/configure",
-            label: "Configure",
-            description: "Build your instrument",
-          },
-          {
-            href: "/cart",
-            label: "Shopping Cart",
-            description: "Review your order",
-          },
-        ],
+        children: liveNavItems.map((item) => ({
+          href: item.href,
+          label: item.label,
+          image: item.image,
+        })),
       },
     ],
     [],
@@ -195,7 +184,7 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     className={cn(
-                      "rounded-sm px-3 py-1.5 text-xs tracking-wide uppercase transition-colors duration-200 lg:text-sm",
+                      "rounded-sm px-3 py-1.5 text-[13px] font-semibold tracking-wide uppercase transition-colors duration-200 lg:text-sm",
                       pathname.startsWith(link.href)
                         ? "text-hnd-red"
                         : "text-hnd-gray-700 hover:text-hnd-red dark:text-hnd-gray-300",
@@ -248,47 +237,82 @@ export default function Navbar() {
               {activeItem.label === "Guitar" ? (
                 <GuitarLineup variant="nav" />
               ) : (
-                <ul className="grid grid-cols-2 gap-x-6 gap-y-5 py-5 sm:grid-cols-3 md:gap-x-8 md:gap-y-6 md:py-6">
-                  {activeItem.children.map((child) => {
-                    const product = [
-                      ...getProductsByCategory("amps"),
-                      ...getProductsByCategory("speakers"),
-                    ].find((p) => p.name === child.label);
+                <div className="flex items-start gap-10 py-1.5 md:gap-14 md:py-2">
+                  <ul className="grid max-w-[1120px] flex-1 grid-cols-3 gap-x-6 gap-y-2 md:gap-x-8 md:gap-y-3">
+                    {activeItem.children.map((child) => {
+                      const product = [
+                        ...getProductsByCategory("amps"),
+                        ...getProductsByCategory("speakers"),
+                      ].find((p) => p.name === child.label);
 
-                    const fallbackImage =
-                      activeItem.label === "AMP Header"
-                        ? "/images/hero-amps-1.png"
-                        : activeItem.label === "Speaker"
-                          ? "/images/pic-holder.jpg"
-                          : "/images/pic-holder.jpg";
+                      const fallbackImage =
+                        activeItem.label === "AMP Header"
+                          ? "/images/hero-amps-1.png"
+                          : activeItem.label === "Speaker"
+                            ? "/images/hero-speaker-0.png"
+                            : activeItem.label === "Live"
+                              ? "/images/hero-live-0.png"
+                              : "/images/hero-speaker-0.png";
 
-                    const image =
-                      product?.navImage ?? product?.images[0] ?? fallbackImage;
+                      const image =
+                        child.image ??
+                        product?.navImage ??
+                        product?.images[0] ??
+                        fallbackImage;
 
-                    return (
-                      <li key={`${activeItem.label}-${child.label}`}>
+                      return (
+                        <li key={`${activeItem.label}-${child.label}`}>
+                          <Link
+                            href={child.href}
+                            className="group flex flex-col items-center text-center"
+                          >
+                            <div className="relative h-[280px] w-full transition-transform duration-300 group-hover:scale-[1.04] md:h-[336px]">
+                              <Image
+                                src={image}
+                                alt={child.label}
+                                fill
+                                unoptimized
+                                className="object-contain object-center"
+                                sizes="360px"
+                              />
+                            </div>
+                            <span className="mt-1 font-display text-base font-semibold tracking-tight text-hnd-black md:text-lg dark:text-hnd-white">
+                              {child.label}
+                            </span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <aside className="hidden w-48 shrink-0 border-l border-hnd-gray-300/30 pl-8 md:block dark:border-hnd-gray-700/50 lg:w-56 lg:pl-10">
+                    <ul className="space-y-3">
+                      <li>
                         <Link
-                          href={child.href}
-                          className="group flex flex-col items-center text-center"
+                          href={activeItem.href}
+                          className="text-sm text-hnd-gray-700 transition-colors hover:text-hnd-black dark:text-hnd-gray-300 dark:hover:text-hnd-white"
                         >
-                          <div className="relative h-24 w-full transition-transform duration-300 group-hover:scale-[1.03] md:h-28 lg:h-32">
-                            <Image
-                              src={image}
-                              alt={child.label}
-                              fill
-                              unoptimized
-                              className="object-contain object-center"
-                              sizes="(max-width: 640px) 50vw, 33vw"
-                            />
-                          </div>
-                          <span className="mt-2 font-display text-sm font-semibold tracking-tight text-hnd-black md:text-base dark:text-hnd-white">
-                            {child.label}
-                          </span>
+                          View All
                         </Link>
                       </li>
-                    );
-                  })}
-                </ul>
+                      <li>
+                        <Link
+                          href="/shop"
+                          className="text-sm text-hnd-gray-700 transition-colors hover:text-hnd-black dark:text-hnd-gray-300 dark:hover:text-hnd-white"
+                        >
+                          Shop
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/support"
+                          className="text-sm text-hnd-gray-700 transition-colors hover:text-hnd-black dark:text-hnd-gray-300 dark:hover:text-hnd-white"
+                        >
+                          Support
+                        </Link>
+                      </li>
+                    </ul>
+                  </aside>
+                </div>
               )}
             </div>
           </div>

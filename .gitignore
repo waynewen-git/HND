@@ -22,6 +22,12 @@
 .DS_Store
 *.pem
 
+# local scratch / unused assets
+public/images/_tmp*
+public/images/867.JPG
+public/images/868.JPG
+public/images/869.JPG
+
 # debug
 npm-debug.log*
 yarn-debug.log*
@@ -34,3 +40,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.vercel
+
+public/images/hero-live-1.JPG
+public/images/hero-live-2.jpg
