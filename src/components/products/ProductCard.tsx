@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import AppImage from "@/components/ui/AppImage";
 import Link from "next/link";
 import type { Product } from "@/types";
 import { formatPrice } from "@/data/products";
@@ -20,7 +20,7 @@ export default function ProductCard({
     return (
       <Link href={href} className="group relative block overflow-hidden">
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-hnd-gray-900">
-          <Image
+          <AppImage
             src={product.images[0]}
             alt={product.name}
             fill
@@ -51,7 +51,7 @@ export default function ProductCard({
   return (
     <Link href={href} className="group block transition-transform duration-300 hover:-translate-y-1">
       <div className="relative aspect-square overflow-hidden rounded-sm bg-hnd-gray-100 dark:bg-hnd-gray-900">
-        <Image
+        <AppImage
           src={product.images[0]}
           alt={product.name}
           fill

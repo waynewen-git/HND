@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import AppImage from "@/components/ui/AppImage";
 import Link from "next/link";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -48,7 +48,7 @@ export default function CartPage() {
                   className="flex gap-6 border-b border-hnd-gray-300/20 pb-6 dark:border-hnd-gray-700/50"
                 >
                   <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-sm bg-hnd-gray-100 dark:bg-hnd-gray-900">
-                    <Image
+                    <AppImage
                       src={product.images[0]}
                       alt={product.name}
                       fill

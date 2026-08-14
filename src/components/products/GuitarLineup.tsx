@@ -1,4 +1,4 @@
-import Image from "next/image";
+import AppImage from "@/components/ui/AppImage";
 import Link from "next/link";
 import { formatPrice, getProductsByCategory } from "@/data/products";
 import { cn } from "@/lib/utils";
@@ -41,7 +41,7 @@ export default function GuitarLineup({
                 className="group flex flex-col items-center text-center"
               >
                 <div className="relative h-[280px] w-full transition-transform duration-300 group-hover:scale-[1.04] md:h-[336px]">
-                  <Image
+                  <AppImage
                     src={product.navImage ?? product.images[0]}
                     alt={product.name}
                     fill
@@ -87,7 +87,7 @@ export default function GuitarLineup({
             className="group flex flex-col items-center text-center"
           >
             <div className="relative aspect-[4/3] min-h-[280px] w-full transition-transform duration-300 group-hover:scale-[1.03] md:aspect-[16/10] md:min-h-[420px]">
-              <Image
+              <AppImage
                 src={product.navImage ?? product.images[0]}
                 alt={product.name}
                 fill

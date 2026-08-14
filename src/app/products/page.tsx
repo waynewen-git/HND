@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import AppImage from "@/components/ui/AppImage";
 import { categories } from "@/data/products";
 
 export default function ProductsPage() {
@@ -20,7 +20,7 @@ export default function ProductsPage() {
             href={`/products/${cat.slug}`}
             className="group relative block h-[60vh] min-h-[400px] overflow-hidden"
           >
-            <Image
+            <AppImage
               src={cat.heroImage}
               alt={cat.name}
               fill

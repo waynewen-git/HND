@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   description:
     "Precision electric guitars, professional amp heads, and diode Bluetooth speakers. Built for heavy rock. Live is Life.",
   icons: {
-    icon: "/logo/hnd-logo-mark.png",
-    apple: "/logo/hnd-logo-mark.png",
+    icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/logo/hnd-logo-mark.png`,
+    apple: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/logo/hnd-logo-mark.png`,
   },
 };
 

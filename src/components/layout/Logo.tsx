@@ -1,4 +1,4 @@
-import Image from "next/image";
+import AppImage from "@/components/ui/AppImage";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -37,7 +37,7 @@ export default function Logo({
   const asset = assets[variant];
 
   const image = (
-    <Image
+    <AppImage
       src={asset.src}
       alt="HND Musical Instruments"
       width={asset.width}

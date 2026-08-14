@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
+import AppImage from "@/components/ui/AppImage";
 import GuitarLineup from "@/components/products/GuitarLineup";
 import ProductCard from "@/components/products/ProductCard";
 import {
@@ -30,7 +30,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   return (
     <div className="pt-20">
       <section className="relative h-[50vh] min-h-[360px]">
-        <Image
+        <AppImage
           src={info.heroImage}
           alt={info.name}
           fill

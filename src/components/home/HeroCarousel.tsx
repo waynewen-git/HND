@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
+import AppImage from "@/components/ui/AppImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { HeroSlide } from "@/types";
 import Button from "@/components/ui/Button";
@@ -49,7 +49,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
             >
               {/* Crop ~20% height (10% top + 10% bottom), keep full width */}
               <div className="-my-[10%] w-full">
-                <Image
+                <AppImage
                   src={s.image}
                   alt={s.title}
                   width={2400}

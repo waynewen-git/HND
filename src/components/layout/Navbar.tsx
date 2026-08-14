@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import AppImage from "@/components/ui/AppImage";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -267,7 +267,7 @@ export default function Navbar() {
                             className="group flex flex-col items-center text-center"
                           >
                             <div className="relative h-[280px] w-full transition-transform duration-300 group-hover:scale-[1.04] md:h-[336px]">
-                              <Image
+                              <AppImage
                                 src={image}
                                 alt={child.label}
                                 fill

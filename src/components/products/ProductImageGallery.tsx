@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import AppImage from "@/components/ui/AppImage";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -60,7 +60,7 @@ export default function ProductImageGallery({
           className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-sm bg-hnd-gray-100 dark:bg-hnd-gray-900"
           aria-label={`Enlarge ${productName} main image`}
         >
-          <Image
+          <AppImage
             src={images[0]}
             alt={productName}
             fill
@@ -83,7 +83,7 @@ export default function ProductImageGallery({
                   className="relative aspect-square cursor-zoom-in overflow-hidden rounded-sm bg-hnd-gray-100 dark:bg-hnd-gray-900"
                   aria-label={`Enlarge ${productName} view ${index + 1}`}
                 >
-                  <Image
+                  <AppImage
                     src={img}
                     alt={`${productName} view ${index + 1}`}
                     fill
@@ -146,7 +146,7 @@ export default function ProductImageGallery({
             className="relative h-[min(85vh,900px)] w-full max-w-6xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
+            <AppImage
               src={images[activeIndex]}
               alt={`${productName} enlarged view ${activeIndex + 1}`}
               fill
