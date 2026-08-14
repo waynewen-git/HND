@@ -1,14 +1,7 @@
 import Button from "@/components/ui/Button";
 
-interface ConfirmPageProps {
-  searchParams: Promise<{ orderId?: string }>;
-}
-
-export default async function OrderConfirmPage({
-  searchParams,
-}: ConfirmPageProps) {
-  const { orderId } = await searchParams;
-
+/** Static showcase page — no server searchParams (required for GitHub Pages export). */
+export default function OrderConfirmPage() {
   return (
     <div className="pt-20">
       <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
@@ -33,11 +26,6 @@ export default async function OrderConfirmPage({
         <p className="mt-4 text-hnd-gray-500">
           Thank you for your purchase. A confirmation email will be sent shortly.
         </p>
-        {orderId && (
-          <p className="mt-4 font-mono text-sm">
-            Order ID: <span className="text-hnd-red">{orderId}</span>
-          </p>
-        )}
         <div className="mt-8 flex flex-col gap-4 sm:flex-row">
           <Button href="/shop" size="lg">
             Continue Shopping

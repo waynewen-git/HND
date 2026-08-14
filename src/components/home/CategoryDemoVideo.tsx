@@ -1,4 +1,6 @@
-const DEMO_VIDEO = "/videos/products/Testing-Demo-1.MP4";
+import { withBasePath } from "@/lib/assetPath";
+
+const DEMO_VIDEO = withBasePath("/videos/products/Testing-Demo-1.MP4");
 
 export default function CategoryDemoVideo() {
   return (

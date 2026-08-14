@@ -1,3 +1,5 @@
+import { withBasePath } from "@/lib/assetPath";
+
 interface ProductDemoVideoProps {
   src: string;
   title: string;
@@ -23,10 +25,10 @@ export default function ProductDemoVideo({
             controls
             playsInline
             preload="metadata"
-            poster={poster}
+            poster={poster ? withBasePath(poster) : undefined}
             className="h-full w-full object-cover"
           >
-            <source src={src} type="video/mp4" />
+            <source src={withBasePath(src)} type="video/mp4" />
           </video>
         </div>
       </div>

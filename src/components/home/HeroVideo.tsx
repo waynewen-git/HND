@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { withBasePath } from "@/lib/assetPath";
 
-const HERO_VIDEO = "/videos/hero.mp4";
-const HERO_POSTER = "/images/hero-guitar-1.png";
+const HERO_VIDEO = withBasePath("/videos/hero.mp4");
+const HERO_POSTER = withBasePath("/images/hero-guitar-1.png");
 
 export default function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
