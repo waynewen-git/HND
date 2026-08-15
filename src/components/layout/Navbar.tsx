@@ -76,7 +76,7 @@ function MobileNavProductList({
   onNavigate?: () => void;
 }) {
   return (
-    <ul className="mb-3 max-h-[min(55vh,28rem)] space-y-1 overflow-y-auto overscroll-contain pr-1">
+    <ul className="mb-4 grid grid-cols-2 gap-x-4 gap-y-5">
       {item.children.map((child) => {
         const image = resolveNavChildImage(item, child);
         return (
@@ -84,19 +84,19 @@ function MobileNavProductList({
             <Link
               href={child.href}
               onClick={onNavigate}
-              className="flex items-center gap-3 rounded-sm px-1 py-2.5 transition-colors hover:bg-hnd-gray-100 dark:hover:bg-hnd-gray-900"
+              className="flex flex-col items-center text-center transition-opacity hover:opacity-80"
             >
-              <div className="relative h-16 w-16 shrink-0">
+              <div className="relative aspect-square w-full">
                 <AppImage
                   src={image}
                   alt={child.label}
                   fill
                   unoptimized
                   className="object-contain object-center"
-                  sizes="64px"
+                  sizes="40vw"
                 />
               </div>
-              <span className="min-w-0 flex-1 text-left font-display text-sm font-semibold tracking-tight text-hnd-black dark:text-hnd-white">
+              <span className="mt-2 font-display text-sm font-semibold tracking-tight text-hnd-black dark:text-hnd-white">
                 {child.label}
               </span>
             </Link>
@@ -377,78 +377,73 @@ export default function Navbar() {
       </header>
 
       {mobileOpen && (
-        <>
-          <div
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm md:hidden"
+        <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-hnd-white px-5 pt-5 pb-10 dark:bg-hnd-gray-950 md:hidden">
+          <button
             onClick={() => setMobileOpen(false)}
-          />
-          <div className="fixed top-0 right-0 z-50 flex h-full w-80 max-w-[85vw] flex-col overflow-y-auto bg-hnd-white p-6 shadow-xl dark:bg-hnd-gray-950 md:hidden">
-            <button
-              onClick={() => setMobileOpen(false)}
-              className="mb-6 self-end"
-              aria-label="Close menu"
-            >
-              <X className="h-6 w-6" />
-            </button>
-            <ul className="flex flex-col gap-2">
-              {categoryNavItems.map((item) => {
-                const expanded = mobileExpanded === item.label;
-                const active = isNavActive(pathname, item);
-                return (
-                  <li
-                    key={item.label}
-                    className="border-b border-hnd-gray-300/20 pb-2 dark:border-hnd-gray-700/50"
-                  >
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setMobileExpanded(expanded ? null : item.label)
-                      }
-                      className={cn(
-                        "flex w-full items-center justify-between py-3 text-left text-lg tracking-wide uppercase",
-                        active
-                          ? "text-hnd-red"
-                          : "text-hnd-gray-700 dark:text-hnd-gray-300",
-                      )}
-                    >
-                      {item.label}
-                      <ChevronDown
-                        className={cn(
-                          "h-4 w-4 transition-transform",
-                          expanded && "rotate-180",
-                        )}
-                      />
-                    </button>
-                    {expanded && (
-                      <MobileNavProductList
-                        item={item}
-                        onNavigate={() => setMobileOpen(false)}
-                      />
-                    )}
-                  </li>
-                );
-              })}
-              {utilityLinks.map((link) => (
+            className="mb-4 self-end p-1"
+            aria-label="Close menu"
+          >
+            <X className="h-6 w-6" />
+          </button>
+          <ul className="flex flex-col gap-2">
+            {categoryNavItems.map((item) => {
+              const expanded = mobileExpanded === item.label;
+              const active = isNavActive(pathname, item);
+              return (
                 <li
-                  key={link.href}
+                  key={item.label}
                   className="border-b border-hnd-gray-300/20 pb-2 dark:border-hnd-gray-700/50"
                 >
-                  <Link
-                    href={link.href}
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setMobileExpanded(expanded ? null : item.label)
+                    }
                     className={cn(
-                      "block py-3 text-lg tracking-wide uppercase",
-                      pathname.startsWith(link.href)
+                      "flex w-full items-center justify-between py-3 text-left text-lg tracking-wide uppercase",
+                      active
                         ? "text-hnd-red"
                         : "text-hnd-gray-700 dark:text-hnd-gray-300",
                     )}
                   >
-                    {link.label}
-                  </Link>
+                    {item.label}
+                    <ChevronDown
+                      className={cn(
+                        "h-4 w-4 transition-transform",
+                        expanded && "rotate-180",
+                      )}
+                    />
+                  </button>
+                  {expanded && (
+                    <MobileNavProductList
+                      item={item}
+                      onNavigate={() => setMobileOpen(false)}
+                    />
+                  )}
                 </li>
-              ))}
-            </ul>
-          </div>
-        </>
+              );
+            })}
+            {utilityLinks.map((link) => (
+              <li
+                key={link.href}
+                className="border-b border-hnd-gray-300/20 pb-2 dark:border-hnd-gray-700/50"
+              >
+                <Link
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={cn(
+                    "block py-3 text-lg tracking-wide uppercase",
+                    pathname.startsWith(link.href)
+                      ? "text-hnd-red"
+                      : "text-hnd-gray-700 dark:text-hnd-gray-300",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </>
   );
