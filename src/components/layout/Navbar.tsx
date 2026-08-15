@@ -50,6 +50,63 @@ function isNavActive(pathname: string, item: NavItem) {
   );
 }
 
+function resolveNavChildImage(item: NavItem, child: NavChild): string {
+  if (child.image) return child.image;
+
+  const product = [
+    ...getProductsByCategory("guitars"),
+    ...getProductsByCategory("amps"),
+    ...getProductsByCategory("speakers"),
+  ].find((p) => p.name === child.label);
+
+  if (product?.navImage) return product.navImage;
+  if (product?.images[0]) return product.images[0];
+
+  if (item.label === "AMP Header") return "/images/hero-amps-1.png";
+  if (item.label === "Speaker") return "/images/hero-speaker-0.png";
+  if (item.label === "Live") return "/images/hero-live-0.png";
+  return "/images/hero-guitar-1.png";
+}
+
+function MobileNavProductList({
+  item,
+  onNavigate,
+}: {
+  item: NavItem;
+  onNavigate?: () => void;
+}) {
+  return (
+    <ul className="mb-3 max-h-[min(55vh,28rem)] space-y-1 overflow-y-auto overscroll-contain pr-1">
+      {item.children.map((child) => {
+        const image = resolveNavChildImage(item, child);
+        return (
+          <li key={`${item.label}-${child.label}`}>
+            <Link
+              href={child.href}
+              onClick={onNavigate}
+              className="flex items-center gap-3 rounded-sm px-1 py-2.5 transition-colors hover:bg-hnd-gray-100 dark:hover:bg-hnd-gray-900"
+            >
+              <div className="relative h-16 w-16 shrink-0">
+                <AppImage
+                  src={image}
+                  alt={child.label}
+                  fill
+                  unoptimized
+                  className="object-contain object-center"
+                  sizes="64px"
+                />
+              </div>
+              <span className="min-w-0 flex-1 text-left font-display text-sm font-semibold tracking-tight text-hnd-black dark:text-hnd-white">
+                {child.label}
+              </span>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 function NavMenuItem({
   item,
   pathname,
@@ -362,25 +419,12 @@ export default function Navbar() {
                         )}
                       />
                     </button>
-                    {expanded &&
-                      (item.label === "Guitar" ? (
-                        <div className="mb-4 px-1">
-                          <GuitarLineup variant="nav" className="py-2" />
-                        </div>
-                      ) : (
-                        <ul className="mb-2 space-y-1 pl-2">
-                          {item.children.map((child) => (
-                            <li key={`${item.label}-${child.label}`}>
-                              <Link
-                                href={child.href}
-                                className="block rounded-sm px-3 py-2 text-sm text-hnd-gray-600 hover:bg-hnd-gray-100 dark:text-hnd-gray-400 dark:hover:bg-hnd-gray-900"
-                              >
-                                {child.label}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      ))}
+                    {expanded && (
+                      <MobileNavProductList
+                        item={item}
+                        onNavigate={() => setMobileOpen(false)}
+                      />
+                    )}
                   </li>
                 );
               })}
