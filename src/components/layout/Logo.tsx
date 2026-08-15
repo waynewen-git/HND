@@ -13,9 +13,9 @@ interface LogoProps {
 const LOGO_SRC = "/logo/logo.png";
 
 const sizeMap = {
-  sm: "h-9 w-9 md:h-10 md:w-10",
-  md: "h-10 w-10 md:h-11 md:w-11",
-  lg: "h-14 w-14 md:h-16 md:w-16",
+  sm: "h-12 w-12 md:h-14 md:w-14",
+  md: "h-16 w-16 md:h-20 md:w-20",
+  lg: "h-20 w-20 md:h-24 md:w-24",
 };
 
 export default function Logo({

@@ -33,7 +33,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
   const slide = slides[current];
 
   return (
-    <section className="w-full pt-20 md:pt-24" aria-label="Featured products">
+    <section className="w-full pt-24 md:pt-28" aria-label="Featured products">
       {/* Full-bleed image stage — edge to edge, scales with viewport */}
       <div className="relative w-full overflow-hidden bg-hnd-white dark:bg-hnd-black">
         <div className="relative w-full overflow-hidden">

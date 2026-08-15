@@ -217,10 +217,10 @@ export default function Navbar() {
         onMouseLeave={() => setOpenMenu(null)}
       >
         <nav
-          className="section-padding container-max flex h-16 items-center gap-4 md:h-20 md:gap-6"
+          className="section-padding container-max flex h-20 items-center gap-4 md:h-24 md:gap-6"
           aria-label="Main navigation"
         >
-          <Logo size="sm" />
+          <Logo size="md" />
 
           <ul className="hidden min-w-0 flex-1 items-center justify-center gap-1 md:flex lg:gap-2">
             {categoryNavItems.map((item) => (
