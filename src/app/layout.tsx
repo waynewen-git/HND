@@ -17,13 +17,20 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   title: "HND — Musical Instruments",
   description:
     "Precision electric guitars, professional amp heads, and diode Bluetooth speakers. Built for heavy rock. Live is Life.",
   icons: {
-    icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/logo/hnd-logo-mark.png`,
-    apple: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/logo/hnd-logo-mark.png`,
+    icon: [
+      { url: `${basePath}/logo/logo.png`, type: "image/png" },
+      { url: `${basePath}/logo/favicon-32.png`, sizes: "32x32", type: "image/png" },
+      { url: `${basePath}/logo/favicon-48.png`, sizes: "48x48", type: "image/png" },
+      { url: `${basePath}/logo/icon-192.png`, sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: `${basePath}/logo/apple-touch-icon.png`, sizes: "180x180", type: "image/png" }],
   },
 };
 

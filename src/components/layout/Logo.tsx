@@ -4,44 +4,31 @@ import { cn } from "@/lib/utils";
 
 interface LogoProps {
   size?: "sm" | "md" | "lg";
+  /** Kept for call-site compatibility; all variants use logo.png */
   variant?: "mark" | "full";
   className?: string;
   linked?: boolean;
 }
 
-const assets = {
-  mark: {
-    src: "/logo/hnd-logo-mark.png",
-    width: 316,
-    height: 114,
-  },
-  full: {
-    src: "/logo/hnd-logo.png",
-    width: 209,
-    height: 96,
-  },
-} as const;
+const LOGO_SRC = "/logo/logo.png";
 
 const sizeMap = {
-  sm: "h-9 w-auto md:h-10",
-  md: "h-10 w-auto md:h-11",
-  lg: "h-14 w-auto md:h-16",
+  sm: "h-9 w-9 md:h-10 md:w-10",
+  md: "h-10 w-10 md:h-11 md:w-11",
+  lg: "h-14 w-14 md:h-16 md:w-16",
 };
 
 export default function Logo({
   size = "sm",
-  variant = "mark",
   className,
   linked = true,
 }: LogoProps) {
-  const asset = assets[variant];
-
   const image = (
     <AppImage
-      src={asset.src}
+      src={LOGO_SRC}
       alt="HND Musical Instruments"
-      width={asset.width}
-      height={asset.height}
+      width={2000}
+      height={2000}
       className={cn("object-contain object-left", sizeMap[size], className)}
       priority
       unoptimized
