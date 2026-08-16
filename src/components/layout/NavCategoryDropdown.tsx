@@ -63,17 +63,17 @@ export default function NavCategoryDropdown({
 
           return (
             <li key={product.id}>
-              <div className="flex flex-col items-stretch gap-2 py-1.5 sm:flex-row sm:items-center sm:gap-3 md:gap-4 md:py-2">
-                {/* Match CategoryChapter: big index as left sibling, copy overlaps it */}
-                <div className="relative z-20 flex w-full min-w-0 shrink-0 items-center gap-1 sm:w-[min(100%,18rem)] md:w-[20rem] lg:w-[22rem]">
+              <div className="flex flex-col items-stretch gap-3 py-2 sm:flex-row sm:items-center sm:gap-4 md:gap-5 md:py-2.5">
+                {/* Chapter copy — index left, text right, no overlap */}
+                <div className="relative z-20 flex w-full min-w-0 shrink-0 items-center gap-3 sm:w-[min(100%,19rem)] md:w-[21rem] lg:w-[23rem] lg:gap-4">
                   <span
                     aria-hidden
-                    className="font-bebas pointer-events-none hidden shrink-0 origin-center scale-x-[0.88] scale-y-[1.55] select-none text-[clamp(7rem,9vw,11rem)] leading-none tracking-tighter text-hnd-black/[0.07] lg:inline dark:text-hnd-white/[0.09]"
+                    className="font-bebas pointer-events-none hidden w-[4.5rem] shrink-0 select-none text-center text-[clamp(3.75rem,5.5vw,5.5rem)] leading-none tracking-tighter text-hnd-black/15 lg:block dark:text-hnd-white/18"
                   >
                     {index}
                   </span>
 
-                  <div className="relative z-20 min-w-0 lg:-ml-3">
+                  <div className="relative z-20 min-w-0 flex-1">
                     <div className="flex items-baseline gap-2">
                       <span className="font-bebas text-2xl leading-none text-hnd-red lg:hidden">
                         {index}
@@ -83,7 +83,7 @@ export default function NavCategoryDropdown({
                       </p>
                     </div>
 
-                    <h2 className="mt-1 font-bebas text-[clamp(1.65rem,2.5vw,2.4rem)] leading-[0.88] text-hnd-black dark:text-hnd-white">
+                    <h2 className="mt-1 font-bebas text-[clamp(1.65rem,2.5vw,2.35rem)] leading-[0.9] text-hnd-black dark:text-hnd-white">
                       {titleLines.map((line) => (
                         <span key={`${product.id}-${line}`} className="block">
                           {line}
