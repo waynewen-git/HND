@@ -9,12 +9,8 @@ const VIDEO_H = 320;
 export default function CategoryDemoVideo() {
   return (
     <div
-      className="relative w-full max-w-[568px] shrink-0 overflow-hidden bg-hnd-gray-950 md:w-[568px]"
-      style={{
-        width: "100%",
-        maxWidth: VIDEO_W,
-        aspectRatio: `${VIDEO_W} / ${VIDEO_H}`,
-      }}
+      className="relative w-full max-w-[568px] shrink-0 overflow-hidden bg-hnd-gray-950"
+      style={{ aspectRatio: `${VIDEO_W} / ${VIDEO_H}` }}
     >
       <video
         controls
