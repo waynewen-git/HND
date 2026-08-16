@@ -51,7 +51,7 @@ export default function NavCategoryDropdown({
   return (
     <div
       className={cn(
-        "flex items-start gap-5 py-2 md:gap-6 md:py-3",
+        "flex items-start gap-[clamp(1rem,3vw,2.5rem)] py-2 md:py-3",
         className,
       )}
     >
@@ -63,17 +63,18 @@ export default function NavCategoryDropdown({
 
           return (
             <li key={product.id}>
-              <div className="flex flex-col items-stretch gap-3 py-2 sm:flex-row sm:items-center sm:gap-4 md:gap-5 md:py-2.5">
-                {/* Chapter copy — index left, text right, no overlap */}
-                <div className="relative z-20 flex w-full min-w-0 shrink-0 items-center gap-3 sm:w-[min(100%,19rem)] md:w-[21rem] lg:w-[23rem] lg:gap-4">
+              {/* Fluid gap between chapter copy and product grows/shrinks with viewport */}
+              <div className="flex flex-col items-stretch gap-[clamp(0.75rem,4vw,3.25rem)] py-2 sm:flex-row sm:items-center md:py-2.5">
+                {/* Chapter: tall index aligned to full text-group height */}
+                <div className="relative z-20 flex w-full min-w-0 shrink-0 items-stretch gap-2 sm:w-auto sm:max-w-[min(100%,24rem)] md:gap-3">
                   <span
                     aria-hidden
-                    className="font-bebas pointer-events-none hidden w-[4.5rem] shrink-0 select-none text-center text-[clamp(3.75rem,5.5vw,5.5rem)] leading-none tracking-tighter text-hnd-black/15 lg:block dark:text-hnd-white/18"
+                    className="font-bebas pointer-events-none hidden shrink-0 select-none items-center self-center origin-center scale-x-[0.88] scale-y-[1.6] text-[clamp(5rem,6.8vw,7.75rem)] leading-none tracking-tighter text-hnd-black/14 lg:flex dark:text-hnd-white/16"
                   >
                     {index}
                   </span>
 
-                  <div className="relative z-20 min-w-0 flex-1">
+                  <div className="relative z-20 flex min-w-0 flex-col justify-center py-0.5">
                     <div className="flex items-baseline gap-2">
                       <span className="font-bebas text-2xl leading-none text-hnd-red lg:hidden">
                         {index}
@@ -111,7 +112,7 @@ export default function NavCategoryDropdown({
 
                 <Link
                   href={productHref}
-                  className="relative block h-[180px] min-w-0 flex-1 overflow-hidden transition-transform duration-300 hover:scale-[1.02] sm:h-[210px] md:h-[250px] lg:h-[290px]"
+                  className="relative block h-[clamp(11rem,28vw,18rem)] min-w-0 flex-1 overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
                 >
                   <AppImage
                     src={product.navImage ?? product.images[0]}
