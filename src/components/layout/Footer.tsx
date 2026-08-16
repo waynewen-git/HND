@@ -24,12 +24,15 @@ export default function Footer() {
         <img
           src={withBasePath("/images/background.png")}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover object-[center_right]"
+          className="absolute inset-0 h-full w-full object-cover object-[82%_center]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-hnd-white from-[20%] via-hnd-white/92 via-[48%] to-hnd-white/55 to-[85%] dark:from-hnd-black dark:via-hnd-black/90 dark:to-hnd-black/55" />
+        {/* Soft veil — keep stage visible at all widths */}
+        <div className="absolute inset-0 bg-hnd-white/35 dark:bg-hnd-black/40 md:bg-hnd-white/25 md:dark:bg-hnd-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-hnd-white from-[10%] via-hnd-white/45 via-[40%] to-transparent to-[75%] dark:from-hnd-black dark:via-hnd-black/50 md:via-hnd-white/35 md:dark:via-hnd-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-hnd-white/80 from-[0%] via-hnd-white/25 via-[35%] to-transparent to-[62%] dark:from-hnd-black/85 dark:via-hnd-black/30" />
       </div>
 
-      <div className="section-padding container-max relative z-10 py-16 md:py-20">
+      <div className="section-padding container-max relative z-10 py-14 md:py-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,14rem)_1fr_auto] lg:items-start lg:gap-x-16 lg:gap-y-0">
           <div className="flex w-full flex-col items-center justify-self-start lg:pt-0">
             <Logo size="xl" variant="full" className="object-top" />

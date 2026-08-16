@@ -35,8 +35,14 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
       aria-label="Product categories"
       aria-roledescription="carousel"
     >
-      {/* Shared slide frame — sized to 01–04 content, tighter to nav + video */}
-      <div className="relative h-[32vh] overflow-visible md:h-[36vh] lg:h-[40vh]">
+      {/* Mobile: auto height so copy + image stack cleanly; desktop: fixed frame */}
+      <div
+        className={
+          isIntro
+            ? "relative h-[42vh] min-h-[220px] overflow-hidden md:h-[44vh] lg:h-[48vh]"
+            : "relative overflow-x-clip py-6 pb-10 md:h-[44vh] md:overflow-visible md:py-0 lg:h-[48vh]"
+        }
+      >
         {isIntro ? (
           <div
             key={slide.id}
@@ -71,7 +77,7 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
             )}
           </div>
         ) : (
-          <div className="absolute inset-0 flex items-center">
+          <div className="relative flex h-full w-full items-center md:absolute md:inset-0">
             <CategoryChapter
               key={slide.id}
               index={slide.index}
@@ -90,7 +96,7 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
         <button
           type="button"
           onClick={prev}
-          className="absolute top-1/2 left-[max(8px,1.5%)] z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-hnd-black/50 transition-colors hover:text-hnd-red md:h-11 md:w-11 dark:text-hnd-white/70"
+          className="absolute top-1/2 left-1 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center text-hnd-black/50 transition-colors hover:text-hnd-red md:left-[max(8px,1.5%)] md:h-11 md:w-11 dark:text-hnd-white/70"
           aria-label="Previous slide"
         >
           <ChevronLeft className="h-6 w-6" strokeWidth={1.5} />
@@ -98,13 +104,13 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
         <button
           type="button"
           onClick={next}
-          className="absolute top-1/2 right-[max(8px,1.5%)] z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-hnd-black/50 transition-colors hover:text-hnd-red md:h-11 md:w-11 dark:text-hnd-white/70"
+          className="absolute top-1/2 right-1 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center text-hnd-black/50 transition-colors hover:text-hnd-red md:right-[max(8px,1.5%)] md:h-11 md:w-11 dark:text-hnd-white/70"
           aria-label="Next slide"
         >
           <ChevronRight className="h-6 w-6" strokeWidth={1.5} />
         </button>
 
-        <div className="absolute bottom-1.5 left-1/2 z-30 flex -translate-x-1/2 gap-2">
+        <div className="absolute bottom-2 left-1/2 z-30 flex -translate-x-1/2 gap-2 md:bottom-1.5">
           {slides.map((s, i) => (
             <button
               key={s.id}
