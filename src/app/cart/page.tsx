@@ -13,9 +13,9 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="pt-28 md:pt-36">
+      <div className="pt-16 md:pt-20">
         <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
-          <h1 className="font-display text-3xl font-bold md:text-4xl">
+          <h1 className="font-bebas text-3xl md:text-4xl">
             Your Cart is Empty
           </h1>
           <p className="mt-4 text-hnd-gray-500">
@@ -30,9 +30,9 @@ export default function CartPage() {
   }
 
   return (
-    <div className="pt-28 md:pt-36">
+    <div className="pt-16 md:pt-20">
       <div className="section-padding container-max py-16 md:py-24">
-        <h1 className="font-display text-4xl font-bold md:text-5xl">
+        <h1 className="font-bebas text-4xl md:text-5xl">
           Shopping Cart
         </h1>
 
@@ -61,7 +61,7 @@ export default function CartPage() {
                     <div>
                       <Link
                         href={`/products/${product.category}/${product.slug}`}
-                        className="font-display text-lg font-semibold hover:text-hnd-red"
+                        className="font-bebas text-lg hover:text-hnd-red"
                       >
                         {product.name}
                       </Link>
@@ -123,7 +123,7 @@ export default function CartPage() {
           </div>
 
           <div className="h-fit rounded-sm border border-hnd-gray-300/20 p-8 dark:border-hnd-gray-700/50">
-            <h2 className="font-display text-xl font-bold">Order Summary</h2>
+            <h2 className="font-bebas text-xl">Order Summary</h2>
             <div className="mt-6 space-y-3 text-sm">
               <div className="flex justify-between">
                 <span className="text-hnd-gray-500">Subtotal</span>

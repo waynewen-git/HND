@@ -32,9 +32,9 @@ export default function ShopPage() {
   }, [category, sort]);
 
   return (
-    <div className="pt-28 md:pt-36">
+    <div className="pt-16 md:pt-20">
       <section className="section-padding container-max py-16 md:py-24">
-        <h1 className="font-display text-4xl font-bold md:text-6xl">Shop</h1>
+        <h1 className="font-bebas text-4xl md:text-6xl">Shop</h1>
         <p className="mt-4 max-w-2xl text-lg text-hnd-gray-500">
           Browse our complete collection. Filter by category and sort by price or
           name.
@@ -42,7 +42,7 @@ export default function ShopPage() {
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <div className="flex flex-wrap gap-2">
-            {(["all", "guitars", "amps", "speakers"] as const).map((cat) => (
+            {(["all", "guitars", "amps", "speakers", "lifestyle"] as const).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}

@@ -4,9 +4,9 @@ import { categories } from "@/data/products";
 
 export default function ProductsPage() {
   return (
-    <div className="pt-28 md:pt-36">
+    <div className="pt-16 md:pt-20">
       <section className="section-padding container-max py-16 md:py-24">
-        <h1 className="font-display text-4xl font-bold md:text-6xl">Products</h1>
+        <h1 className="font-bebas text-4xl md:text-6xl">Products</h1>
         <p className="mt-4 max-w-2xl text-lg text-hnd-gray-500">
           Explore our full range of electric guitars, professional amp heads, and
           premium Bluetooth speakers.
@@ -32,7 +32,7 @@ export default function ProductsPage() {
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
             <div className="absolute inset-0 flex flex-col justify-center section-padding">
               <div className="container-max">
-                <h2 className="font-display text-4xl font-bold text-white md:text-6xl">
+                <h2 className="font-bebas text-4xl text-white md:text-6xl">
                   {cat.name}
                 </h2>
                 <p className="mt-4 max-w-md text-lg text-white/70">

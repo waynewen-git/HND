@@ -9,9 +9,9 @@ export default function AccountPage() {
 
   if (!loggedIn) {
     return (
-      <div className="pt-28 md:pt-36">
+      <div className="pt-16 md:pt-20">
         <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24">
-          <h1 className="font-display text-3xl font-bold md:text-4xl">
+          <h1 className="font-bebas text-3xl md:text-4xl">
             Account
           </h1>
           <p className="mt-4 text-hnd-gray-500">
@@ -51,11 +51,11 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="pt-28 md:pt-36">
+    <div className="pt-16 md:pt-20">
       <div className="section-padding container-max py-16 md:py-24">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="font-display text-3xl font-bold md:text-4xl">
+            <h1 className="font-bebas text-3xl md:text-4xl">
               My Account
             </h1>
             <p className="mt-2 text-hnd-gray-500">{email}</p>
@@ -84,7 +84,7 @@ export default function AccountPage() {
               key={section.title}
               className="rounded-sm border border-hnd-gray-300/20 p-8 dark:border-hnd-gray-700/50"
             >
-              <h2 className="font-display text-xl font-bold">
+              <h2 className="font-bebas text-xl">
                 {section.title}
               </h2>
               <p className="mt-4 text-sm text-hnd-gray-500">{section.desc}</p>

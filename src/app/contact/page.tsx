@@ -12,9 +12,9 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="pt-28 md:pt-36">
+    <div className="pt-16 md:pt-20">
       <section className="section-padding container-max py-16 md:py-24">
-        <h1 className="font-display text-4xl font-bold md:text-6xl">
+        <h1 className="font-bebas text-4xl md:text-6xl">
           Contact Us
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-hnd-gray-500">
@@ -27,15 +27,15 @@ export default function ContactPage() {
         <div className="grid gap-16 lg:grid-cols-2">
           <div className="space-y-8">
             <div>
-              <h2 className="font-display text-xl font-bold">Email</h2>
+              <h2 className="font-bebas text-xl">Email</h2>
               <p className="mt-2 text-hnd-gray-500">support@hndmusic.com</p>
             </div>
             <div>
-              <h2 className="font-display text-xl font-bold">General Inquiries</h2>
+              <h2 className="font-bebas text-xl">General Inquiries</h2>
               <p className="mt-2 text-hnd-gray-500">info@hndmusic.com</p>
             </div>
             <div>
-              <h2 className="font-display text-xl font-bold">Hours</h2>
+              <h2 className="font-bebas text-xl">Hours</h2>
               <p className="mt-2 text-hnd-gray-500">
                 Monday – Friday, 9:00 AM – 6:00 PM (PST)
               </p>
@@ -44,7 +44,7 @@ export default function ContactPage() {
 
           {submitted ? (
             <div className="flex flex-col items-center justify-center rounded-sm border border-hnd-gray-300/20 p-12 text-center dark:border-hnd-gray-700/50">
-              <h2 className="font-display text-2xl font-bold">
+              <h2 className="font-bebas text-2xl">
                 Message Sent
               </h2>
               <p className="mt-4 text-hnd-gray-500">

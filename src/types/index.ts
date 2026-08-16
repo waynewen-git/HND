@@ -1,4 +1,4 @@
-export type ProductCategory = "guitars" | "amps" | "speakers";
+export type ProductCategory = "guitars" | "amps" | "speakers" | "lifestyle";
 
 export type ProductColor = "black" | "white" | "red" | "blue";
 
@@ -80,4 +80,5 @@ export const CATEGORY_LABELS: Record<ProductCategory, string> = {
   guitars: "Electric Guitars",
   amps: "Amp Heads",
   speakers: "Bluetooth Speakers",
+  lifestyle: "Lifestyle",
 };

@@ -14,7 +14,7 @@ export default function ProductDemoVideo({
   return (
     <section className="bg-hnd-white dark:bg-hnd-black">
       <div className="section-padding container-max py-16 md:py-24">
-        <h2 className="font-display text-2xl font-bold md:text-3xl">
+        <h2 className="font-bebas text-2xl md:text-3xl">
           Product Demo
         </h2>
         <p className="mt-2 text-hnd-gray-500">

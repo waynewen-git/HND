@@ -7,9 +7,9 @@ export default function ConfigurePage() {
   );
 
   return (
-    <div className="pt-28 md:pt-36">
+    <div className="pt-16 md:pt-20">
       <section className="section-padding container-max py-16 md:py-24">
-        <h1 className="font-display text-4xl font-bold md:text-6xl">
+        <h1 className="font-bebas text-4xl md:text-6xl">
           Configure
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-hnd-gray-500">
@@ -26,7 +26,7 @@ export default function ConfigurePage() {
               <p className="text-sm tracking-wider text-hnd-steel uppercase">
                 {product.tagline}
               </p>
-              <h2 className="mt-2 font-display text-2xl font-bold">
+              <h2 className="mt-2 font-bebas text-2xl">
                 {product.name}
               </h2>
               <p className="mt-4 text-sm text-hnd-gray-500">

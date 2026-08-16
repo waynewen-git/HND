@@ -7,10 +7,11 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, Menu, Moon, ShoppingBag, Sun, X } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { useNavMenu } from "@/components/providers/NavMenuProvider";
 import Logo from "@/components/layout/Logo";
 import GuitarLineup from "@/components/products/GuitarLineup";
 import { cn } from "@/lib/utils";
-import { getProductsByCategory, liveNavItems } from "@/data/products";
+import { getProductsByCategory } from "@/data/products";
 import type { ProductCategory } from "@/types";
 
 interface NavChild {
@@ -62,9 +63,9 @@ function resolveNavChildImage(item: NavItem, child: NavChild): string {
   if (product?.navImage) return product.navImage;
   if (product?.images[0]) return product.images[0];
 
-  if (item.label === "AMP Header") return "/images/hero-amps-1.png";
-  if (item.label === "Speaker") return "/images/hero-speaker-0.png";
-  if (item.label === "Live") return "/images/hero-live-0.png";
+  if (item.label === "Amps") return "/images/hero-amps-1.png";
+  if (item.label === "Speakers") return "/images/hero-speaker-0.png";
+  if (item.label === "Lifestyle") return "/images/hero-live-0.png";
   return "/images/hero-guitar-1.png";
 }
 
@@ -96,7 +97,7 @@ function MobileNavProductList({
                   sizes="40vw"
                 />
               </div>
-              <span className="mt-2 font-display text-sm font-semibold tracking-tight text-hnd-black dark:text-hnd-white">
+              <span className="mt-2 font-ui text-sm tracking-[0.1em] text-hnd-black uppercase dark:text-hnd-white">
                 {child.label}
               </span>
             </Link>
@@ -121,18 +122,23 @@ function NavMenuItem({
   const active = isNavActive(pathname, item);
   const isOpen = openMenu === item.label;
   const labelClass = cn(
-    "rounded-sm px-3 py-1.5 text-[13px] font-semibold tracking-wide uppercase transition-colors duration-200 lg:text-sm",
-    isOpen
-      ? "bg-hnd-gray-300/50 text-hnd-black dark:bg-hnd-gray-800 dark:text-hnd-white"
-      : active
-        ? "text-hnd-red"
-        : "text-hnd-gray-700 hover:bg-hnd-gray-300/40 dark:text-hnd-gray-300 dark:hover:bg-hnd-gray-800",
+    "group relative font-ui px-3 py-2 text-xs tracking-[0.16em] uppercase transition-colors duration-300 lg:text-[13px]",
+    isOpen || active
+      ? "text-hnd-red"
+      : "text-hnd-gray-500 hover:text-hnd-black dark:hover:text-hnd-white",
   );
 
   return (
     <li onMouseEnter={() => setOpenMenu(item.label)}>
       <button type="button" className={labelClass} aria-expanded={isOpen}>
         {item.label}
+        <span
+          aria-hidden
+          className={cn(
+            "absolute bottom-0 left-3 h-px bg-hnd-red transition-all duration-300",
+            isOpen || active ? "w-[calc(100%-1.5rem)]" : "w-0 group-hover:w-[calc(100%-1.5rem)]",
+          )}
+        />
       </button>
     </li>
   );
@@ -143,7 +149,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const { openMenu, setOpenMenu, keepMenuOpen, scheduleCloseMenu } =
+    useNavMenu();
   const { theme, toggleTheme } = useTheme();
   const totalItems = useCartStore((s) => s.totalItems());
   const [mounted, setMounted] = useState(false);
@@ -151,32 +158,28 @@ export default function Navbar() {
   const categoryNavItems = useMemo<NavItem[]>(
     () => [
       {
-        label: "Guitar",
+        label: "Guitars",
         href: "/products/guitars",
         matchPath: "/products/guitars",
         children: buildProductChildren("guitars"),
       },
       {
-        label: "AMP Header",
+        label: "Amps",
         href: "/products/amps",
         matchPath: "/products/amps",
         children: buildProductChildren("amps"),
       },
       {
-        label: "Speaker",
+        label: "Speakers",
         href: "/products/speakers",
         matchPath: "/products/speakers",
         children: buildProductChildren("speakers"),
       },
       {
-        label: "Live",
-        href: "/shop",
-        matchPath: "/shop",
-        children: liveNavItems.map((item) => ({
-          href: item.href,
-          label: item.label,
-          image: item.image,
-        })),
+        label: "Lifestyle",
+        href: "/products/lifestyle",
+        matchPath: "/products/lifestyle",
+        children: buildProductChildren("lifestyle"),
       },
     ],
     [],
@@ -209,20 +212,21 @@ export default function Navbar() {
     <>
       <header
         className={cn(
-          "fixed top-0 right-0 left-0 z-50 overflow-visible transition-all duration-500",
+          "fixed top-0 right-0 left-0 z-50 overflow-visible transition-all duration-300",
           scrolled || openMenu
-            ? "bg-hnd-white shadow-sm dark:bg-hnd-black"
-            : "bg-hnd-white/60 backdrop-blur-md dark:bg-hnd-black/60",
+            ? "border-b border-hnd-gray-300/70 bg-hnd-white/90 backdrop-blur-md dark:border-hnd-gray-800/60 dark:bg-hnd-black/90"
+            : "bg-hnd-white/70 backdrop-blur-sm dark:bg-hnd-black/40",
         )}
-        onMouseLeave={() => setOpenMenu(null)}
+        onMouseEnter={keepMenuOpen}
+        onMouseLeave={scheduleCloseMenu}
       >
         <nav
-          className="section-padding container-max flex h-28 items-center gap-4 md:h-36 md:gap-6"
+          className="section-padding container-max flex h-16 items-center gap-6 md:h-20 md:gap-8"
           aria-label="Main navigation"
         >
-          <Logo size="md" slideshow />
+          <Logo size="md" />
 
-          <ul className="hidden min-w-0 flex-1 items-center justify-center gap-1 md:flex lg:gap-2">
+          <ul className="hidden min-w-0 flex-1 items-center justify-center gap-1 md:flex lg:gap-3">
             {categoryNavItems.map((item) => (
               <NavMenuItem
                 key={item.label}
@@ -234,17 +238,17 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div className="ml-auto flex items-center gap-2 md:gap-3 lg:gap-4">
+          <div className="ml-auto flex items-center gap-1 md:gap-2 lg:gap-3">
             <ul className="hidden items-center gap-1 md:flex lg:gap-2">
               {utilityLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     className={cn(
-                      "rounded-sm px-3 py-1.5 text-[13px] font-semibold tracking-wide uppercase transition-colors duration-200 lg:text-sm",
+                      "font-ui px-3 py-2 text-xs tracking-[0.16em] uppercase transition-colors duration-300 lg:text-[13px]",
                       pathname.startsWith(link.href)
                         ? "text-hnd-red"
-                        : "text-hnd-gray-700 hover:text-hnd-red dark:text-hnd-gray-300",
+                        : "text-hnd-gray-500 hover:text-hnd-black dark:hover:text-hnd-white",
                     )}
                   >
                     {link.label}
@@ -255,24 +259,24 @@ export default function Navbar() {
 
             <button
               onClick={toggleTheme}
-              className="rounded-full p-2 transition-colors hover:bg-hnd-gray-100 dark:hover:bg-hnd-gray-900"
+              className="p-2 text-hnd-gray-500 transition-colors hover:text-hnd-black dark:hover:text-hnd-white"
               aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
             >
               {theme === "dark" ? (
-                <Sun className="h-5 w-5" />
+                <Sun className="h-4 w-4" />
               ) : (
-                <Moon className="h-5 w-5" />
+                <Moon className="h-4 w-4" />
               )}
             </button>
 
             <Link
               href="/cart"
-              className="relative rounded-full p-2 transition-colors hover:bg-hnd-gray-100 dark:hover:bg-hnd-gray-900"
+              className="relative p-2 text-hnd-gray-500 transition-colors hover:text-hnd-black dark:hover:text-hnd-white"
               aria-label={`Shopping cart${mounted && totalItems > 0 ? `, ${totalItems} items` : ""}`}
             >
-              <ShoppingBag className="h-5 w-5" />
+              <ShoppingBag className="h-4 w-4" />
               {mounted && totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-hnd-red text-[10px] font-bold text-white">
+                <span className="absolute top-0.5 right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-hnd-red text-[9px] font-bold text-white">
                   {totalItems}
                 </span>
               )}
@@ -280,7 +284,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setMobileOpen(true)}
-              className="rounded-full p-2 md:hidden"
+              className="p-2 text-hnd-gray-500 transition-colors hover:text-hnd-black md:hidden dark:hover:text-hnd-white"
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
@@ -289,25 +293,26 @@ export default function Navbar() {
         </nav>
 
         {activeItem && (
-          <div className="hidden border-t border-hnd-gray-300/15 bg-hnd-white md:block dark:border-hnd-gray-700/40 dark:bg-hnd-black">
+          <div className="hidden border-t border-hnd-gray-300/60 bg-hnd-white md:block dark:border-hnd-gray-800/50 dark:bg-hnd-black">
             <div className="section-padding container-max">
-              {activeItem.label === "Guitar" ? (
+              {activeItem.label === "Guitars" ? (
                 <GuitarLineup variant="nav" />
               ) : (
-                <div className="flex items-start gap-10 py-1.5 md:gap-14 md:py-2">
+                <div className="flex items-start gap-10 py-2 md:gap-14 md:py-3">
                   <ul className="grid max-w-[1120px] flex-1 grid-cols-3 gap-x-6 gap-y-2 md:gap-x-8 md:gap-y-3">
                     {activeItem.children.map((child) => {
                       const product = [
                         ...getProductsByCategory("amps"),
                         ...getProductsByCategory("speakers"),
+                        ...getProductsByCategory("lifestyle"),
                       ].find((p) => p.name === child.label);
 
                       const fallbackImage =
-                        activeItem.label === "AMP Header"
+                        activeItem.label === "Amps"
                           ? "/images/hero-amps-1.png"
-                          : activeItem.label === "Speaker"
+                          : activeItem.label === "Speakers"
                             ? "/images/hero-speaker-0.png"
-                            : activeItem.label === "Live"
+                            : activeItem.label === "Lifestyle"
                               ? "/images/hero-live-0.png"
                               : "/images/hero-speaker-0.png";
 
@@ -323,7 +328,7 @@ export default function Navbar() {
                             href={child.href}
                             className="group flex flex-col items-center text-center"
                           >
-                            <div className="relative h-[280px] w-full transition-transform duration-300 group-hover:scale-[1.04] md:h-[336px]">
+                            <div className="relative h-[240px] w-full transition-transform duration-300 group-hover:scale-[1.03] md:h-[280px]">
                               <AppImage
                                 src={image}
                                 alt={child.label}
@@ -333,7 +338,7 @@ export default function Navbar() {
                                 sizes="360px"
                               />
                             </div>
-                            <span className="mt-1 font-display text-base font-semibold tracking-tight text-hnd-black md:text-lg dark:text-hnd-white">
+                            <span className="mt-1 font-ui text-sm tracking-[0.12em] text-hnd-gray-700 uppercase transition-colors group-hover:text-hnd-black md:text-base dark:text-hnd-gray-300 dark:group-hover:text-hnd-white">
                               {child.label}
                             </span>
                           </Link>
@@ -341,30 +346,30 @@ export default function Navbar() {
                       );
                     })}
                   </ul>
-                  <aside className="hidden w-48 shrink-0 border-l border-hnd-gray-300/30 pl-8 md:block dark:border-hnd-gray-700/50 lg:w-56 lg:pl-10">
-                    <ul className="space-y-3">
+                  <aside className="hidden w-48 shrink-0 border-l border-hnd-gray-300 pl-8 md:block lg:w-56 lg:pl-10 dark:border-hnd-gray-800">
+                    <ul className="space-y-4">
                       <li>
                         <Link
                           href={activeItem.href}
-                          className="text-sm text-hnd-gray-700 transition-colors hover:text-hnd-black dark:text-hnd-gray-300 dark:hover:text-hnd-white"
+                          className="font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-red"
                         >
-                          View All
+                          View All →
                         </Link>
                       </li>
                       <li>
                         <Link
                           href="/shop"
-                          className="text-sm text-hnd-gray-700 transition-colors hover:text-hnd-black dark:text-hnd-gray-300 dark:hover:text-hnd-white"
+                          className="font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-red"
                         >
-                          Shop
+                          Shop →
                         </Link>
                       </li>
                       <li>
                         <Link
                           href="/support"
-                          className="text-sm text-hnd-gray-700 transition-colors hover:text-hnd-black dark:text-hnd-gray-300 dark:hover:text-hnd-white"
+                          className="font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-red"
                         >
-                          Support
+                          Support →
                         </Link>
                       </li>
                     </ul>
@@ -377,10 +382,10 @@ export default function Navbar() {
       </header>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-hnd-white px-5 pt-5 pb-10 dark:bg-hnd-black md:hidden">
+        <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-hnd-white px-5 pt-5 pb-10 md:hidden dark:bg-hnd-black">
           <button
             onClick={() => setMobileOpen(false)}
-            className="mb-4 self-end p-1"
+            className="mb-4 self-end p-1 text-hnd-gray-700 dark:text-hnd-gray-300"
             aria-label="Close menu"
           >
             <X className="h-6 w-6" />
@@ -392,7 +397,7 @@ export default function Navbar() {
               return (
                 <li
                   key={item.label}
-                  className="border-b border-hnd-gray-300/20 pb-2 dark:border-hnd-gray-700/50"
+                  className="border-b border-hnd-gray-300 pb-2 dark:border-hnd-gray-800"
                 >
                   <button
                     type="button"
@@ -400,10 +405,8 @@ export default function Navbar() {
                       setMobileExpanded(expanded ? null : item.label)
                     }
                     className={cn(
-                      "flex w-full items-center justify-between py-3 text-left text-lg tracking-wide uppercase",
-                      active
-                        ? "text-hnd-red"
-                        : "text-hnd-gray-700 dark:text-hnd-gray-300",
+                      "flex w-full items-center justify-between py-3 text-left font-ui text-lg tracking-[0.12em] uppercase",
+                      active ? "text-hnd-red" : "text-hnd-gray-700 dark:text-hnd-gray-300",
                     )}
                   >
                     {item.label}
@@ -426,13 +429,13 @@ export default function Navbar() {
             {utilityLinks.map((link) => (
               <li
                 key={link.href}
-                className="border-b border-hnd-gray-300/20 pb-2 dark:border-hnd-gray-700/50"
+                className="border-b border-hnd-gray-300 pb-2 dark:border-hnd-gray-800"
               >
                 <Link
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "block py-3 text-lg tracking-wide uppercase",
+                    "block py-3 font-ui text-lg tracking-[0.12em] uppercase",
                     pathname.startsWith(link.href)
                       ? "text-hnd-red"
                       : "text-hnd-gray-700 dark:text-hnd-gray-300",

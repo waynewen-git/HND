@@ -36,9 +36,9 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
 
   if (!article) {
     return (
-      <div className="pt-28 md:pt-36">
+      <div className="pt-16 md:pt-20">
         <div className="section-padding container-max py-24 text-center">
-          <h1 className="font-display text-3xl font-bold">Article Not Found</h1>
+          <h1 className="font-bebas text-3xl">Article Not Found</h1>
           <Button href="/news" className="mt-8">
             Back to News
           </Button>
@@ -48,7 +48,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
   }
 
   return (
-    <div className="pt-28 md:pt-36">
+    <div className="pt-16 md:pt-20">
       <article className="section-padding container-max py-16 md:py-24">
         <Link
           href="/news"
@@ -59,7 +59,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
         <time className="mt-8 block text-sm text-hnd-gray-500">
           {article.date}
         </time>
-        <h1 className="mt-4 font-display text-4xl font-bold md:text-5xl">
+        <h1 className="mt-4 font-bebas text-4xl md:text-5xl">
           {article.title}
         </h1>
         <div className="mt-8 max-w-3xl text-lg leading-relaxed text-hnd-gray-500">

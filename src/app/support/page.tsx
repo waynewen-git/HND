@@ -9,9 +9,9 @@ export default function SupportPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="pt-28 md:pt-36">
+    <div className="pt-16 md:pt-20">
       <section className="section-padding container-max py-16 md:py-24">
-        <h1 className="font-display text-4xl font-bold md:text-6xl">Support</h1>
+        <h1 className="font-bebas text-4xl md:text-6xl">Support</h1>
         <p className="mt-4 max-w-2xl text-lg text-hnd-gray-500">
           Find answers to common questions about HND products, shipping, warranty,
           and more.
@@ -27,7 +27,7 @@ export default function SupportPage() {
                 className="flex w-full items-center justify-between py-6 text-left"
                 aria-expanded={openIndex === i}
               >
-                <span className="pr-4 font-display text-lg font-semibold">
+                <span className="pr-4 font-bebas text-lg">
                   {faq.question}
                 </span>
                 <ChevronDown

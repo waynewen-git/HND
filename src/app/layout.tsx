@@ -1,19 +1,32 @@
 import type { Metadata } from "next";
-import { Syne, DM_Sans } from "next/font/google";
+import { Bebas_Neue, Oswald, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { NavMenuProvider } from "@/components/providers/NavMenuProvider";
 
-const syne = Syne({
+/** Bebas Neue — all display titles (HND VULTURE, chapters, Build Your Sound) */
+const bebasNeue = Bebas_Neue({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-syne",
+  variable: "--font-bebas-neue",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+/** Oswald — condensed industrial rock headline */
+const oswald = Oswald({
+  weight: ["600", "700"],
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-oswald",
+  display: "swap",
+});
+
+/** Space Grotesk — nav, labels, body, buttons (bold across site) */
+const spaceGrotesk = Space_Grotesk({
+  weight: ["700"],
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
@@ -24,7 +37,6 @@ export const metadata: Metadata = {
   description:
     "Precision electric guitars, professional amp heads, and diode Bluetooth speakers. Built for heavy rock. Live is Life.",
   icons: {
-    // Prefer 32/48 PNG first so tabs don't fall back to tiny 16px ICO.
     icon: [
       { url: `${basePath}/logo/favicon-64.png`, sizes: "64x64", type: "image/png" },
       { url: `${basePath}/logo/favicon-48.png`, sizes: "48x48", type: "image/png" },
@@ -50,12 +62,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${syne.variable} ${dmSans.variable} font-body antialiased`}>
+    <html
+      lang="en"
+      className={`dark ${bebasNeue.variable} ${oswald.variable} ${spaceGrotesk.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("hnd-theme");if(t==="light"){document.documentElement.classList.remove("dark");document.documentElement.classList.add("light");document.documentElement.style.colorScheme="light";}}catch(e){}})();`,
+          }}
+        />
+      </head>
+  <body className={`${spaceGrotesk.className} font-bold antialiased`}>
         <ThemeProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <NavMenuProvider>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </NavMenuProvider>
         </ThemeProvider>
       </body>
     </html>

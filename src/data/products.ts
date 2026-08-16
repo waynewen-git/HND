@@ -29,6 +29,13 @@ export const categories: CategoryInfo[] = [
       "Diode-driven Bluetooth audio with studio-grade clarity. One model, two finishes, uncompromising sound.",
     heroImage: "/images/hero-speaker-0.png",
   },
+  {
+    slug: "lifestyle",
+    name: "Lifestyle",
+    description:
+      "Stage-ready apparel and accessories. Bring rock closer to life.",
+    heroImage: "/images/hero-live-0.png",
+  },
 ];
 
 const guitarPngs = [
@@ -94,7 +101,7 @@ export const products: Product[] = [
     images: [guitarImage, ...guitarDetailImages],
     navImage: guitarImage,
     ...(i < 3
-      ? { video: `/videos/products/hnd-g0${i + 1}-demo.mp4` }
+      ? { video: `/videos/products/hero-hnd-g0${i + 1}-demo.mp4` }
       : {}),
     specs: [
       { label: "Body", value: "Alder with maple top" },
@@ -172,64 +179,164 @@ export const products: Product[] = [
     ],
     featured: true,
   },
+  ...[
+    {
+      id: "live-01",
+      slug: "hnd-l01",
+      sku: "HND-L01",
+      name: "HND-L01",
+      tagline: "Amp Graphic Tee",
+      description:
+        "Heavyweight cotton tee with HND amp-line artwork. Built for rehearsal rooms, tour vans, and late nights.",
+      price: 49,
+      image: livePngs[0],
+    },
+    {
+      id: "live-02",
+      slug: "hnd-l02",
+      sku: "HND-L02",
+      name: "HND-L02",
+      tagline: "Stage High-Top",
+      description:
+        "Canvas high-tops with HND mark detailing. Made to move from street to stage without missing a step.",
+      price: 89,
+      image: livePngs[1],
+    },
+    {
+      id: "live-03",
+      slug: "hnd-l03",
+      sku: "HND-L03",
+      name: "HND-L03",
+      tagline: "Pick Station",
+      description:
+        "Compact pick station with HND branding. Keep your picks ready wherever the night takes you.",
+      price: 39,
+      image: livePngs[2],
+    },
+  ].map(({ image, ...item }) => ({
+    ...item,
+    category: "lifestyle" as const,
+    colors: ["black", "white"] as ProductColor[],
+    images: [image],
+    navImage: image,
+    specs: [
+      { label: "Collection", value: "Lifestyle" },
+      { label: "SKU", value: item.sku },
+    ],
+    highlights: [
+      "Official HND lifestyle collection",
+      "Designed to match the stage aesthetic",
+      "Built for everyday wear",
+    ],
+    featured: true,
+  })),
 ];
 
 export const heroSlides: HeroSlide[] = [
   {
     id: "hero-1",
-    title: "Live is Life",
-    subtitle: "Bring Rock Closer to Life.",
+    title: "Guitars",
+    subtitle: "Heavy Rock / Electric Guitar",
     cta: "Explore Guitars",
     ctaHref: "/products/guitars",
     image: "/images/hnd-0.png",
   },
   {
     id: "hero-2",
-    title: "Forged to Shred",
-    subtitle: "Aggressive tone, stage-ready performance",
-    cta: "Explore Guitars",
-    ctaHref: "/products/guitars",
-    image: "/images/hnd-1.png",
+    title: "Amps",
+    subtitle: "Stage / Amp Head",
+    cta: "Explore Amps",
+    ctaHref: "/products/amps",
+    image: "/images/hero-amps-1.png",
   },
   {
     id: "hero-3",
-    title: "Crushing Tone",
-    subtitle: "Professional amp heads for stage and studio",
-    cta: "Explore Amps",
-    ctaHref: "/products/amps",
-    image: "/images/hnd-2.png",
+    title: "Speakers",
+    subtitle: "Pure Sound / Bluetooth Speaker",
+    cta: "Explore Speakers",
+    ctaHref: "/products/speakers",
+    image: "/images/hero-speaker-0.png",
   },
   {
     id: "hero-4",
-    title: "Pure Power",
-    subtitle: "All-tube circuitry built for the tour",
-    cta: "Explore Amps",
-    ctaHref: "/products/amps",
-    image: "/images/hnd-3.png",
-  },
-  {
-    id: "hero-5",
-    title: "HND Musical Instruments",
-    subtitle: "Continuously creating passion",
+    title: "Lifestyle",
+    subtitle: "Made for the stage",
     cta: "Shop All",
     ctaHref: "/shop",
-    image: "/images/hnd-4.png",
+    image: "/images/hero-live-0.png",
+  },
+];
+
+/** Homepage category slideshow — intro + 01–04 chapters */
+export const categorySlides = [
+  {
+    id: "cat-intro",
+    label: "Intro",
+    title: "HND",
+    tagline: "",
+    image: "/images/hnd-0.png",
+    href: "/shop",
+    cta: "Explore",
+  },
+  {
+    id: "cat-1",
+    index: "01",
+    label: "Guitars",
+    title: "Electric Guitars",
+    tagline: "Built for heavy rock.",
+    image: "/images/hero-guitar-0.png",
+    href: "/products/guitars",
+    cta: "Explore Guitars",
+    imageScale: 2,
+  },
+  {
+    id: "cat-2",
+    index: "02",
+    label: "Amps",
+    title: "Amp Heads",
+    tagline: "Pure power. Zero compromise.",
+    image: "/images/hero-amps-1.png",
+    href: "/products/amps",
+    cta: "Explore Amps",
+    imageScale: 1.45,
+  },
+  {
+    id: "cat-3",
+    index: "03",
+    label: "Speakers",
+    title: "Bluetooth Speakers",
+    tagline: "Pure sound. No compromise.",
+    image: "/images/hero-speaker-0.png",
+    href: "/products/speakers",
+    cta: "Explore Speakers",
+    imageScale: 1.3,
+  },
+  {
+    id: "cat-4",
+    index: "04",
+    label: "Lifestyle",
+    title: "Lifestyle",
+    tagline: "Bring rock closer to life.",
+    image: "/images/hero-live-0.png",
+    href: "/products/lifestyle",
+    cta: "Explore Lifestyle",
+    imageScale: 1.35,
   },
 ];
 
 export const liveNavItems = [
   {
-    href: "/shop",
+    href: "/products/lifestyle/hnd-l01",
     label: "HND-L01",
     image: livePngs[0],
   },
   {
-    href: "/configure",
+    href: "/products/lifestyle/hnd-l02",
     label: "HND-L02",
     image: livePngs[1],
   },
   {
-    href: "/stores",
+    href: "/products/lifestyle/hnd-l03",
     label: "HND-L03",
     image: livePngs[2],
   },

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
   /** Kept for call-site compatibility */
   variant?: "mark" | "full";
   className?: string;
@@ -25,9 +25,11 @@ const LOGO_SLIDES = [
 ] as const;
 
 const sizeMap = {
-  sm: "h-[4.5rem] w-[4.5rem] md:h-[5.25rem] md:w-[5.25rem]",
-  md: "h-24 w-24 md:h-[7.5rem] md:w-[7.5rem]",
-  lg: "h-[7.5rem] w-[7.5rem] md:h-36 md:w-36",
+  sm: "h-10 w-10 md:h-12 md:w-12",
+  md: "h-12 w-12 md:h-14 md:w-14",
+  lg: "h-16 w-16 md:h-20 md:w-20",
+  /** 2× md — footer brand mark */
+  xl: "h-24 w-24 md:h-28 md:w-28",
 };
 
 export default function Logo({

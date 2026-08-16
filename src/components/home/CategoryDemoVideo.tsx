@@ -1,15 +1,18 @@
 import { withBasePath } from "@/lib/assetPath";
 
-const DEMO_VIDEO = withBasePath("/videos/products/Testing-Demo-1.MP4");
+const DEMO_VIDEO = withBasePath("/videos/products/hero-Testing-Demo-1.mp4");
 
 export default function CategoryDemoVideo() {
   return (
-    <div className="mx-auto w-full max-w-5xl">
-      <div className="relative aspect-video overflow-hidden rounded-sm bg-hnd-black">
-        <video controls playsInline preload="metadata" className="h-full w-full object-contain">
-          <source src={DEMO_VIDEO} type="video/mp4" />
-        </video>
-      </div>
+    <div className="relative mx-auto h-[220px] w-full overflow-hidden bg-hnd-gray-950 md:h-[280px] lg:h-[320px]">
+      <video
+        controls
+        playsInline
+        preload="metadata"
+        className="h-full w-full object-contain"
+      >
+        <source src={DEMO_VIDEO} type="video/mp4" />
+      </video>
     </div>
   );
 }

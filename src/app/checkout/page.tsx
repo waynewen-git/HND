@@ -14,9 +14,9 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="pt-28 md:pt-36">
+      <div className="pt-16 md:pt-20">
         <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
-          <h1 className="font-display text-3xl font-bold">Nothing to Checkout</h1>
+          <h1 className="font-bebas text-3xl">Nothing to Checkout</h1>
           <Button href="/shop" size="lg" className="mt-8">
             Continue Shopping
           </Button>
@@ -35,14 +35,14 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="pt-28 md:pt-36">
+    <div className="pt-16 md:pt-20">
       <div className="section-padding container-max py-16 md:py-24">
-        <h1 className="font-display text-4xl font-bold md:text-5xl">Checkout</h1>
+        <h1 className="font-bebas text-4xl md:text-5xl">Checkout</h1>
 
         <form onSubmit={handleSubmit} className="mt-12 grid gap-12 lg:grid-cols-2">
           <div className="space-y-8">
             <fieldset>
-              <legend className="font-display text-xl font-bold">
+              <legend className="font-bebas text-xl">
                 Shipping Information
               </legend>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -81,7 +81,7 @@ export default function CheckoutPage() {
             </fieldset>
 
             <fieldset>
-              <legend className="font-display text-xl font-bold">
+              <legend className="font-bebas text-xl">
                 Payment
               </legend>
               <div className="mt-4 rounded-sm border border-dashed border-hnd-gray-300 p-8 text-center dark:border-hnd-gray-700">
@@ -97,7 +97,7 @@ export default function CheckoutPage() {
 
           <div>
             <div className="rounded-sm border border-hnd-gray-300/20 p-8 dark:border-hnd-gray-700/50">
-              <h2 className="font-display text-xl font-bold">Order Summary</h2>
+              <h2 className="font-bebas text-xl">Order Summary</h2>
               <ul className="mt-6 space-y-4">
                 {items.map((item) => {
                   const product = getProductById(item.productId);

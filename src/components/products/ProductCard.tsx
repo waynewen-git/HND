@@ -8,39 +8,48 @@ import { formatPrice } from "@/data/products";
 interface ProductCardProps {
   product: Product;
   variant?: "default" | "large";
+  index?: number;
 }
 
 export default function ProductCard({
   product,
   variant = "default",
+  index,
 }: ProductCardProps) {
   const href = `/products/${product.category}/${product.slug}`;
+  const num =
+    index !== undefined
+      ? String(index + 1).padStart(2, "0")
+      : product.sku?.replace(/\D/g, "").slice(-2) || null;
 
   if (variant === "large") {
     return (
       <Link href={href} className="group relative block overflow-hidden">
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-hnd-gray-900">
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-transparent">
           <AppImage
             src={product.images[0]}
             alt={product.name}
             fill
             unoptimized
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-contain transition-transform duration-700 group-hover:scale-[1.03]"
             sizes="(max-width: 768px) 100vw, 50vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-hnd-black/80 via-hnd-black/20 to-transparent" />
           <div className="absolute right-0 bottom-0 left-0 p-8 md:p-12">
-            <p className="text-sm tracking-wider text-hnd-steel-light uppercase">
-              {product.tagline}
-            </p>
-            <h3 className="mt-2 font-display text-3xl font-bold text-white md:text-4xl">
+            {num && (
+              <p className="label-condensed text-hnd-red">{num}</p>
+            )}
+            <h3 className="mt-2 font-bebas text-3xl text-hnd-white md:text-4xl">
               {product.name}
             </h3>
-            <p className="mt-2 text-lg text-white/80">
-              From {formatPrice(product.price)}
+            <p className="mt-2 label-condensed text-hnd-gray-300">
+              {product.tagline}
             </p>
-            <span className="mt-4 inline-block text-sm tracking-wider text-white uppercase underline-offset-4 transition-all group-hover:underline">
-              Learn More
+            <p className="mt-3 text-hnd-gray-300">
+              {formatPrice(product.price)}
+            </p>
+            <span className="mt-5 inline-flex items-center gap-2 font-ui text-sm tracking-[0.14em] text-hnd-white uppercase transition-transform duration-300 group-hover:translate-x-1">
+              Explore →
             </span>
           </div>
         </div>
@@ -49,22 +58,38 @@ export default function ProductCard({
   }
 
   return (
-    <Link href={href} className="group block transition-transform duration-300 hover:-translate-y-1">
-      <div className="relative aspect-square overflow-hidden rounded-sm bg-hnd-gray-100 dark:bg-hnd-gray-900">
-        <AppImage
-          src={product.images[0]}
-          alt={product.name}
-          fill
-          unoptimized
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 768px) 50vw, 25vw"
-        />
+    <Link href={href} className="group block">
+        <div className="relative aspect-square overflow-hidden bg-transparent">
+          <AppImage
+            src={product.images[0]}
+            alt={product.name}
+            fill
+            unoptimized
+            className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+            sizes="(max-width: 768px) 50vw, 25vw"
+          />
+        </div>
+        <div className="mt-4 flex items-start justify-between gap-3">
+          <div>
+            {num && (
+              <p className="label-condensed text-hnd-red">{num}</p>
+            )}
+            <h3 className="mt-1 font-bebas text-lg tracking-tight transition-transform duration-300 group-hover:translate-x-0.5">
+              {product.name}
+            </h3>
+            <p className="mt-1 text-sm text-hnd-gray-500">{product.tagline}</p>
+            <p className="mt-2 text-sm text-hnd-gray-700 dark:text-hnd-gray-300">
+              {formatPrice(product.price)}
+            </p>
+          </div>
+        <span
+          aria-hidden
+          className="mt-1 font-ui text-sm text-hnd-gray-500 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100 group-hover:text-hnd-red"
+        >
+          →
+        </span>
       </div>
-      <div className="mt-4">
-        <h3 className="font-display text-lg font-semibold">{product.name}</h3>
-        <p className="mt-1 text-sm text-hnd-gray-500">{product.tagline}</p>
-        <p className="mt-2 font-medium">{formatPrice(product.price)}</p>
-      </div>
+      <span className="mt-3 block h-px w-0 bg-hnd-red transition-all duration-300 group-hover:w-10" />
     </Link>
   );
 }

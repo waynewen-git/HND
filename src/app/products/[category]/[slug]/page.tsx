@@ -21,6 +21,7 @@ export async function generateStaticParams() {
     ...getProductsByCategory("guitars"),
     ...getProductsByCategory("amps"),
     ...getProductsByCategory("speakers"),
+    ...getProductsByCategory("lifestyle"),
   ];
   return all.map((p) => ({ category: p.category, slug: p.slug }));
 }
@@ -36,7 +37,7 @@ export default async function ProductDetailPage({
   const related = getRelatedProducts(product);
 
   return (
-    <div className="pt-28 md:pt-36">
+    <div className="pt-16 md:pt-20">
       {/* Hero */}
       <section className="section-padding container-max py-12 md:py-20">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
@@ -49,7 +50,7 @@ export default async function ProductDetailPage({
             <p className="text-sm tracking-wider text-hnd-steel uppercase">
               {CATEGORY_LABELS[product.category]}
             </p>
-            <h1 className="mt-2 font-display text-4xl font-bold md:text-5xl">
+            <h1 className="mt-2 font-bebas text-4xl md:text-5xl">
               {product.name}
             </h1>
             <p className="mt-2 text-lg text-hnd-gray-500">{product.tagline}</p>
@@ -94,7 +95,7 @@ export default async function ProductDetailPage({
       {/* Highlights */}
       <section className="bg-hnd-white dark:bg-hnd-black">
         <div className="section-padding container-max py-16 md:py-24">
-          <h2 className="font-display text-2xl font-bold md:text-3xl">
+          <h2 className="font-bebas text-2xl md:text-3xl">
             Highlights
           </h2>
           <ul className="mt-8 grid gap-6 md:grid-cols-3">
@@ -112,7 +113,7 @@ export default async function ProductDetailPage({
 
       {/* Specs */}
       <section className="section-padding container-max py-16 md:py-24">
-        <h2 className="font-display text-2xl font-bold md:text-3xl">
+        <h2 className="font-bebas text-2xl md:text-3xl">
           Specifications
         </h2>
         <dl className="mt-8 divide-y divide-hnd-gray-300/20 dark:divide-hnd-gray-700/50">
@@ -133,7 +134,7 @@ export default async function ProductDetailPage({
         <section className="bg-hnd-white dark:bg-hnd-black">
           <div className="section-padding container-max py-16 md:py-24">
             <div className="flex items-end justify-between">
-              <h2 className="font-display text-2xl font-bold md:text-3xl">
+              <h2 className="font-bebas text-2xl md:text-3xl">
                 You May Also Like
               </h2>
               <Link

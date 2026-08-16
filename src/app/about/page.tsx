@@ -1,8 +1,8 @@
 export default function AboutPage() {
   return (
-    <div className="pt-28 md:pt-36">
+    <div className="pt-16 md:pt-20">
       <section className="section-padding container-max py-16 md:py-24">
-        <h1 className="font-display text-4xl font-bold md:text-6xl">
+        <h1 className="font-bebas text-4xl md:text-6xl">
           About HND
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-hnd-gray-500">
@@ -36,7 +36,7 @@ export default function AboutPage() {
       </section>
 
       <section className="section-padding container-max py-16 md:py-24">
-        <h2 className="font-display text-3xl font-bold md:text-4xl">
+        <h2 className="font-bebas text-3xl md:text-4xl">
           Our Values
         </h2>
         <div className="mt-12 grid gap-8 md:grid-cols-3">
@@ -58,7 +58,7 @@ export default function AboutPage() {
               key={v.title}
               className="rounded-sm border border-hnd-gray-300/20 p-8 dark:border-hnd-gray-700/50"
             >
-              <h3 className="font-display text-xl font-bold">{v.title}</h3>
+              <h3 className="font-bebas text-xl">{v.title}</h3>
               <p className="mt-4 text-hnd-gray-500">{v.desc}</p>
             </div>
           ))}

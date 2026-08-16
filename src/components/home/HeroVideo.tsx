@@ -92,7 +92,7 @@ export default function HeroVideo() {
 
       <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-end px-6 pb-28 text-center md:pb-36">
         <div className="max-w-4xl">
-          <h1 className="font-display text-5xl font-bold tracking-tight text-white md:text-7xl lg:text-8xl">
+          <h1 className="font-bebas text-5xl tracking-tight text-white md:text-7xl lg:text-8xl">
             Live is Life
           </h1>
           <p className="mt-4 text-lg text-white/80 md:text-xl">

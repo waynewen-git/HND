@@ -1,3 +1,6 @@
+"use client";
+
+import { useId } from "react";
 import { cn } from "@/lib/utils";
 
 /** Placeholder URLs — replace with official HND accounts when ready */
@@ -18,16 +21,6 @@ export const socialLinks = [
     label: "HND on TikTok",
   },
   {
-    name: "Bilibili",
-    href: "https://space.bilibili.com/",
-    label: "HND on Bilibili",
-  },
-  {
-    name: "Xiaohongshu",
-    href: "https://www.xiaohongshu.com/",
-    label: "HND on Xiaohongshu",
-  },
-  {
     name: "Facebook",
     href: "https://www.facebook.com/hndmusic",
     label: "HND on Facebook",
@@ -39,148 +32,150 @@ export const socialLinks = [
   },
 ] as const;
 
-const iconSize = "h-7 w-7 md:h-8 md:w-8";
+type SocialName = (typeof socialLinks)[number]["name"];
 
-function YouTubeBrandIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
-      <path
-        fill="#FF0000"
-        d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8Z"
-      />
-      <path fill="#fff" d="M9.75 15.02V8.98L15.5 12l-5.75 3.02Z" />
-    </svg>
-  );
-}
+function MonoIcon({ name, className }: { name: SocialName; className?: string }) {
+  const common = {
+    viewBox: "0 0 24 24",
+    className,
+    "aria-hidden": true as const,
+    fill: "currentColor",
+  };
 
-function InstagramBrandIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
-      <defs>
-        <radialGradient id="ig-grad" cx="30%" cy="107%" r="150%">
-          <stop offset="0%" stopColor="#fdf497" />
-          <stop offset="5%" stopColor="#fdf497" />
-          <stop offset="45%" stopColor="#fd5949" />
-          <stop offset="60%" stopColor="#d6249f" />
-          <stop offset="90%" stopColor="#285AEB" />
-        </radialGradient>
-      </defs>
-      <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#ig-grad)" />
-      <circle cx="12" cy="12" r="4.2" fill="none" stroke="#fff" strokeWidth="1.8" />
-      <circle cx="17.4" cy="6.6" r="1.2" fill="#fff" />
-    </svg>
-  );
-}
-
-function TikTokBrandIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
-      <path
-        fill="#25F4EE"
-        d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2.09-2.77V9.4a6.34 6.34 0 1 0 5.54 6.27V8.73a8.19 8.19 0 0 0 4.76 1.52V6.84a4.84 4.84 0 0 1-.99-.15Z"
-        transform="translate(-0.6 0.4)"
-      />
-      <path
-        fill="#FE2C55"
-        d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2.09-2.77V9.4a6.34 6.34 0 1 0 5.54 6.27V8.73a8.19 8.19 0 0 0 4.76 1.52V6.84a4.84 4.84 0 0 1-.99-.15Z"
-        transform="translate(0.6 -0.4)"
-      />
-      <path
-        fill="#111"
-        d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2.09-2.77V9.4a6.34 6.34 0 1 0 5.54 6.27V8.73a8.19 8.19 0 0 0 4.76 1.52V6.84a4.84 4.84 0 0 1-.99-.15Z"
-      />
-    </svg>
-  );
-}
-
-function BilibiliBrandIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
-      <rect x="1.5" y="5" width="21" height="14.5" rx="3.5" fill="#00A1D6" />
-      <path
-        fill="#fff"
-        d="M7.2 3.4 9.1 5.2H6.4L4.6 3.4c-.25-.25-.25-.65 0-.9.25-.25.65-.25.9 0L7.2 3.4Zm9.6 0 1.7-1.5c.25-.25.65-.25.9 0 .25.25.25.65 0 .9L17.6 5.2h-2.7l1.9-1.8ZM8.2 10.2c.55 0 1 .45 1 1v2.6c0 .55-.45 1-1 1s-1-.45-1-1v-2.6c0-.55.45-1 1-1Zm7.6 0c.55 0 1 .45 1 1v2.6c0 .55-.45 1-1 1s-1-.45-1-1v-2.6c0-.55.45-1 1-1Z"
-      />
-    </svg>
-  );
-}
-
-function XiaohongshuBrandIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
-      <rect x="2" y="2" width="20" height="20" rx="5" fill="#FF2442" />
-      <path
-        fill="#fff"
-        d="M7.2 7.2h9.6c.44 0 .8.36.8.8v8c0 .44-.36.8-.8.8H7.2c-.44 0-.8-.36-.8-.8v-8c0-.44.36-.8.8-.8Zm1.2 2v1.4h7.2V9.2H8.4Zm0 3v1.4h7.2V12.2H8.4Zm0 3v1.2h4.4V15.2H8.4Z"
-      />
-    </svg>
-  );
-}
-
-function FacebookBrandIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
-      <circle cx="12" cy="12" r="11" fill="#1877F2" />
-      <path
-        fill="#fff"
-        d="M13.3 19.2v-6.3h2.1l.3-2.5h-2.4V8.8c0-.7.2-1.2 1.3-1.2h1.3V5.4c-.2 0-1-.1-2-1.1-1.1 0-2.2.7-2.2 2.4v1.7H9.4v2.5h2.2v6.3h1.7Z"
-      />
-    </svg>
-  );
-}
-
-function WeChatBrandIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
-      <path
-        fill="#07C160"
-        d="M9.1 3.5C5.1 3.5 1.8 6.2 1.8 9.6c0 1.9 1 3.6 2.7 4.8l-.7 2.5 2.7-1.4c.8.2 1.6.4 2.5.4.3 0 .5 0 .8-.1-.2-.5-.3-1.1-.3-1.7 0-3.5 3.3-6.3 7.3-6.3.3 0 .6 0 .9.1C16.8 5.1 13.3 3.5 9.1 3.5Zm-2.3 3.2c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9Zm4.7 0c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9Z"
-      />
-      <path
-        fill="#07C160"
-        d="M21.8 14.4c0-2.9-2.8-5.2-6.2-5.2s-6.2 2.3-6.2 5.2 2.8 5.2 6.2 5.2c.7 0 1.4-.1 2.1-.3l2.3 1.2-.6-2.1c1.5-1 2.4-2.4 2.4-4Zm-8.3-1.1c-.4 0-.7-.3-.7-.7s.3-.7.7-.7.7.3.7.7-.3.7-.7.7Zm4.1 0c-.4 0-.7-.3-.7-.7s.3-.7.7-.7.7.3.7.7-.3.7-.7.7Z"
-      />
-    </svg>
-  );
-}
-
-function BrandIcon({ name }: { name: (typeof socialLinks)[number]["name"] }) {
   switch (name) {
     case "YouTube":
-      return <YouTubeBrandIcon className={iconSize} />;
+      return (
+        <svg {...common}>
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.8 15V9l5.7 3-5.7 3Z" />
+        </svg>
+      );
     case "Instagram":
-      return <InstagramBrandIcon className={iconSize} />;
+      return (
+        <svg {...common}>
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5Zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5Zm5.2-3.3a1 1 0 1 1-1 1 1 1 0 0 1 1-1Z" />
+        </svg>
+      );
     case "TikTok":
-      return <TikTokBrandIcon className={iconSize} />;
-    case "Bilibili":
-      return <BilibiliBrandIcon className={iconSize} />;
-    case "Xiaohongshu":
-      return <XiaohongshuBrandIcon className={iconSize} />;
+      return (
+        <svg {...common}>
+          <path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.3V2h-3.4v13.7a2.9 2.9 0 1 1-2.1-2.8V9.4a6.3 6.3 0 1 0 5.5 6.3V8.7a8.2 8.2 0 0 0 4.8 1.5V6.8a4.8 4.8 0 0 1-1-.1Z" />
+        </svg>
+      );
     case "Facebook":
-      return <FacebookBrandIcon className={iconSize} />;
+      return (
+        <svg {...common}>
+          <path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H7v3h3v7h3v-7h2.6l.4-3H13v-2c0-.6.4-1 1-1Z" />
+        </svg>
+      );
     case "WeChat":
-      return <WeChatBrandIcon className={iconSize} />;
+      return (
+        <svg {...common}>
+          <path d="M9.1 3.5C5.1 3.5 1.8 6.2 1.8 9.6c0 1.9 1 3.6 2.7 4.8l-.7 2.5 2.7-1.4c.8.2 1.6.4 2.5.4.3 0 .5 0 .8-.1-.2-.5-.3-1.1-.3-1.7 0-3.5 3.3-6.3 7.3-6.3.3 0 .6 0 .9.1C16.8 5.1 13.3 3.5 9.1 3.5Zm-2.3 3.2c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9Zm4.7 0c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9ZM21.8 14.4c0-2.9-2.8-5.2-6.2-5.2s-6.2 2.3-6.2 5.2 2.8 5.2 6.2 5.2c.7 0 1.4-.1 2.1-.3l2.3 1.2-.6-2.1c1.5-1 2.4-2.4 2.4-4Zm-8.3-1.1c-.4 0-.7-.3-.7-.7s.3-.7.7-.7.7.3.7.7-.3.7-.7.7Zm4.1 0c-.4 0-.7-.3-.7-.7s.3-.7.7-.7.7.3.7.7-.3.7-.7.7Z" />
+        </svg>
+      );
     default:
       return null;
   }
 }
 
+/** Full-color brand marks shown on hover / active / focus */
+function BrandIcon({ name, className }: { name: SocialName; className?: string }) {
+  const gradId = useId().replace(/:/g, "");
+
+  switch (name) {
+    case "YouTube":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <path
+            fill="#FF0000"
+            d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8Z"
+          />
+          <path fill="#FFFFFF" d="M9.8 15V9l5.7 3-5.7 3Z" />
+        </svg>
+      );
+    case "Instagram":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <defs>
+            <radialGradient id={gradId} cx="30%" cy="107%" r="150%">
+              <stop offset="0%" stopColor="#fdf497" />
+              <stop offset="5%" stopColor="#fdf497" />
+              <stop offset="45%" stopColor="#fd5949" />
+              <stop offset="60%" stopColor="#d6249f" />
+              <stop offset="90%" stopColor="#285AEB" />
+            </radialGradient>
+          </defs>
+          <path
+            fill={`url(#${gradId})`}
+            d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5Zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5Zm5.2-3.3a1 1 0 1 1-1 1 1 1 0 0 1 1-1Z"
+          />
+        </svg>
+      );
+    case "TikTok":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          {/* Cyan / magenta brand offsets + white body */}
+          <path
+            fill="#25F4EE"
+            d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.3V2h-3.4v13.7a2.9 2.9 0 1 1-2.1-2.8V9.4a6.3 6.3 0 1 0 5.5 6.3V8.7a8.2 8.2 0 0 0 4.8 1.5V6.8a4.8 4.8 0 0 1-1-.1Z"
+            transform="translate(-0.7 0.4)"
+          />
+          <path
+            fill="#FE2C55"
+            d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.3V2h-3.4v13.7a2.9 2.9 0 1 1-2.1-2.8V9.4a6.3 6.3 0 1 0 5.5 6.3V8.7a8.2 8.2 0 0 0 4.8 1.5V6.8a4.8 4.8 0 0 1-1-.1Z"
+            transform="translate(0.7 -0.4)"
+          />
+          <path
+            fill="#FFFFFF"
+            d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.3V2h-3.4v13.7a2.9 2.9 0 1 1-2.1-2.8V9.4a6.3 6.3 0 1 0 5.5 6.3V8.7a8.2 8.2 0 0 0 4.8 1.5V6.8a4.8 4.8 0 0 1-1-.1Z"
+          />
+        </svg>
+      );
+    case "Facebook":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <circle cx="12" cy="12" r="11" fill="#1877F2" />
+          <path
+            fill="#FFFFFF"
+            d="M13.5 20v-6.5H16l.4-3h-2.9V8.7c0-.9.3-1.5 1.6-1.5H16.5V4.5c-.4-.1-1.5-.2-2.8-.2-2.8 0-4.7 1.7-4.7 4.8V10.5H6.5v3h2.5V20h4.5Z"
+          />
+        </svg>
+      );
+    case "WeChat":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <path
+            fill="#07C160"
+            d="M9.1 3.5C5.1 3.5 1.8 6.2 1.8 9.6c0 1.9 1 3.6 2.7 4.8l-.7 2.5 2.7-1.4c.8.2 1.6.4 2.5.4.3 0 .5 0 .8-.1-.2-.5-.3-1.1-.3-1.7 0-3.5 3.3-6.3 7.3-6.3.3 0 .6 0 .9.1C16.8 5.1 13.3 3.5 9.1 3.5Zm-2.3 3.2c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9Zm4.7 0c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9ZM21.8 14.4c0-2.9-2.8-5.2-6.2-5.2s-6.2 2.3-6.2 5.2 2.8 5.2 6.2 5.2c.7 0 1.4-.1 2.1-.3l2.3 1.2-.6-2.1c1.5-1 2.4-2.4 2.4-4Zm-8.3-1.1c-.4 0-.7-.3-.7-.7s.3-.7.7-.7.7.3.7.7-.3.7-.7.7Zm4.1 0c-.4 0-.7-.3-.7-.7s.3-.7.7-.7.7.3.7.7-.3.7-.7.7Z"
+          />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
+const brandBorder: Record<SocialName, string> = {
+  YouTube: "hover:border-[#FF0000] active:border-[#FF0000] focus-visible:border-[#FF0000]",
+  Instagram: "hover:border-[#E4405F] active:border-[#E4405F] focus-visible:border-[#E4405F]",
+  TikTok: "hover:border-[#25F4EE] active:border-[#25F4EE] focus-visible:border-[#25F4EE]",
+  Facebook: "hover:border-[#1877F2] active:border-[#1877F2] focus-visible:border-[#1877F2]",
+  WeChat: "hover:border-[#07C160] active:border-[#07C160] focus-visible:border-[#07C160]",
+};
+
 interface SocialLinksProps {
   className?: string;
-  /** Colored brand logos in a single row (homepage) */
   variant?: "brand" | "muted";
 }
 
 export default function SocialLinks({
   className,
-  variant = "brand",
+  variant = "muted",
 }: SocialLinksProps) {
-  const isBrand = variant === "brand";
-
   return (
     <ul
       className={cn(
-        "flex flex-nowrap items-center justify-center gap-4 md:gap-6",
+        "flex flex-nowrap items-center justify-center gap-3 md:gap-4",
         className,
       )}
     >
@@ -191,15 +186,21 @@ export default function SocialLinks({
             target="_blank"
             rel="noopener noreferrer"
             aria-label={item.label}
-            title={`${item.name} (coming soon)`}
+            title={item.name}
             className={cn(
-              "flex items-center justify-center rounded-full transition-transform hover:scale-110",
-              isBrand
-                ? "h-11 w-11 bg-hnd-gray-300/50 shadow-sm md:h-12 md:w-12 dark:bg-hnd-gray-900"
-                : "h-10 w-10 border border-hnd-gray-700 text-hnd-gray-400 hover:border-hnd-red hover:text-hnd-red",
+              "group relative flex h-10 w-10 items-center justify-center rounded-full border border-hnd-black/25 text-hnd-black/70 transition-colors duration-300 md:h-11 md:w-11 dark:border-hnd-white/40 dark:text-hnd-white/80",
+              brandBorder[item.name],
+              variant === "brand" && "bg-transparent",
             )}
           >
-            <BrandIcon name={item.name} />
+            <MonoIcon
+              name={item.name}
+              className="h-5 w-5 transition-opacity duration-200 group-hover:opacity-0 group-active:opacity-0 group-focus-visible:opacity-0"
+            />
+            <BrandIcon
+              name={item.name}
+              className="pointer-events-none absolute h-5 w-5 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-active:opacity-100 group-focus-visible:opacity-100"
+            />
           </a>
         </li>
       ))}

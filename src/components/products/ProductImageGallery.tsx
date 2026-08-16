@@ -57,7 +57,7 @@ export default function ProductImageGallery({
         <button
           type="button"
           onClick={() => openLightbox(0)}
-          className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-sm bg-hnd-gray-100 dark:bg-hnd-gray-900"
+          className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-sm bg-transparent"
           aria-label={`Enlarge ${productName} main image`}
         >
           <AppImage
@@ -65,7 +65,7 @@ export default function ProductImageGallery({
             alt={productName}
             fill
             unoptimized
-            className="object-cover transition-transform duration-300 hover:scale-[1.02]"
+            className="object-contain transition-transform duration-300 hover:scale-[1.02]"
             priority
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
@@ -80,7 +80,7 @@ export default function ProductImageGallery({
                   key={`${img}-${index}`}
                   type="button"
                   onClick={() => openLightbox(index)}
-                  className="relative aspect-square cursor-zoom-in overflow-hidden rounded-sm bg-hnd-gray-100 dark:bg-hnd-gray-900"
+                  className="relative aspect-square cursor-zoom-in overflow-hidden rounded-sm bg-transparent"
                   aria-label={`Enlarge ${productName} view ${index + 1}`}
                 >
                   <AppImage
@@ -88,7 +88,7 @@ export default function ProductImageGallery({
                     alt={`${productName} view ${index + 1}`}
                     fill
                     unoptimized
-                    className="object-cover transition-transform duration-300 hover:scale-[1.03]"
+                    className="object-contain transition-transform duration-300 hover:scale-[1.03]"
                     sizes="(max-width: 1024px) 33vw, 16vw"
                   />
                 </button>
