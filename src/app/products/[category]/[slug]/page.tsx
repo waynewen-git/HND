@@ -1,14 +1,11 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import AddToCartButton from "@/components/products/AddToCartButton";
-import ProductCard from "@/components/products/ProductCard";
 import ProductDemoVideo from "@/components/products/ProductDemoVideo";
 import ProductImageGallery from "@/components/products/ProductImageGallery";
 import {
   formatPrice,
   getProductBySlug,
   getProductsByCategory,
-  getRelatedProducts,
 } from "@/data/products";
 import { CATEGORY_LABELS, COLOR_LABELS } from "@/types";
 
@@ -34,11 +31,8 @@ export default async function ProductDetailPage({
 
   if (!product || product.category !== category) notFound();
 
-  const related = getRelatedProducts(product);
-
   return (
     <div className="pt-16 md:pt-20">
-      {/* Hero */}
       <section className="section-padding container-max py-12 md:py-20">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <ProductImageGallery
@@ -92,30 +86,8 @@ export default async function ProductDetailPage({
         />
       )}
 
-      {/* Highlights */}
-      <section className="bg-hnd-white dark:bg-hnd-black">
-        <div className="section-padding container-max py-16 md:py-24">
-          <h2 className="font-bebas text-2xl md:text-3xl">
-            Highlights
-          </h2>
-          <ul className="mt-8 grid gap-6 md:grid-cols-3">
-            {product.highlights.map((h) => (
-              <li
-                key={h}
-                className="rounded-sm border border-hnd-gray-300/20 p-6 dark:border-hnd-gray-700/50"
-              >
-                <p className="leading-relaxed">{h}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Specs */}
       <section className="section-padding container-max py-16 md:py-24">
-        <h2 className="font-bebas text-2xl md:text-3xl">
-          Specifications
-        </h2>
+        <h2 className="font-bebas text-2xl md:text-3xl">Specifications</h2>
         <dl className="mt-8 divide-y divide-hnd-gray-300/20 dark:divide-hnd-gray-700/50">
           {product.specs.map((spec) => (
             <div
@@ -128,30 +100,6 @@ export default async function ProductDetailPage({
           ))}
         </dl>
       </section>
-
-      {/* Related */}
-      {related.length > 0 && (
-        <section className="bg-hnd-white dark:bg-hnd-black">
-          <div className="section-padding container-max py-16 md:py-24">
-            <div className="flex items-end justify-between">
-              <h2 className="font-bebas text-2xl md:text-3xl">
-                You May Also Like
-              </h2>
-              <Link
-                href={`/products/${product.category}`}
-                className="text-sm tracking-wide uppercase text-hnd-red hover:underline"
-              >
-                View All
-              </Link>
-            </div>
-            <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
     </div>
   );
 }

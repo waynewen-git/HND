@@ -9,7 +9,7 @@ import { useCartStore } from "@/store/cart";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { useNavMenu } from "@/components/providers/NavMenuProvider";
 import Logo from "@/components/layout/Logo";
-import GuitarLineup from "@/components/products/GuitarLineup";
+import NavCategoryDropdown from "@/components/layout/NavCategoryDropdown";
 import { cn } from "@/lib/utils";
 import { getProductsByCategory } from "@/data/products";
 import type { ProductCategory } from "@/types";
@@ -214,8 +214,8 @@ export default function Navbar() {
         className={cn(
           "fixed top-0 right-0 left-0 z-50 overflow-visible transition-all duration-300",
           scrolled || openMenu
-            ? "border-b border-hnd-gray-300/70 bg-hnd-white/90 backdrop-blur-md dark:border-hnd-gray-800/60 dark:bg-hnd-black/90"
-            : "bg-hnd-white/70 backdrop-blur-sm dark:bg-hnd-black/40",
+            ? "border-b border-hnd-gray-300/70 bg-hnd-white/90 backdrop-blur-md dark:border-hnd-gray-800/50 dark:bg-hnd-black/55"
+            : "bg-hnd-white/70 backdrop-blur-sm dark:bg-hnd-black/30",
         )}
         onMouseEnter={keepMenuOpen}
         onMouseLeave={scheduleCloseMenu}
@@ -293,89 +293,21 @@ export default function Navbar() {
         </nav>
 
         {activeItem && (
-          <div className="hidden border-t border-hnd-gray-300/60 bg-hnd-white md:block dark:border-hnd-gray-800/50 dark:bg-hnd-black">
+          <div className="hidden max-h-[min(82vh,820px)] overflow-y-auto border-t border-hnd-gray-300/60 bg-hnd-white md:block dark:border-hnd-gray-800/40 dark:bg-hnd-black/70 dark:backdrop-blur-md">
             <div className="section-padding container-max">
-              {activeItem.label === "Guitars" ? (
-                <GuitarLineup variant="nav" />
-              ) : (
-                <div className="flex items-start gap-10 py-2 md:gap-14 md:py-3">
-                  <ul className="grid max-w-[1120px] flex-1 grid-cols-3 gap-x-6 gap-y-2 md:gap-x-8 md:gap-y-3">
-                    {activeItem.children.map((child) => {
-                      const product = [
-                        ...getProductsByCategory("amps"),
-                        ...getProductsByCategory("speakers"),
-                        ...getProductsByCategory("lifestyle"),
-                      ].find((p) => p.name === child.label);
-
-                      const fallbackImage =
-                        activeItem.label === "Amps"
-                          ? "/images/hero-amps-1.png"
-                          : activeItem.label === "Speakers"
-                            ? "/images/hero-speaker-0.png"
-                            : activeItem.label === "Lifestyle"
-                              ? "/images/hero-live-0.png"
-                              : "/images/hero-speaker-0.png";
-
-                      const image =
-                        child.image ??
-                        product?.navImage ??
-                        product?.images[0] ??
-                        fallbackImage;
-
-                      return (
-                        <li key={`${activeItem.label}-${child.label}`}>
-                          <Link
-                            href={child.href}
-                            className="group flex flex-col items-center text-center"
-                          >
-                            <div className="relative h-[240px] w-full transition-transform duration-300 group-hover:scale-[1.03] md:h-[280px]">
-                              <AppImage
-                                src={image}
-                                alt={child.label}
-                                fill
-                                unoptimized
-                                className="object-contain object-center"
-                                sizes="360px"
-                              />
-                            </div>
-                            <span className="mt-1 font-ui text-sm tracking-[0.12em] text-hnd-gray-700 uppercase transition-colors group-hover:text-hnd-black md:text-base dark:text-hnd-gray-300 dark:group-hover:text-hnd-white">
-                              {child.label}
-                            </span>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                  <aside className="hidden w-48 shrink-0 border-l border-hnd-gray-300 pl-8 md:block lg:w-56 lg:pl-10 dark:border-hnd-gray-800">
-                    <ul className="space-y-4">
-                      <li>
-                        <Link
-                          href={activeItem.href}
-                          className="font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-red"
-                        >
-                          View All →
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/shop"
-                          className="font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-red"
-                        >
-                          Shop →
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/support"
-                          className="font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-red"
-                        >
-                          Support →
-                        </Link>
-                      </li>
-                    </ul>
-                  </aside>
-                </div>
-              )}
+              <NavCategoryDropdown
+                category={
+                  activeItem.label === "Guitars"
+                    ? "guitars"
+                    : activeItem.label === "Amps"
+                      ? "amps"
+                      : activeItem.label === "Speakers"
+                        ? "speakers"
+                        : "lifestyle"
+                }
+                label={activeItem.label}
+                href={activeItem.href}
+              />
             </div>
           </div>
         )}

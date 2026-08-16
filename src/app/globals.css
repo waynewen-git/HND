@@ -8,15 +8,20 @@
   --color-hnd-steel: #8b9daf;
   --color-hnd-steel-light: #a8b8c8;
 
-  --color-hnd-black: #111111;
-  --color-hnd-gray-950: #141414;
-  --color-hnd-gray-900: #181818;
-  --color-hnd-gray-800: #242424;
-  --color-hnd-gray-700: #3a3a3a;
-  --color-hnd-gray-500: #888888;
-  --color-hnd-gray-300: #a0a0a0;
-  --color-hnd-gray-100: #e8e8e8;
-  --color-hnd-white: #f2f2f2;
+  /*
+   * Dark surfaces = stage fog gray (matches footer background.png edge)
+   * deep ~#141413, base ~#1c1c1a, raised ~#242422
+   */
+  --color-hnd-black: #1c1c1a;
+  --color-hnd-gray-950: #141413;
+  --color-hnd-gray-900: #242422;
+  --color-hnd-gray-800: #32322f;
+  --color-hnd-gray-700: #454542;
+  --color-hnd-gray-500: #8a8a86;
+  --color-hnd-gray-300: #b0b0aa;
+  --color-hnd-gray-100: #e6e6e2;
+  /* Soft cool gray — light mode */
+  --color-hnd-white: #ececeb;
 
   /* Point theme tokens at next/font CSS variables on <html> */
   --font-bebas: var(--font-bebas-neue), "Bebas Neue", sans-serif;
@@ -41,6 +46,9 @@
   html.dark,
   html.dark body {
     @apply bg-hnd-black text-hnd-white;
+    /* Stage fog gray — solid, docks with footer background.png */
+    background-color: #1c1c1a;
+    background-image: none;
   }
 
   /* All headings default to Bebas Neue (bold) */

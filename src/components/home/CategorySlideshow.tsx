@@ -1,10 +1,11 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import CategoryChapter from "@/components/home/CategoryChapter";
 import { withBasePath } from "@/lib/assetPath";
 import type { CategorySlide } from "@/types/categorySlide";
+
+const AUTO_MS = 5000;
 
 interface CategorySlideshowProps {
   slides: CategorySlide[];
@@ -25,73 +26,56 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
   }, [slides.length]);
 
+  useEffect(() => {
+    if (slides.length < 2) return;
+    const id = window.setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, AUTO_MS);
+    return () => window.clearInterval(id);
+  }, [current, slides.length]);
+
   const slide = slides[current];
-  const isIntro = !slide.index;
-  const isHndIntro = isIntro && slide.image === "/images/hnd-0.png";
+  const isHnd0 = slide.image === "/images/hnd-0.png";
 
   return (
     <section
-      className="relative w-full max-w-[100vw] overflow-x-clip bg-hnd-white pt-16 text-hnd-black md:pt-20 dark:bg-hnd-black dark:text-hnd-white"
-      aria-label="Product categories"
+      className="relative w-full max-w-[100vw] overflow-x-clip bg-hnd-white pt-16 text-hnd-black md:pt-20 dark:bg-transparent dark:text-hnd-white"
+      aria-label="Product showcase"
       aria-roledescription="carousel"
     >
-      {/* Mobile: auto height so copy + image stack cleanly; desktop: fixed frame */}
-      <div
-        className={
-          isIntro
-            ? "relative h-[42vh] min-h-[220px] overflow-hidden md:h-[44vh] lg:h-[48vh]"
-            : "relative overflow-x-clip py-6 pb-10 md:h-[44vh] md:overflow-visible md:py-0 lg:h-[48vh]"
-        }
-      >
-        {isIntro ? (
-          <div
-            key={slide.id}
-            className="absolute inset-0 flex items-center justify-center bg-hnd-white dark:bg-hnd-black"
-          >
-            {isHndIntro ? (
-              <>
-                <img
-                  src={withBasePath("/images/hnd-0-light.png")}
-                  alt={slide.title || "HND"}
-                  className="h-full w-full object-contain object-center dark:hidden"
-                  decoding="async"
-                  fetchPriority="high"
-                />
-                <img
-                  src={withBasePath("/images/hnd-0.png")}
-                  alt=""
-                  aria-hidden
-                  className="hidden h-full w-full object-contain object-center dark:block"
-                  decoding="async"
-                  fetchPriority="high"
-                />
-              </>
-            ) : (
+      <div className="relative h-[42vh] min-h-[220px] overflow-hidden md:h-[44vh] lg:h-[48vh]">
+        <div
+          key={slide.id}
+          className="absolute inset-0 flex items-center justify-center bg-hnd-white dark:bg-transparent"
+        >
+          {isHnd0 ? (
+            <>
               <img
-                src={withBasePath(slide.image)}
+                src={withBasePath("/images/hnd-0-light.png")}
                 alt={slide.title || "HND"}
-                className="h-full w-full object-contain object-center"
+                className="h-full w-full object-contain object-center dark:hidden"
                 decoding="async"
                 fetchPriority="high"
               />
-            )}
-          </div>
-        ) : (
-          <div className="relative flex h-full w-full items-center md:absolute md:inset-0">
-            <CategoryChapter
-              key={slide.id}
-              index={slide.index}
-              label={slide.label}
-              title={slide.title}
-              tagline={slide.tagline}
-              image={slide.image}
-              href={slide.href}
-              cta={slide.cta}
-              imageScale={slide.imageScale ?? 1}
-              className="w-full"
+              <img
+                src={withBasePath("/images/hnd-0.png")}
+                alt=""
+                aria-hidden
+                className="hidden h-full w-full object-contain object-center dark:block"
+                decoding="async"
+                fetchPriority="high"
+              />
+            </>
+          ) : (
+            <img
+              src={withBasePath(slide.image)}
+              alt={slide.title || "HND"}
+              className="h-full w-full object-contain object-center"
+              decoding="async"
+              fetchPriority="high"
             />
-          </div>
-        )}
+          )}
+        </div>
 
         <button
           type="button"

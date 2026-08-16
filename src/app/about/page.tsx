@@ -10,7 +10,7 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <section className="bg-hnd-white dark:bg-hnd-black">
+      <section className="bg-hnd-white dark:bg-transparent">
         <div className="section-padding container-max py-16 md:py-24">
           <div className="mx-auto max-w-3xl space-y-8 text-lg leading-relaxed text-hnd-gray-500">
             <p>

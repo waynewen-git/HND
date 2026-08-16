@@ -1,51 +1,27 @@
 import Link from "next/link";
-import AppImage from "@/components/ui/AppImage";
-import { categories } from "@/data/products";
+import { withBasePath } from "@/lib/assetPath";
+import { categoryChapters } from "@/data/products";
 
 export default function ProductsPage() {
   return (
     <div className="pt-16 md:pt-20">
-      <section className="section-padding container-max py-16 md:py-24">
-        <h1 className="font-bebas text-4xl md:text-6xl">Products</h1>
-        <p className="mt-4 max-w-2xl text-lg text-hnd-gray-500">
-          Explore our full range of electric guitars, professional amp heads, and
-          premium Bluetooth speakers.
-        </p>
-      </section>
-
-      <div className="space-y-2">
-        {categories.map((cat, i) => (
-          <Link
-            key={cat.slug}
-            href={`/products/${cat.slug}`}
-            className="group relative block h-[60vh] min-h-[400px] overflow-hidden"
-          >
-            <AppImage
-              src={cat.heroImage}
-              alt={cat.name}
-              fill
-              unoptimized
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="100vw"
-              priority={i === 0}
+      {categoryChapters.map((chapter) => (
+        <Link
+          key={chapter.id}
+          href={chapter.href}
+          className="group relative block w-full max-w-[100vw] overflow-x-clip bg-transparent outline-none"
+          aria-label={`${chapter.label}: ${chapter.title}`}
+        >
+          <div className="relative h-[42vh] min-h-[220px] overflow-hidden md:h-[44vh] lg:h-[48vh]">
+            <img
+              src={withBasePath(chapter.image)}
+              alt={chapter.title}
+              className="absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-300 group-hover:opacity-90"
+              decoding="async"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-center section-padding">
-              <div className="container-max">
-                <h2 className="font-bebas text-4xl text-white md:text-6xl">
-                  {cat.name}
-                </h2>
-                <p className="mt-4 max-w-md text-lg text-white/70">
-                  {cat.description}
-                </p>
-                <span className="mt-6 inline-block text-sm tracking-wider text-white uppercase underline-offset-4 transition-all group-hover:underline">
-                  View Collection
-                </span>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+          </div>
+        </Link>
+      ))}
     </div>
   );
 }

@@ -30,6 +30,16 @@ export const socialLinks = [
     href: "https://www.wechat.com/",
     label: "HND on WeChat",
   },
+  {
+    name: "Bilibili",
+    href: "https://space.bilibili.com/",
+    label: "HND on Bilibili",
+  },
+  {
+    name: "Xiaohongshu",
+    href: "https://www.xiaohongshu.com/",
+    label: "HND on Xiaohongshu",
+  },
 ] as const;
 
 type SocialName = (typeof socialLinks)[number]["name"];
@@ -71,6 +81,18 @@ function MonoIcon({ name, className }: { name: SocialName; className?: string })
       return (
         <svg {...common}>
           <path d="M9.1 3.5C5.1 3.5 1.8 6.2 1.8 9.6c0 1.9 1 3.6 2.7 4.8l-.7 2.5 2.7-1.4c.8.2 1.6.4 2.5.4.3 0 .5 0 .8-.1-.2-.5-.3-1.1-.3-1.7 0-3.5 3.3-6.3 7.3-6.3.3 0 .6 0 .9.1C16.8 5.1 13.3 3.5 9.1 3.5Zm-2.3 3.2c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9Zm4.7 0c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9ZM21.8 14.4c0-2.9-2.8-5.2-6.2-5.2s-6.2 2.3-6.2 5.2 2.8 5.2 6.2 5.2c.7 0 1.4-.1 2.1-.3l2.3 1.2-.6-2.1c1.5-1 2.4-2.4 2.4-4Zm-8.3-1.1c-.4 0-.7-.3-.7-.7s.3-.7.7-.7.7.3.7.7-.3.7-.7.7Zm4.1 0c-.4 0-.7-.3-.7-.7s.3-.7.7-.7.7.3.7.7-.3.7-.7.7Z" />
+        </svg>
+      );
+    case "Bilibili":
+      return (
+        <svg {...common}>
+          <path d="M17.8 5.2 19.6 3.4l-1.1-1.1-2.2 2.1A8.4 8.4 0 0 0 12 3.8c-1.6 0-3 .5-4.3 1.6L5.5 2.3 4.4 3.4l1.8 1.8C4.1 6.7 2.8 8.9 2.8 11.6v5.1c0 2.6 2.1 4.7 4.7 4.7h9c2.6 0 4.7-2.1 4.7-4.7v-5.1c0-2.7-1.3-4.9-3.4-6.4ZM7.5 15.2a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8Zm9 0a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8Z" />
+        </svg>
+      );
+    case "Xiaohongshu":
+      return (
+        <svg {...common}>
+          <path d="M5.2 3.5h13.6c.9 0 1.7.8 1.7 1.7v13.6c0 .9-.8 1.7-1.7 1.7H5.2c-.9 0-1.7-.8-1.7-1.7V5.2c0-.9.8-1.7 1.7-1.7Zm2.3 4.2v2.1h2.1l-2.4 6.5h2.3l1.1-3.1h3.1l1.1 3.1h2.3l-2.4-6.5h2.1V7.7H7.5Zm4.5 2.1 1 2.7h-2.1l1.1-2.7Z" />
         </svg>
       );
     default:
@@ -150,6 +172,25 @@ function BrandIcon({ name, className }: { name: SocialName; className?: string }
           />
         </svg>
       );
+    case "Bilibili":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <path
+            fill="#00A1D6"
+            d="M17.8 5.2 19.6 3.4l-1.1-1.1-2.2 2.1A8.4 8.4 0 0 0 12 3.8c-1.6 0-3 .5-4.3 1.6L5.5 2.3 4.4 3.4l1.8 1.8C4.1 6.7 2.8 8.9 2.8 11.6v5.1c0 2.6 2.1 4.7 4.7 4.7h9c2.6 0 4.7-2.1 4.7-4.7v-5.1c0-2.7-1.3-4.9-3.4-6.4ZM7.5 15.2a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8Zm9 0a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8Z"
+          />
+        </svg>
+      );
+    case "Xiaohongshu":
+      return (
+        <svg viewBox="0 0 24 24" className={className} aria-hidden>
+          <rect x="2.5" y="2.5" width="19" height="19" rx="3" fill="#FF2442" />
+          <path
+            fill="#FFFFFF"
+            d="M7.5 7.7v2.1h2.1l-2.4 6.5h2.3l1.1-3.1h3.1l1.1 3.1h2.3l-2.4-6.5h2.1V7.7H7.5Zm4.5 2.1 1 2.7h-2.1l1.1-2.7Z"
+          />
+        </svg>
+      );
     default:
       return null;
   }
@@ -161,6 +202,8 @@ const brandBorder: Record<SocialName, string> = {
   TikTok: "hover:border-[#25F4EE] active:border-[#25F4EE] focus-visible:border-[#25F4EE]",
   Facebook: "hover:border-[#1877F2] active:border-[#1877F2] focus-visible:border-[#1877F2]",
   WeChat: "hover:border-[#07C160] active:border-[#07C160] focus-visible:border-[#07C160]",
+  Bilibili: "hover:border-[#00A1D6] active:border-[#00A1D6] focus-visible:border-[#00A1D6]",
+  Xiaohongshu: "hover:border-[#FF2442] active:border-[#FF2442] focus-visible:border-[#FF2442]",
 };
 
 interface SocialLinksProps {
@@ -175,7 +218,7 @@ export default function SocialLinks({
   return (
     <ul
       className={cn(
-        "flex flex-nowrap items-center justify-center gap-3 md:gap-4",
+        "flex flex-wrap items-center justify-center gap-3 md:gap-4",
         className,
       )}
     >

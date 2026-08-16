@@ -19,20 +19,73 @@ const secondaryLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative isolate overflow-hidden border-t border-hnd-gray-300 text-hnd-gray-500 dark:border-hnd-gray-800">
+    <footer className="relative isolate overflow-hidden text-hnd-gray-500">
+      {/* Stage background — footer only, anchored on the performer */}
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <img
           src={withBasePath("/images/background.png")}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover object-[82%_center]"
+          className="absolute inset-0 h-full w-full object-cover object-[70%_42%]"
         />
-        {/* Soft veil — keep stage visible at all widths */}
-        <div className="absolute inset-0 bg-hnd-white/35 dark:bg-hnd-black/40 md:bg-hnd-white/25 md:dark:bg-hnd-black/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-hnd-white from-[10%] via-hnd-white/45 via-[40%] to-transparent to-[75%] dark:from-hnd-black dark:via-hnd-black/50 md:via-hnd-white/35 md:dark:via-hnd-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-hnd-white/80 from-[0%] via-hnd-white/25 via-[35%] to-transparent to-[62%] dark:from-hnd-black/85 dark:via-hnd-black/30" />
+        {/* Long soft blend from page surface into stage (light) */}
+        <div
+          className="absolute inset-0 dark:hidden"
+          style={{
+            backgroundImage: `linear-gradient(
+              to bottom,
+              var(--color-hnd-white) 0%,
+              color-mix(in srgb, var(--color-hnd-white) 92%, transparent) 14%,
+              color-mix(in srgb, var(--color-hnd-white) 72%, transparent) 28%,
+              color-mix(in srgb, var(--color-hnd-white) 42%, transparent) 46%,
+              color-mix(in srgb, var(--color-hnd-white) 16%, transparent) 64%,
+              transparent 82%
+            )`,
+          }}
+        />
+        {/* Long soft blend from page surface into stage (dark) */}
+        <div
+          className="absolute inset-0 hidden dark:block"
+          style={{
+            backgroundImage: `linear-gradient(
+              to bottom,
+              var(--color-hnd-black) 0%,
+              color-mix(in srgb, var(--color-hnd-black) 92%, transparent) 14%,
+              color-mix(in srgb, var(--color-hnd-black) 72%, transparent) 28%,
+              color-mix(in srgb, var(--color-hnd-black) 42%, transparent) 46%,
+              color-mix(in srgb, var(--color-hnd-black) 16%, transparent) 64%,
+              transparent 82%
+            )`,
+          }}
+        />
+        {/* Soft bottom veil for footer copy */}
+        <div
+          className="absolute inset-0 dark:hidden"
+          style={{
+            backgroundImage: `linear-gradient(
+              to top,
+              color-mix(in srgb, var(--color-hnd-white) 88%, transparent) 0%,
+              color-mix(in srgb, var(--color-hnd-white) 48%, transparent) 28%,
+              color-mix(in srgb, var(--color-hnd-white) 12%, transparent) 52%,
+              transparent 72%
+            )`,
+          }}
+        />
+        <div
+          className="absolute inset-0 hidden dark:block"
+          style={{
+            backgroundImage: `linear-gradient(
+              to top,
+              color-mix(in srgb, var(--color-hnd-black) 86%, transparent) 0%,
+              color-mix(in srgb, var(--color-hnd-black) 45%, transparent) 28%,
+              color-mix(in srgb, var(--color-hnd-black) 12%, transparent) 52%,
+              transparent 72%
+            )`,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-hnd-white/35 via-transparent to-transparent dark:from-hnd-black/35 dark:via-transparent" />
       </div>
 
-      <div className="section-padding container-max relative z-10 py-14 md:py-20">
+      <div className="section-padding container-max relative z-10 pt-24 pb-14 md:pt-32 md:pb-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,14rem)_1fr_auto] lg:items-start lg:gap-x-16 lg:gap-y-0">
           <div className="flex w-full flex-col items-center justify-self-start lg:pt-0">
             <Logo size="xl" variant="full" className="object-top" />
@@ -87,7 +140,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-hnd-gray-300 pt-8 md:flex-row md:items-center dark:border-hnd-gray-800">
+        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-hnd-gray-300/80 pt-8 md:flex-row md:items-center dark:border-hnd-gray-700/80">
           <p className="font-ui text-[11px] tracking-[0.12em] text-hnd-gray-500 uppercase">
             © {new Date().getFullYear()} HND Musical Instruments
           </p>

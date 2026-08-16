@@ -2,7 +2,6 @@
 
 import AppImage from "@/components/ui/AppImage";
 import Button from "@/components/ui/Button";
-import { useNavMenu } from "@/components/providers/NavMenuProvider";
 import { cn } from "@/lib/utils";
 import type { CSSProperties } from "react";
 
@@ -16,14 +15,12 @@ interface CategoryChapterProps {
   /** Gray tagline */
   tagline: string;
   image: string;
-  href: string;
-  cta: string;
+  href?: string;
+  cta?: string;
   /** Product image scale factor (1 = default, 2 = 2×) — desktop only */
   imageScale?: number;
   className?: string;
 }
-
-const NAV_MENU_LABELS = new Set(["Guitars", "Amps", "Speakers", "Lifestyle"]);
 
 export default function CategoryChapter({
   index,
@@ -38,14 +35,15 @@ export default function CategoryChapter({
 }: CategoryChapterProps) {
   const titleLines = title.trim().split(/\s+/);
   const scaled = imageScale !== 1;
-  const { openCategoryMenu, scheduleCloseMenu } = useNavMenu();
-  const opensNavMenu = NAV_MENU_LABELS.has(label);
+  const showCta = Boolean(href && cta);
 
   return (
     <section
       className={cn(
-        "relative bg-hnd-white py-0 text-hnd-black dark:bg-hnd-black dark:text-hnd-white",
-        scaled ? "overflow-x-clip overflow-y-visible lg:overflow-visible" : "overflow-hidden",
+        "relative bg-hnd-white py-0 text-hnd-black dark:bg-transparent dark:text-hnd-white",
+        scaled
+          ? "overflow-x-clip overflow-y-visible lg:overflow-visible"
+          : "overflow-hidden",
         className,
       )}
     >
@@ -81,41 +79,19 @@ export default function CategoryChapter({
               ))}
             </h2>
 
-            <p className="mt-2.5 font-ui text-[11px] tracking-[0.16em] text-hnd-gray-500 uppercase md:mt-4 md:text-xs">
-              {tagline}
-            </p>
+            {tagline ? (
+              <p className="mt-2.5 font-ui text-[11px] tracking-[0.16em] text-hnd-gray-500 uppercase md:mt-4 md:text-xs">
+                {tagline}
+              </p>
+            ) : null}
 
-            <div className="relative z-30 mt-3 md:mt-4">
-              {opensNavMenu ? (
-                <>
-                  <Button
-                    type="button"
-                    variant="text"
-                    size="sm"
-                    className="relative z-30 hidden md:inline-flex"
-                    onMouseEnter={() => openCategoryMenu(label)}
-                    onMouseLeave={scheduleCloseMenu}
-                    onFocus={() => openCategoryMenu(label)}
-                    onClick={() => openCategoryMenu(label)}
-                    aria-haspopup="true"
-                  >
-                    {cta}
-                  </Button>
-                  <Button
-                    href={href}
-                    variant="text"
-                    size="sm"
-                    className="md:hidden"
-                  >
-                    {cta}
-                  </Button>
-                </>
-              ) : (
-                <Button href={href} variant="text" size="sm">
+            {showCta ? (
+              <div className="relative z-30 mt-3 md:mt-4">
+                <Button href={href!} variant="text" size="sm">
                   {cta}
                 </Button>
-              )}
-            </div>
+              </div>
+            ) : null}
           </div>
         </div>
 
