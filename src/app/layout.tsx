@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   icons: {
     // Prefer 32/48 PNG first so tabs don't fall back to tiny 16px ICO.
     icon: [
+      { url: `${basePath}/logo/favicon-64.png`, sizes: "64x64", type: "image/png" },
       { url: `${basePath}/logo/favicon-48.png`, sizes: "48x48", type: "image/png" },
       { url: `${basePath}/logo/favicon-32.png`, sizes: "32x32", type: "image/png" },
-      { url: `${basePath}/logo/favicon-64.png`, sizes: "64x64", type: "image/png" },
       { url: `${basePath}/logo/favicon-96.png`, sizes: "96x96", type: "image/png" },
       { url: `${basePath}/logo/favicon-128.png`, sizes: "128x128", type: "image/png" },
       { url: `${basePath}/logo/icon-192.png`, sizes: "192x192", type: "image/png" },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     apple: [
       { url: `${basePath}/apple-touch-icon.png`, sizes: "180x180", type: "image/png" },
     ],
-    shortcut: `${basePath}/logo/favicon-48.png`,
+    shortcut: `${basePath}/logo/favicon-64.png`,
   },
   manifest: `${basePath}/site.webmanifest`,
 };

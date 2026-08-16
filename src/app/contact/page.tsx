@@ -12,7 +12,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="pt-20">
+    <div className="pt-28 md:pt-36">
       <section className="section-padding container-max py-16 md:py-24">
         <h1 className="font-display text-4xl font-bold md:text-6xl">
           Contact Us

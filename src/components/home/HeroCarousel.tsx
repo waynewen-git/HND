@@ -1,10 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import AppImage from "@/components/ui/AppImage";
+import { useCallback, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { HeroSlide } from "@/types";
-import Button from "@/components/ui/Button";
+import { withBasePath } from "@/lib/assetPath";
 
 interface HeroCarouselProps {
   slides: HeroSlide[];
@@ -25,75 +24,64 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
   }, [slides.length]);
 
-  useEffect(() => {
-    const timer = setInterval(next, 7000);
-    return () => clearInterval(timer);
-  }, [next]);
-
   const slide = slides[current];
 
   return (
-    <section className="w-full pt-24 md:pt-28" aria-label="Featured products">
-      {/* Full-bleed image stage — edge to edge, scales with viewport */}
-      <div className="relative w-full overflow-hidden bg-hnd-white dark:bg-hnd-black">
-        <div className="relative w-full overflow-hidden">
-          {slides.map((s, i) => (
-            <div
-              key={s.id}
-              className={`w-full overflow-hidden transition-opacity duration-700 ${
-                i === current
-                  ? "relative opacity-100"
-                  : "pointer-events-none absolute inset-0 opacity-0"
+    <section className="w-full max-w-[100vw] pt-28 md:pt-36" aria-label="Featured products">
+      <div className="relative w-full max-w-full">
+        {/* Only mount current slide in-flow so nothing can cover the controls */}
+        <img
+          key={slide.id}
+          src={withBasePath(slide.image)}
+          alt={slide.title}
+          className="block h-auto w-full max-w-full"
+          decoding="async"
+          fetchPriority="high"
+        />
+
+        {/* Preload neighbors off-screen */}
+        <div className="pointer-events-none absolute h-0 w-0 overflow-hidden opacity-0" aria-hidden>
+          {slides.map((s) =>
+            s.id === slide.id ? null : (
+              <img key={s.id} src={withBasePath(s.image)} alt="" />
+            ),
+          )}
+        </div>
+
+        <button
+          type="button"
+          onClick={prev}
+          className="absolute top-1/2 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-hnd-red text-white shadow-lg transition-transform hover:scale-105"
+          style={{ left: "max(12px, 4%)" }}
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="h-6 w-6" strokeWidth={2.5} />
+        </button>
+        <button
+          type="button"
+          onClick={next}
+          className="absolute top-1/2 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-hnd-red text-white shadow-lg transition-transform hover:scale-105"
+          style={{ left: "auto", right: "max(12px, 4%)" }}
+          aria-label="Next slide"
+        >
+          <ChevronRight className="h-6 w-6" strokeWidth={2.5} />
+        </button>
+
+        <div className="absolute bottom-4 left-1/2 z-50 flex -translate-x-1/2 gap-2 sm:bottom-5 md:bottom-6">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => goTo(i)}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                i === current ? "w-8 bg-white" : "w-4 bg-white/40"
               }`}
-              aria-hidden={i !== current}
-            >
-              {/* Crop ~20% height (10% top + 10% bottom), keep full width */}
-              <div className="-my-[10%] w-full">
-                <AppImage
-                  src={s.image}
-                  alt={s.title}
-                  width={2400}
-                  height={1200}
-                  priority={i === 0}
-                  unoptimized
-                  className="h-auto w-full object-contain object-center"
-                  sizes="100vw"
-                />
-              </div>
-            </div>
+              aria-label={`Go to slide ${i + 1}`}
+            />
           ))}
-
-          <button
-            onClick={prev}
-            className="absolute top-1/2 left-4 z-10 -translate-y-1/2 rounded-full bg-black/30 p-2.5 text-white backdrop-blur-md transition-all hover:bg-black/50 md:left-8"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
-          </button>
-          <button
-            onClick={next}
-            className="absolute top-1/2 right-4 z-10 -translate-y-1/2 rounded-full bg-black/30 p-2.5 text-white backdrop-blur-md transition-all hover:bg-black/50 md:right-8"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
-          </button>
-
-          <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 gap-2 md:bottom-6">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                className={`h-1 rounded-full transition-all duration-300 ${
-                  i === current ? "w-8 bg-white" : "w-4 bg-white/40"
-                }`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
-          </div>
         </div>
       </div>
 
-      {/* Copy below — Tesla rhythm, centered with padding */}
       <div
         id="home-content"
         className="section-padding container-max mx-auto py-8 text-center md:py-10"
@@ -104,14 +92,6 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
         <p className="mt-3 font-body text-sm tracking-wide text-hnd-gray-500 md:text-base">
           {slide.subtitle}
         </p>
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-          <Button href={slide.ctaHref} size="lg">
-            {slide.cta}
-          </Button>
-          <Button href="/shop" variant="outline" size="lg">
-            Shop All
-          </Button>
-        </div>
       </div>
     </section>
   );

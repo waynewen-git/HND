@@ -14,7 +14,7 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="pt-20">
+      <div className="pt-28 md:pt-36">
         <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
           <h1 className="font-display text-3xl font-bold">Nothing to Checkout</h1>
           <Button href="/shop" size="lg" className="mt-8">
@@ -35,7 +35,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="pt-20">
+    <div className="pt-28 md:pt-36">
       <div className="section-padding container-max py-16 md:py-24">
         <h1 className="font-display text-4xl font-bold md:text-5xl">Checkout</h1>
 

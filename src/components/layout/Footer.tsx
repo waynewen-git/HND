@@ -24,7 +24,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-hnd-gray-300/20 bg-hnd-gray-950 text-hnd-gray-300">
+    <footer className="border-t border-hnd-gray-300/40 bg-hnd-white text-hnd-gray-700 dark:border-hnd-gray-800 dark:bg-hnd-black dark:text-hnd-gray-300">
       <div className="section-padding container-max py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-1">
@@ -40,7 +40,7 @@ export default function Footer() {
 
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h3 className="mb-4 text-sm font-semibold tracking-wider text-hnd-white uppercase">
+              <h3 className="mb-4 text-sm font-semibold tracking-wider text-hnd-black uppercase dark:text-hnd-white">
                 {title}
               </h3>
               <ul className="space-y-3">
@@ -48,7 +48,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm transition-colors hover:text-hnd-white"
+                      className="text-sm text-hnd-gray-600 transition-colors hover:text-hnd-black dark:text-hnd-gray-400 dark:hover:text-hnd-white"
                     >
                       {link.label}
                     </Link>
@@ -59,16 +59,22 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-hnd-gray-800 pt-8 md:flex-row">
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-hnd-gray-300/40 pt-8 md:flex-row dark:border-hnd-gray-800">
           <p className="text-xs text-hnd-gray-500">
             &copy; {new Date().getFullYear()} HND Musical Instruments. All
             rights reserved.
           </p>
           <div className="flex gap-6 text-xs text-hnd-gray-500">
-            <Link href="/about" className="hover:text-hnd-white">
+            <Link
+              href="/about"
+              className="hover:text-hnd-black dark:hover:text-hnd-white"
+            >
               Privacy Policy
             </Link>
-            <Link href="/about" className="hover:text-hnd-white">
+            <Link
+              href="/about"
+              className="hover:text-hnd-black dark:hover:text-hnd-white"
+            >
               Terms of Service
             </Link>
           </div>

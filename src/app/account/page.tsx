@@ -9,7 +9,7 @@ export default function AccountPage() {
 
   if (!loggedIn) {
     return (
-      <div className="pt-20">
+      <div className="pt-28 md:pt-36">
         <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24">
           <h1 className="font-display text-3xl font-bold md:text-4xl">
             Account
@@ -51,7 +51,7 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="pt-20">
+    <div className="pt-28 md:pt-36">
       <div className="section-padding container-max py-16 md:py-24">
         <div className="flex items-center justify-between">
           <div>

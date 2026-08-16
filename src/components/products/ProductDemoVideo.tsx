@@ -12,7 +12,7 @@ export default function ProductDemoVideo({
   poster,
 }: ProductDemoVideoProps) {
   return (
-    <section className="bg-hnd-gray-100 dark:bg-hnd-gray-950">
+    <section className="bg-hnd-white dark:bg-hnd-black">
       <div className="section-padding container-max py-16 md:py-24">
         <h2 className="font-display text-2xl font-bold md:text-3xl">
           Product Demo

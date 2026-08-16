@@ -7,15 +7,16 @@
   --color-hnd-red-dark: #9e1830;
   --color-hnd-steel: #8b9daf;
   --color-hnd-steel-light: #a8b8c8;
-  --color-hnd-black: #0a0a0a;
-  --color-hnd-gray-950: #111111;
-  --color-hnd-gray-900: #1a1a1a;
-  --color-hnd-gray-800: #2a2a2a;
+  /* Surfaces: no pure black / pure white — soft grays only */
+  --color-hnd-black: #1a1a1a;
+  --color-hnd-gray-950: #1a1a1a;
+  --color-hnd-gray-900: #242424;
+  --color-hnd-gray-800: #2e2e2e;
   --color-hnd-gray-700: #404040;
   --color-hnd-gray-500: #737373;
-  --color-hnd-gray-300: #d4d4d4;
-  --color-hnd-gray-100: #f5f5f5;
-  --color-hnd-white: #fafafa;
+  --color-hnd-gray-300: #c4c4c4;
+  --color-hnd-gray-100: #e6e6e6;
+  --color-hnd-white: #e6e6e6;
 
   --font-display: var(--font-syne), system-ui, sans-serif;
   --font-body: var(--font-dm-sans), system-ui, sans-serif;
@@ -26,13 +27,16 @@
     scroll-behavior: smooth;
   }
 
+  html,
   body {
     @apply bg-hnd-white text-hnd-black antialiased;
     font-family: var(--font-body);
+    overflow-x: clip;
+    max-width: 100%;
   }
 
-  .dark body,
-  body:where(.dark *) {
+  html.dark,
+  html.dark body {
     @apply bg-hnd-black text-hnd-white;
   }
 

@@ -36,7 +36,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
 
   if (!article) {
     return (
-      <div className="pt-20">
+      <div className="pt-28 md:pt-36">
         <div className="section-padding container-max py-24 text-center">
           <h1 className="font-display text-3xl font-bold">Article Not Found</h1>
           <Button href="/news" className="mt-8">
@@ -48,7 +48,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
   }
 
   return (
-    <div className="pt-20">
+    <div className="pt-28 md:pt-36">
       <article className="section-padding container-max py-16 md:py-24">
         <Link
           href="/news"

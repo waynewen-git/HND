@@ -37,7 +37,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-hnd-black text-white">
+      <section className="border-t border-hnd-gray-300/40 bg-hnd-white text-hnd-black dark:border-hnd-gray-800 dark:bg-hnd-black dark:text-hnd-white">
         <div className="section-padding container-max flex flex-col items-center py-24 text-center md:py-32">
           <h2 className="font-display text-3xl font-bold md:text-5xl">
             Build Your Sound
@@ -50,7 +50,12 @@ export default function HomePage() {
             <Button href="/configure" size="lg">
               Start Configuring
             </Button>
-            <Button href="/shop" variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+            <Button
+              href="/shop"
+              variant="outline"
+              size="lg"
+              className="border-hnd-black text-hnd-black hover:bg-hnd-black/5 dark:border-hnd-white dark:text-hnd-white dark:hover:bg-hnd-white/10"
+            >
               Shop Now
             </Button>
           </div>

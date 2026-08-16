@@ -11,11 +11,11 @@ const variants = {
   primary:
     "bg-hnd-red text-white hover:bg-hnd-red-dark active:scale-[0.98]",
   secondary:
-    "bg-hnd-black text-white hover:bg-hnd-gray-900 dark:bg-white dark:text-hnd-black dark:hover:bg-hnd-gray-100 active:scale-[0.98]",
+    "bg-hnd-black text-hnd-white hover:bg-hnd-gray-900 dark:bg-hnd-white dark:text-hnd-black dark:hover:bg-hnd-gray-300 active:scale-[0.98]",
   ghost:
-    "bg-transparent hover:bg-hnd-gray-100 dark:hover:bg-hnd-gray-900 active:scale-[0.98]",
+    "bg-transparent hover:bg-hnd-gray-300/40 dark:hover:bg-hnd-gray-900 active:scale-[0.98]",
   outline:
-    "border border-current bg-transparent hover:bg-hnd-gray-100 dark:hover:bg-hnd-gray-900 active:scale-[0.98]",
+    "border border-current bg-transparent hover:bg-hnd-gray-300/40 dark:hover:bg-hnd-gray-900 active:scale-[0.98]",
 };
 
 const sizes = {

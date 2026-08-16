@@ -123,10 +123,10 @@ function NavMenuItem({
   const labelClass = cn(
     "rounded-sm px-3 py-1.5 text-[13px] font-semibold tracking-wide uppercase transition-colors duration-200 lg:text-sm",
     isOpen
-      ? "bg-hnd-gray-100 text-hnd-black dark:bg-hnd-gray-800 dark:text-hnd-white"
+      ? "bg-hnd-gray-300/50 text-hnd-black dark:bg-hnd-gray-800 dark:text-hnd-white"
       : active
         ? "text-hnd-red"
-        : "text-hnd-gray-700 hover:bg-hnd-gray-100 dark:text-hnd-gray-300 dark:hover:bg-hnd-gray-800",
+        : "text-hnd-gray-700 hover:bg-hnd-gray-300/40 dark:text-hnd-gray-300 dark:hover:bg-hnd-gray-800",
   );
 
   return (
@@ -217,10 +217,10 @@ export default function Navbar() {
         onMouseLeave={() => setOpenMenu(null)}
       >
         <nav
-          className="section-padding container-max flex h-20 items-center gap-4 md:h-24 md:gap-6"
+          className="section-padding container-max flex h-28 items-center gap-4 md:h-36 md:gap-6"
           aria-label="Main navigation"
         >
-          <Logo size="md" />
+          <Logo size="md" slideshow />
 
           <ul className="hidden min-w-0 flex-1 items-center justify-center gap-1 md:flex lg:gap-2">
             {categoryNavItems.map((item) => (
@@ -377,7 +377,7 @@ export default function Navbar() {
       </header>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-hnd-white px-5 pt-5 pb-10 dark:bg-hnd-gray-950 md:hidden">
+        <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-hnd-white px-5 pt-5 pb-10 dark:bg-hnd-black md:hidden">
           <button
             onClick={() => setMobileOpen(false)}
             className="mb-4 self-end p-1"

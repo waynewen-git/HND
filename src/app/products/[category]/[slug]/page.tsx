@@ -36,7 +36,7 @@ export default async function ProductDetailPage({
   const related = getRelatedProducts(product);
 
   return (
-    <div className="pt-20">
+    <div className="pt-28 md:pt-36">
       {/* Hero */}
       <section className="section-padding container-max py-12 md:py-20">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
@@ -92,7 +92,7 @@ export default async function ProductDetailPage({
       )}
 
       {/* Highlights */}
-      <section className="bg-hnd-gray-100 dark:bg-hnd-gray-950">
+      <section className="bg-hnd-white dark:bg-hnd-black">
         <div className="section-padding container-max py-16 md:py-24">
           <h2 className="font-display text-2xl font-bold md:text-3xl">
             Highlights
@@ -130,7 +130,7 @@ export default async function ProductDetailPage({
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="bg-hnd-gray-100 dark:bg-hnd-gray-950">
+        <section className="bg-hnd-white dark:bg-hnd-black">
           <div className="section-padding container-max py-16 md:py-24">
             <div className="flex items-end justify-between">
               <h2 className="font-display text-2xl font-bold md:text-3xl">

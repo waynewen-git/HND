@@ -28,7 +28,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const isGuitars = category === "guitars";
 
   return (
-    <div className="pt-20">
+    <div className="pt-28 md:pt-36">
       <section className="relative h-[50vh] min-h-[360px]">
         <AppImage
           src={info.heroImage}

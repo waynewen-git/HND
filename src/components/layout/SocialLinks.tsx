@@ -195,7 +195,7 @@ export default function SocialLinks({
             className={cn(
               "flex items-center justify-center rounded-full transition-transform hover:scale-110",
               isBrand
-                ? "h-11 w-11 bg-hnd-gray-100 shadow-sm md:h-12 md:w-12 dark:bg-hnd-gray-900"
+                ? "h-11 w-11 bg-hnd-gray-300/50 shadow-sm md:h-12 md:w-12 dark:bg-hnd-gray-900"
                 : "h-10 w-10 border border-hnd-gray-700 text-hnd-gray-400 hover:border-hnd-red hover:text-hnd-red",
             )}
           >
