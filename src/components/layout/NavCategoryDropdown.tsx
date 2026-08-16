@@ -51,7 +51,7 @@ export default function NavCategoryDropdown({
   return (
     <div
       className={cn(
-        "flex items-start gap-6 py-2 md:gap-8 md:py-3",
+        "flex items-start gap-5 py-2 md:gap-6 md:py-3",
         className,
       )}
     >
@@ -64,16 +64,16 @@ export default function NavCategoryDropdown({
           return (
             <li key={product.id}>
               <div className="flex flex-col items-stretch gap-2 py-1.5 sm:flex-row sm:items-center sm:gap-3 md:gap-4 md:py-2">
-                {/* Chapter copy — watermark sits behind text, does not push image away */}
-                <div className="relative w-full shrink-0 sm:w-[13.5rem] md:w-[15rem] lg:w-[16rem]">
+                {/* Match CategoryChapter: big index as left sibling, copy overlaps it */}
+                <div className="relative z-20 flex w-full min-w-0 shrink-0 items-center gap-1 sm:w-[min(100%,18rem)] md:w-[20rem] lg:w-[22rem]">
                   <span
                     aria-hidden
-                    className="font-bebas pointer-events-none absolute top-1/2 left-0 z-0 hidden -translate-y-1/2 origin-left scale-x-[0.88] scale-y-[1.5] select-none text-[clamp(5.5rem,8vw,9rem)] leading-none tracking-tighter text-hnd-black/[0.07] lg:block dark:text-hnd-white/[0.09]"
+                    className="font-bebas pointer-events-none hidden shrink-0 origin-center scale-x-[0.88] scale-y-[1.55] select-none text-[clamp(7rem,9vw,11rem)] leading-none tracking-tighter text-hnd-black/[0.07] lg:inline dark:text-hnd-white/[0.09]"
                   >
                     {index}
                   </span>
 
-                  <div className="relative z-10 min-w-0 pl-1 lg:pl-3">
+                  <div className="relative z-20 min-w-0 lg:-ml-3">
                     <div className="flex items-baseline gap-2">
                       <span className="font-bebas text-2xl leading-none text-hnd-red lg:hidden">
                         {index}
@@ -83,7 +83,7 @@ export default function NavCategoryDropdown({
                       </p>
                     </div>
 
-                    <h2 className="mt-1 font-bebas text-[clamp(1.45rem,2.2vw,2.1rem)] leading-[0.88] text-hnd-black dark:text-hnd-white">
+                    <h2 className="mt-1 font-bebas text-[clamp(1.65rem,2.5vw,2.4rem)] leading-[0.88] text-hnd-black dark:text-hnd-white">
                       {titleLines.map((line) => (
                         <span key={`${product.id}-${line}`} className="block">
                           {line}
@@ -92,14 +92,14 @@ export default function NavCategoryDropdown({
                     </h2>
 
                     {product.tagline ? (
-                      <p className="mt-1.5 font-ui text-[10px] tracking-[0.16em] text-hnd-gray-500 uppercase md:text-[11px]">
+                      <p className="mt-2 font-ui text-[11px] tracking-[0.16em] text-hnd-gray-500 uppercase md:text-xs">
                         {product.tagline}
                       </p>
                     ) : null}
 
                     <Link
                       href={productHref}
-                      className="group/cta mt-2.5 inline-flex items-center gap-2 font-ui text-[11px] tracking-[0.18em] text-hnd-black uppercase transition-colors hover:text-hnd-red dark:text-hnd-white dark:hover:text-hnd-red"
+                      className="group/cta relative z-30 mt-3 inline-flex items-center gap-2 font-ui text-xs tracking-[0.18em] text-hnd-black uppercase transition-colors hover:text-hnd-red dark:text-hnd-white dark:hover:text-hnd-red"
                     >
                       Explore
                       <span className="text-hnd-red transition-transform group-hover/cta:translate-x-0.5">
@@ -109,10 +109,9 @@ export default function NavCategoryDropdown({
                   </div>
                 </div>
 
-                {/* Product image — fills remaining width */}
                 <Link
                   href={productHref}
-                  className="relative block h-[180px] min-w-0 flex-1 overflow-hidden transition-transform duration-300 hover:scale-[1.02] sm:h-[200px] md:h-[240px] lg:h-[280px]"
+                  className="relative block h-[180px] min-w-0 flex-1 overflow-hidden transition-transform duration-300 hover:scale-[1.02] sm:h-[210px] md:h-[250px] lg:h-[290px]"
                 >
                   <AppImage
                     src={product.navImage ?? product.images[0]}
@@ -120,7 +119,7 @@ export default function NavCategoryDropdown({
                     fill
                     unoptimized
                     className="object-contain object-left"
-                    sizes="(max-width: 768px) 100vw, 60vw"
+                    sizes="(max-width: 768px) 100vw, 55vw"
                   />
                 </Link>
               </div>
