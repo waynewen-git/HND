@@ -64,7 +64,6 @@ const ampPngs = [
   "/images/hero-amps-4.webp",
   "/images/hero-amps-5.webp",
   "/images/hero-amps-6.webp",
-  "/images/hero-amps-7.webp",
 ];
 
 const speakerImage = "/images/hero-speaker-0.webp";
@@ -79,7 +78,7 @@ const livePngs = [
 ];
 
 const guitarPrices = [699, 739, 779, 819, 859, 899];
-const ampPrices = [599, 633, 666, 699, 729, 759, 799];
+const ampPrices = [599, 633, 666, 699, 729, 759];
 
 const guitarSeries = [
   { tagline: "Classic Single-Cut", body: "Mahogany set-neck" },
@@ -126,7 +125,7 @@ export const products: Product[] = [
     featured: i < 3,
   };
   }),
-  ...Array.from({ length: 7 }, (_, i) => {
+  ...Array.from({ length: 6 }, (_, i) => {
     const ampImage = ampPngs[i];
     const n = i + 1;
     return {

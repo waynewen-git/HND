@@ -5,7 +5,7 @@ import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { withBasePath } from "@/lib/assetPath";
 
-const HERO_VIDEO = withBasePath("/videos/hero.mp4");
+const HERO_VIDEO = withBasePath("/videos/products/hero.mp4");
 const HERO_POSTER = withBasePath("/images/hero-guitar-1.webp");
 
 export default function HeroVideo() {

@@ -53,12 +53,12 @@ function ChapterIndex({
   heightPx: number;
 }) {
   const fontSize =
-    heightPx > 0 ? Math.max(48, Math.min(heightPx * 0.78, 160)) : 72;
+    heightPx > 0 ? Math.max(28, Math.min(heightPx * 0.78, 160)) : 48;
 
   return (
     <span
       aria-hidden
-      className="font-bebas pointer-events-none hidden shrink-0 origin-center scale-x-[0.72] scale-y-[1.65] select-none items-center tracking-tighter text-hnd-black/15 sm:inline-flex dark:text-hnd-white/18"
+      className="font-bebas pointer-events-none inline-flex shrink-0 origin-center scale-x-[0.72] scale-y-[1.65] select-none items-center tracking-tighter text-hnd-black/15 dark:text-hnd-white/18"
       style={{
         fontSize,
         lineHeight: 1,
@@ -109,23 +109,18 @@ function ProductChapterRow({
 
   return (
     <div
-      className="flex flex-col items-stretch py-3 sm:flex-row sm:items-center"
-      style={{ gap: "clamp(0.75rem, 4vw, 2.5rem)" }}
+      className="flex flex-row items-center py-[clamp(0.5rem,1.5vw,0.85rem)]"
+      style={{ gap: "clamp(0.5rem, 3.5vw, 2.5rem)" }}
     >
-      <div className="relative z-20 flex w-full min-w-0 shrink-0 items-center gap-3 sm:w-auto sm:max-w-[min(48%,18rem)]">
+      <div className="relative z-20 flex w-[min(42%,20rem)] min-w-[7.25rem] shrink-0 items-center gap-[clamp(0.35rem,1.5vw,0.85rem)]">
         <ChapterIndex index={index} heightPx={copyHeight} />
 
         <div ref={copyRef} className="relative z-20 min-w-0">
-          <div className="flex items-baseline gap-2">
-            <span className="font-bebas text-3xl leading-none text-hnd-red sm:hidden">
-              {index}
-            </span>
-            <p className="font-ui text-[11px] font-semibold tracking-[0.22em] text-hnd-red uppercase">
-              {label}
-            </p>
-          </div>
+          <p className="font-ui text-[clamp(8px,1.6vw,12px)] font-semibold tracking-[0.22em] text-hnd-red uppercase">
+            {label}
+          </p>
 
-          <h2 className="mt-1.5 font-bebas text-[clamp(1.85rem,6vw,2.6rem)] leading-[0.88] text-hnd-black dark:text-hnd-white">
+          <h2 className="mt-[0.2em] font-bebas text-[clamp(1.15rem,4.2vw,2.6rem)] leading-[0.88] text-hnd-black dark:text-hnd-white">
             {titleLines.map((line) => (
               <span key={`${href}-${line}`} className="block">
                 {line}
@@ -134,7 +129,7 @@ function ProductChapterRow({
           </h2>
 
           {tagline ? (
-            <p className="mt-2 font-ui text-xs tracking-[0.16em] text-hnd-gray-500 uppercase">
+            <p className="mt-[0.35em] font-ui text-[clamp(8px,1.7vw,13px)] tracking-[0.16em] text-hnd-gray-500 uppercase">
               {tagline}
             </p>
           ) : null}
@@ -142,7 +137,7 @@ function ProductChapterRow({
           <Link
             href={href}
             onClick={onNavigate}
-            className="group/cta relative z-30 mt-3 inline-flex items-center gap-2 font-ui text-sm tracking-[0.18em] text-hnd-black uppercase transition-colors hover:text-hnd-red dark:text-hnd-white dark:hover:text-hnd-red"
+            className="group/cta relative z-30 mt-[0.55em] inline-flex items-center gap-1.5 font-ui text-[clamp(9px,1.7vw,14px)] tracking-[0.18em] text-hnd-black uppercase transition-colors hover:text-hnd-red dark:text-hnd-white dark:hover:text-hnd-red"
           >
             Explore
             <span className="text-hnd-red transition-transform group-hover/cta:translate-x-0.5">
@@ -155,8 +150,8 @@ function ProductChapterRow({
       <Link
         href={href}
         onClick={onNavigate}
-        className="relative block min-h-[10rem] min-w-0 flex-1 overflow-hidden sm:min-h-[12rem]"
-        style={{ height: "clamp(10rem, 38vw, 16rem)" }}
+        className="relative block min-w-0 flex-1 overflow-hidden"
+        style={{ height: "clamp(6.5rem, 28vw, 16rem)" }}
       >
         <AppImage
           src={image}
@@ -164,7 +159,7 @@ function ProductChapterRow({
           fill
           unoptimized
           className="object-contain object-left"
-          sizes="(max-width: 768px) 100vw, 55vw"
+          sizes="(max-width: 768px) 60vw, 55vw"
         />
       </Link>
     </div>
