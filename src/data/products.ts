@@ -306,14 +306,23 @@ export const heroSlides: HeroSlide[] = [
   },
 ];
 
-/** Homepage slideshow — preview with hnd-1…3 JPG (full-width responsive) */
+/** Homepage slideshow — hnd-0…3, full-width, 500px tall on desktop */
 export const categorySlides = [
+  {
+    id: "hnd-0",
+    label: "Intro",
+    title: "HND",
+    tagline: "",
+    image: "/images/hnd-0.webp",
+    href: "/shop",
+    cta: "Explore",
+  },
   {
     id: "hnd-1",
     label: "Lifestyle",
     title: "Stage Ready",
     tagline: "Bring rock closer to life.",
-    image: "/images/hnd-1.jpg",
+    image: "/images/hnd-1.webp",
     href: "/products/lifestyle",
     cta: "Explore Lifestyle",
   },
@@ -322,7 +331,7 @@ export const categorySlides = [
     label: "Guitars",
     title: "Electric Guitars",
     tagline: "Built for heavy rock.",
-    image: "/images/hnd-2.jpg",
+    image: "/images/hnd-2.webp",
     href: "/products/guitars",
     cta: "Explore Guitars",
   },
@@ -331,7 +340,7 @@ export const categorySlides = [
     label: "Amps",
     title: "Amp Heads",
     tagline: "Pure power. Zero compromise.",
-    image: "/images/hnd-3.jpg",
+    image: "/images/hnd-3.webp",
     href: "/products/amps",
     cta: "Explore Amps",
   },

@@ -6,8 +6,6 @@ import { withBasePath } from "@/lib/assetPath";
 import type { CategorySlide } from "@/types/categorySlide";
 
 const AUTO_MS = 5000;
-/** Intrinsic frame size of hnd-1…3.jpg — drives responsive aspect box */
-const SLIDE_ASPECT = "1440 / 700";
 
 interface CategorySlideshowProps {
   slides: CategorySlide[];
@@ -44,11 +42,8 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
       aria-label="Product showcase"
       aria-roledescription="carousel"
     >
-      {/* Width-driven frame: height scales with viewport via aspect-ratio */}
-      <div
-        className="relative w-full overflow-hidden"
-        style={{ aspectRatio: SLIDE_ASPECT }}
-      >
+      {/* Fixed 500px on desktop; width-only crop via object-cover */}
+      <div className="relative h-[min(42svh,500px)] w-full overflow-hidden md:h-[500px]">
         <div
           key={slide.id}
           className="absolute inset-0 bg-hnd-white dark:bg-transparent"
