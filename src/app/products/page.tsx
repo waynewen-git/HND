@@ -4,7 +4,7 @@ import { categoryChapters } from "@/data/products";
 
 export default function ProductsPage() {
   return (
-    <div className="pt-16 md:pt-20">
+    <div className="pt-24 md:pt-28">
       {categoryChapters.map((chapter) => (
         <Link
           key={chapter.id}

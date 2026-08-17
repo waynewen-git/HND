@@ -13,69 +13,69 @@ export const categories: CategoryInfo[] = [
     name: "Electric Guitars",
     description:
       "Six precision-built electric guitars engineered for heavy rock. Aggressive tone, cold metal aesthetics, stage-ready performance.",
-    heroImage: "/images/hnd-2.png",
+    heroImage: "/images/hnd-2.webp",
   },
   {
     slug: "amps",
     name: "Amp Heads",
     description:
       "Seven professional amp heads delivering crushing gain and pristine clarity. Built for the studio and the stage.",
-    heroImage: "/images/hnd-3.png",
+    heroImage: "/images/hnd-3.webp",
   },
   {
     slug: "speakers",
     name: "Bluetooth Speakers",
     description:
       "Diode-driven Bluetooth audio with studio-grade clarity. One model, two finishes, uncompromising sound.",
-    heroImage: "/images/hnd-1.png",
+    heroImage: "/images/hnd-1.webp",
   },
   {
     slug: "lifestyle",
     name: "Lifestyle",
     description:
       "Stage-ready apparel and accessories. Bring rock closer to life.",
-    heroImage: "/images/hnd-4.png",
+    heroImage: "/images/hnd-4.webp",
   },
 ];
 
 const guitarPngs = [
-  "/images/hero-guitar-1.png",
-  "/images/hero-guitar-2.png",
-  "/images/hero-guitar-3.png",
-  "/images/hero-guitar-4.png",
-  "/images/hero-guitar-5.png",
-  "/images/hero-guitar-6.png",
+  "/images/hero-guitar-1.webp",
+  "/images/hero-guitar-2.webp",
+  "/images/hero-guitar-3.webp",
+  "/images/hero-guitar-4.webp",
+  "/images/hero-guitar-5.webp",
+  "/images/hero-guitar-6.webp",
 ];
 
 const guitarDetailImages = [
-  "/images/guitar-detail-1.jpg",
-  "/images/guitar-detail-2.jpg",
-  "/images/guitar-detail-3.jpg",
-  "/images/guitar-detail-4.jpg",
-  "/images/guitar-detail-5.jpg",
-  "/images/guitar-detail-6.jpg",
-  "/images/guitar-detail-7.jpg",
+  "/images/guitar-detail-1.webp",
+  "/images/guitar-detail-2.webp",
+  "/images/guitar-detail-3.webp",
+  "/images/guitar-detail-4.webp",
+  "/images/guitar-detail-5.webp",
+  "/images/guitar-detail-6.webp",
+  "/images/guitar-detail-7.webp",
 ];
 
 const ampPngs = [
-  "/images/hero-amps-1.png",
-  "/images/hero-amps-2.png",
-  "/images/hero-amps-3.png",
-  "/images/hero-amps-4.png",
-  "/images/hero-amps-5.png",
-  "/images/hero-amps-6.png",
-  "/images/hero-amps-7.png",
+  "/images/hero-amps-1.webp",
+  "/images/hero-amps-2.webp",
+  "/images/hero-amps-3.webp",
+  "/images/hero-amps-4.webp",
+  "/images/hero-amps-5.webp",
+  "/images/hero-amps-6.webp",
+  "/images/hero-amps-7.webp",
 ];
 
-const speakerImage = "/images/hero-speaker-0.png";
+const speakerImage = "/images/hero-speaker-0.webp";
 
 const livePngs = [
-  "/images/hero-live-0.png",
-  "/images/hero-live-1.png",
-  "/images/hero-live-2.png",
-  "/images/hero-live-3.png",
-  "/images/hero-live-4.png",
-  "/images/hero-live-5.png",
+  "/images/hero-live-0.webp",
+  "/images/hero-live-1.webp",
+  "/images/hero-live-2.webp",
+  "/images/hero-live-3.webp",
+  "/images/hero-live-4.webp",
+  "/images/hero-live-5.webp",
 ];
 
 const guitarPrices = [699, 739, 779, 819, 859, 899];
@@ -279,7 +279,7 @@ export const heroSlides: HeroSlide[] = [
     subtitle: "Heavy Rock / Electric Guitar",
     cta: "Explore Guitars",
     ctaHref: "/products/guitars",
-    image: "/images/hnd-0.png",
+    image: "/images/hnd-0.webp",
   },
   {
     id: "hero-2",
@@ -287,7 +287,7 @@ export const heroSlides: HeroSlide[] = [
     subtitle: "Stage / Amp Head",
     cta: "Explore Amps",
     ctaHref: "/products/amps",
-    image: "/images/hero-amps-1.png",
+    image: "/images/hero-amps-1.webp",
   },
   {
     id: "hero-3",
@@ -295,7 +295,7 @@ export const heroSlides: HeroSlide[] = [
     subtitle: "Pure Sound / Bluetooth Speaker",
     cta: "Explore Speakers",
     ctaHref: "/products/speakers",
-    image: "/images/hero-speaker-0.png",
+    image: "/images/hero-speaker-0.webp",
   },
   {
     id: "hero-4",
@@ -303,27 +303,18 @@ export const heroSlides: HeroSlide[] = [
     subtitle: "Made for the stage",
     cta: "Shop All",
     ctaHref: "/shop",
-    image: "/images/hero-live-0.png",
+    image: "/images/hero-live-0.webp",
   },
 ];
 
-/** Homepage slideshow — full-bleed frames hnd-0 … hnd-6 */
+/** Homepage slideshow — preview with hnd-1…3 JPG (full-width responsive) */
 export const categorySlides = [
-  {
-    id: "hnd-0",
-    label: "Intro",
-    title: "HND",
-    tagline: "",
-    image: "/images/hnd-0.png",
-    href: "/shop",
-    cta: "Explore",
-  },
   {
     id: "hnd-1",
     label: "Lifestyle",
     title: "Stage Ready",
     tagline: "Bring rock closer to life.",
-    image: "/images/hnd-1.png",
+    image: "/images/hnd-1.jpg",
     href: "/products/lifestyle",
     cta: "Explore Lifestyle",
   },
@@ -332,7 +323,7 @@ export const categorySlides = [
     label: "Guitars",
     title: "Electric Guitars",
     tagline: "Built for heavy rock.",
-    image: "/images/hnd-2.png",
+    image: "/images/hnd-2.jpg",
     href: "/products/guitars",
     cta: "Explore Guitars",
   },
@@ -341,36 +332,9 @@ export const categorySlides = [
     label: "Amps",
     title: "Amp Heads",
     tagline: "Pure power. Zero compromise.",
-    image: "/images/hnd-3.png",
+    image: "/images/hnd-3.jpg",
     href: "/products/amps",
     cta: "Explore Amps",
-  },
-  {
-    id: "hnd-4",
-    label: "Apparel",
-    title: "HND Apparel",
-    tagline: "Wear the stage.",
-    image: "/images/hnd-4.png",
-    href: "/products/lifestyle",
-    cta: "Explore Lifestyle",
-  },
-  {
-    id: "hnd-5",
-    label: "Footwear",
-    title: "Stage Footwear",
-    tagline: "Built to move.",
-    image: "/images/hnd-5.png",
-    href: "/products/lifestyle",
-    cta: "Explore Lifestyle",
-  },
-  {
-    id: "hnd-6",
-    label: "Accessories",
-    title: "Accessories",
-    tagline: "Details that amplify.",
-    image: "/images/hnd-6.png",
-    href: "/products/lifestyle",
-    cta: "Explore Lifestyle",
   },
 ];
 
@@ -382,7 +346,7 @@ export const categoryChapters = [
     label: "Guitars",
     title: "Electric Guitars",
     tagline: "Built for heavy rock.",
-    image: "/images/hnd-2.png",
+    image: "/images/hnd-2.webp",
     href: "/products/guitars",
     cta: "Explore Guitars",
     imageScale: 1,
@@ -393,7 +357,7 @@ export const categoryChapters = [
     label: "Amps",
     title: "Amp Heads",
     tagline: "Pure power. Zero compromise.",
-    image: "/images/hnd-3.png",
+    image: "/images/hnd-3.webp",
     href: "/products/amps",
     cta: "Explore Amps",
     imageScale: 1,
@@ -404,7 +368,7 @@ export const categoryChapters = [
     label: "Speakers",
     title: "Bluetooth Speakers",
     tagline: "Pure sound. No compromise.",
-    image: "/images/hnd-1.png",
+    image: "/images/hnd-1.webp",
     href: "/products/speakers",
     cta: "Explore Speakers",
     imageScale: 1,
@@ -415,7 +379,7 @@ export const categoryChapters = [
     label: "Lifestyle",
     title: "Lifestyle",
     tagline: "Bring rock closer to life.",
-    image: "/images/hnd-4.png",
+    image: "/images/hnd-4.webp",
     href: "/products/lifestyle",
     cta: "Explore Lifestyle",
     imageScale: 1,

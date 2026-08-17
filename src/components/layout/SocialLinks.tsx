@@ -7,12 +7,12 @@ import { cn } from "@/lib/utils";
 export const socialLinks = [
   {
     name: "YouTube",
-    href: "https://www.youtube.com/@HNDMusic",
+    href: "https://www.youtube.com/@hndmusicalinstruments",
     label: "HND on YouTube",
   },
   {
     name: "Instagram",
-    href: "https://www.instagram.com/hndmusic",
+    href: "https://www.instagram.com/hndamplification",
     label: "HND on Instagram",
   },
   {

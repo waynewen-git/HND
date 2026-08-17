@@ -6,6 +6,8 @@ import { withBasePath } from "@/lib/assetPath";
 import type { CategorySlide } from "@/types/categorySlide";
 
 const AUTO_MS = 5000;
+/** Intrinsic frame size of hnd-1…3.jpg — drives responsive aspect box */
+const SLIDE_ASPECT = "1440 / 700";
 
 interface CategorySlideshowProps {
   slides: CategorySlide[];
@@ -35,46 +37,30 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
   }, [current, slides.length]);
 
   const slide = slides[current];
-  const isHnd0 = slide.image === "/images/hnd-0.png";
 
   return (
     <section
-      className="relative w-full max-w-[100vw] overflow-x-clip bg-hnd-white pt-16 text-hnd-black md:pt-20 dark:bg-transparent dark:text-hnd-white"
+      className="relative w-full max-w-[100vw] overflow-x-clip bg-hnd-white pt-24 text-hnd-black md:pt-28 dark:bg-transparent dark:text-hnd-white"
       aria-label="Product showcase"
       aria-roledescription="carousel"
     >
-      <div className="relative h-[42vh] min-h-[220px] overflow-hidden md:h-[44vh] lg:h-[48vh]">
+      {/* Width-driven frame: height scales with viewport via aspect-ratio */}
+      <div
+        className="relative w-full overflow-hidden"
+        style={{ aspectRatio: SLIDE_ASPECT }}
+      >
         <div
           key={slide.id}
-          className="absolute inset-0 flex items-center justify-center bg-hnd-white dark:bg-transparent"
+          className="absolute inset-0 bg-hnd-white dark:bg-transparent"
         >
-          {isHnd0 ? (
-            <>
-              <img
-                src={withBasePath("/images/hnd-0-light.png")}
-                alt={slide.title || "HND"}
-                className="h-full w-full object-contain object-center dark:hidden"
-                decoding="async"
-                fetchPriority="high"
-              />
-              <img
-                src={withBasePath("/images/hnd-0.png")}
-                alt=""
-                aria-hidden
-                className="hidden h-full w-full object-contain object-center dark:block"
-                decoding="async"
-                fetchPriority="high"
-              />
-            </>
-          ) : (
-            <img
-              src={withBasePath(slide.image)}
-              alt={slide.title || "HND"}
-              className="h-full w-full object-contain object-center"
-              decoding="async"
-              fetchPriority="high"
-            />
-          )}
+          <img
+            src={withBasePath(slide.image)}
+            alt={slide.title || "HND"}
+            className="h-full w-full object-cover object-center"
+            decoding="async"
+            fetchPriority="high"
+            sizes="100vw"
+          />
         </div>
 
         <button

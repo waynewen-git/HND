@@ -9,7 +9,7 @@
   --color-hnd-steel-light: #a8b8c8;
 
   /*
-   * Dark surfaces = stage fog gray (matches footer background.png edge)
+   * Dark surfaces = stage fog gray (matches footer background.webp edge)
    * deep ~#141413, base ~#1c1c1a, raised ~#242422
    */
   --color-hnd-black: #1c1c1a;
@@ -46,7 +46,7 @@
   html.dark,
   html.dark body {
     @apply bg-hnd-black text-hnd-white;
-    /* Stage fog gray — solid, docks with footer background.png */
+    /* Stage fog gray — solid, docks with footer background.webp */
     background-color: #1c1c1a;
     background-image: none;
   }

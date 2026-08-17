@@ -8,33 +8,65 @@ import { formatPrice, getProductById } from "@/data/products";
 import { useCartStore } from "@/store/cart";
 import { COLOR_LABELS } from "@/types";
 
+function TaobaoShopCard() {
+  return (
+    <div className="border border-hnd-gray-300/30 p-6 text-center dark:border-hnd-gray-700/50">
+      <h1 className="font-bebas text-[clamp(2.1rem,6vw,3.75rem)] leading-none tracking-wide text-white">
+        Coming Soon
+      </h1>
+      <p className="mt-4 font-ui text-sm leading-relaxed text-hnd-gray-300">
+        本网站购物支付功能暂不可用，不便之处敬请谅解。
+      </p>
+      <p className="mt-2 font-ui text-sm leading-relaxed text-hnd-gray-400">
+        Online checkout and payment are currently unavailable.
+        We apologize for the inconvenience.
+      </p>
+      <p className="mt-5 font-ui text-xs tracking-[0.16em] text-hnd-gray-500 uppercase">
+        Shop on Taobao
+      </p>
+      <p className="mt-1 font-ui text-sm text-hnd-black dark:text-hnd-white">
+        扫描二维码进入淘宝网店
+      </p>
+      <div className="relative mx-auto mt-4 h-52 w-52 overflow-hidden bg-white p-2">
+        <AppImage
+          src="/images/QRcode.png"
+          alt="HND Taobao store QR code"
+          width={1000}
+          height={1000}
+          unoptimized
+          className="h-full w-full object-contain"
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function CartPage() {
   const { items, updateQuantity, removeItem, totalPrice } = useCartStore();
 
   if (items.length === 0) {
     return (
-      <div className="pt-16 md:pt-20">
-        <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
-          <h1 className="font-bebas text-3xl md:text-4xl">
-            Your Cart is Empty
-          </h1>
-          <p className="mt-4 text-hnd-gray-500">
-            Explore our collection and find your perfect instrument.
-          </p>
-          <Button href="/shop" size="lg" className="mt-8">
-            Continue Shopping
-          </Button>
+      <div className="pt-24 md:pt-28">
+        <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24">
+          <div className="w-full max-w-md">
+            <TaobaoShopCard />
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="pt-16 md:pt-20">
+    <div className="pt-24 md:pt-28">
       <div className="section-padding container-max py-16 md:py-24">
-        <h1 className="font-bebas text-4xl md:text-5xl">
-          Shopping Cart
-        </h1>
+        <h1 className="font-bebas text-4xl md:text-5xl">Shopping Cart</h1>
+        <p className="mt-3 font-ui text-sm tracking-wide text-hnd-gray-500">
+          本网站购物支付功能暂不可用，不便之处敬请谅解。
+          <span className="mt-1 block">
+            Online checkout and payment are currently unavailable. We apologize
+            for the inconvenience.
+          </span>
+        </p>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-2">
@@ -131,7 +163,7 @@ export default function CartPage() {
               </div>
               <div className="flex justify-between">
                 <span className="text-hnd-gray-500">Shipping</span>
-                <span>Calculated at checkout</span>
+                <span>Coming Soon</span>
               </div>
             </div>
             <div className="mt-6 flex justify-between border-t border-hnd-gray-300/20 pt-6 dark:border-hnd-gray-700/50">
@@ -140,9 +172,12 @@ export default function CartPage() {
                 {formatPrice(totalPrice())}
               </span>
             </div>
-            <Button href="/checkout" size="lg" className="mt-8 w-full">
-              Proceed to Checkout
+            <Button size="lg" className="mt-8 w-full" disabled>
+              Checkout Coming Soon
             </Button>
+            <div className="mt-8">
+              <TaobaoShopCard />
+            </div>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 import { withBasePath } from "@/lib/assetPath";
 
 const HERO_VIDEO = withBasePath("/videos/hero.mp4");
-const HERO_POSTER = withBasePath("/images/hero-guitar-1.png");
+const HERO_POSTER = withBasePath("/images/hero-guitar-1.webp");
 
 export default function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);

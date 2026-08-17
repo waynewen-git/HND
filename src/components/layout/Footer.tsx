@@ -23,7 +23,7 @@ export default function Footer() {
       {/* Stage background — footer only, anchored on the performer */}
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <img
-          src={withBasePath("/images/background.png")}
+          src={withBasePath("/images/background.webp")}
           alt=""
           className="absolute inset-0 h-full w-full object-cover object-[70%_42%]"
         />
@@ -91,7 +91,7 @@ export default function Footer() {
             <Logo size="xl" variant="full" className="object-top" />
             <div className="relative -mt-12 aspect-[2944/1312] w-full max-w-[182px] md:-mt-14 md:max-w-[210px]">
               <AppImage
-                src="/images/slogan.png"
+                src="/images/slogan.webp"
                 alt="Bring Rock Closer to Life."
                 fill
                 unoptimized

@@ -15,13 +15,13 @@ interface LogoProps {
   slideshow?: boolean;
 }
 
-const LOGO_STATIC = "/logo/logo-0.png";
+const LOGO_STATIC = "/logo/logo-0.webp";
 const LOGO_SLIDES = [
-  "/logo/logo-0.png",
-  "/logo/logo-1.png",
-  "/logo/logo-2.png",
-  "/logo/logo-3.png",
-  "/logo/logo-4.png",
+  "/logo/logo-0.webp",
+  "/logo/logo-1.webp",
+  "/logo/logo-2.webp",
+  "/logo/logo-3.webp",
+  "/logo/logo-4.webp",
 ] as const;
 
 const sizeMap = {
@@ -61,8 +61,8 @@ export default function Logo({
           key={src}
           src={src}
           alt={i === index ? "HND Musical Instruments" : ""}
-          width={2000}
-          height={2000}
+          width={640}
+          height={384}
           priority={i === 0}
           unoptimized
           className={cn(
@@ -77,8 +77,8 @@ export default function Logo({
     <AppImage
       src={LOGO_STATIC}
       alt="HND Musical Instruments"
-      width={2000}
-      height={2000}
+      width={640}
+      height={384}
       className={cn("object-contain object-left", sizeMap[size], className)}
       priority
       unoptimized

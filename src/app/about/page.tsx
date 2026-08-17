@@ -1,6 +1,6 @@
 export default function AboutPage() {
   return (
-    <div className="pt-16 md:pt-20">
+    <div className="pt-24 md:pt-28">
       <section className="section-padding container-max py-16 md:py-24">
         <h1 className="font-bebas text-4xl md:text-6xl">
           About HND

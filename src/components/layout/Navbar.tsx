@@ -1,6 +1,5 @@
 "use client";
 
-import AppImage from "@/components/ui/AppImage";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -48,63 +47,6 @@ function isNavActive(pathname: string, item: NavItem) {
   return item.children.some(
     (child) =>
       pathname === child.href || pathname.startsWith(`${child.href}/`),
-  );
-}
-
-function resolveNavChildImage(item: NavItem, child: NavChild): string {
-  if (child.image) return child.image;
-
-  const product = [
-    ...getProductsByCategory("guitars"),
-    ...getProductsByCategory("amps"),
-    ...getProductsByCategory("speakers"),
-  ].find((p) => p.name === child.label);
-
-  if (product?.navImage) return product.navImage;
-  if (product?.images[0]) return product.images[0];
-
-  if (item.label === "Amps") return "/images/hero-amps-1.png";
-  if (item.label === "Speakers") return "/images/hero-speaker-0.png";
-  if (item.label === "Lifestyle") return "/images/hero-live-0.png";
-  return "/images/hero-guitar-1.png";
-}
-
-function MobileNavProductList({
-  item,
-  onNavigate,
-}: {
-  item: NavItem;
-  onNavigate?: () => void;
-}) {
-  return (
-    <ul className="mb-4 grid grid-cols-2 gap-x-4 gap-y-5">
-      {item.children.map((child) => {
-        const image = resolveNavChildImage(item, child);
-        return (
-          <li key={`${item.label}-${child.label}`}>
-            <Link
-              href={child.href}
-              onClick={onNavigate}
-              className="flex flex-col items-center text-center transition-opacity hover:opacity-80"
-            >
-              <div className="relative aspect-square w-full">
-                <AppImage
-                  src={image}
-                  alt={child.label}
-                  fill
-                  unoptimized
-                  className="object-contain object-center"
-                  sizes="40vw"
-                />
-              </div>
-              <span className="mt-2 font-ui text-sm tracking-[0.1em] text-hnd-black uppercase dark:text-hnd-white">
-                {child.label}
-              </span>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
   );
 }
 
@@ -221,10 +163,10 @@ export default function Navbar() {
         onMouseLeave={scheduleCloseMenu}
       >
         <nav
-          className="section-padding container-max flex h-16 items-center gap-6 md:h-20 md:gap-8"
+          className="section-padding flex h-24 items-center gap-6 md:h-28 md:gap-8"
           aria-label="Main navigation"
         >
-          <Logo size="md" />
+          <Logo size="xl" />
 
           <ul className="hidden min-w-0 flex-1 items-center justify-center gap-1 md:flex lg:gap-3">
             {categoryNavItems.map((item) => (
@@ -350,8 +292,19 @@ export default function Navbar() {
                     />
                   </button>
                   {expanded && (
-                    <MobileNavProductList
-                      item={item}
+                    <NavCategoryDropdown
+                      category={
+                        item.label === "Guitars"
+                          ? "guitars"
+                          : item.label === "Amps"
+                            ? "amps"
+                            : item.label === "Speakers"
+                              ? "speakers"
+                              : "lifestyle"
+                      }
+                      label={item.label}
+                      href={item.href}
+                      layout="chapter"
                       onNavigate={() => setMobileOpen(false)}
                     />
                   )}
