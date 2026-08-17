@@ -256,7 +256,7 @@ export default function Navbar() {
       </header>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-hnd-white px-5 pt-5 pb-10 md:hidden dark:bg-hnd-black">
+        <div className="fixed inset-0 z-50 flex flex-col overflow-x-hidden overflow-y-auto bg-hnd-white px-5 pt-5 pb-10 md:hidden dark:bg-hnd-black">
           <button
             onClick={() => setMobileOpen(false)}
             className="mb-4 self-end p-1 text-hnd-gray-700 dark:text-hnd-gray-300"

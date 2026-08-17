@@ -44,7 +44,7 @@ const sideLinksByCategory: Record<
   ],
 };
 
-/** Tall slender chapter index — compressed width, stretched height */
+/** Tall slender chapter index — stretched tall, compressed wide */
 function ChapterIndex({
   index,
   heightPx,
@@ -52,17 +52,20 @@ function ChapterIndex({
   index: string;
   heightPx: number;
 }) {
-  const fontSize =
-    heightPx > 0 ? Math.max(28, Math.min(heightPx * 0.78, 160)) : 48;
+  const size = heightPx > 0 ? heightPx * 1.5 : 84;
+  const scaleY = 1.42;
+  const fontSize = size / scaleY;
 
   return (
     <span
       aria-hidden
-      className="font-bebas pointer-events-none inline-flex shrink-0 origin-center scale-x-[0.72] scale-y-[1.65] select-none items-center tracking-tighter text-hnd-black/15 dark:text-hnd-white/18"
+      className="font-bebas flex shrink-0 select-none items-center tracking-tighter text-hnd-black/18 dark:text-hnd-white/22"
       style={{
+        height: size,
         fontSize,
         lineHeight: 1,
-        height: heightPx > 0 ? heightPx : undefined,
+        transform: `scaleX(0.62) scaleY(${scaleY})`,
+        transformOrigin: "center",
       }}
     >
       {index}
@@ -108,58 +111,53 @@ function ProductChapterRow({
   }, [productName, tagline, label]);
 
   return (
-    <div
-      className="flex flex-row items-center py-[clamp(0.5rem,1.5vw,0.85rem)]"
-      style={{ gap: "clamp(0.5rem, 3.5vw, 2.5rem)" }}
-    >
-      <div className="relative z-20 flex w-[min(42%,20rem)] min-w-[7.25rem] shrink-0 items-center gap-[clamp(0.35rem,1.5vw,0.85rem)]">
-        <ChapterIndex index={index} heightPx={copyHeight} />
+    <div className="grid w-full grid-cols-[auto_minmax(0,1fr)_minmax(0,1.25fr)] items-center gap-x-[clamp(0.35rem,2vw,1.25rem)] overflow-visible py-[clamp(0.4rem,1.6vw,0.8rem)]">
+      <ChapterIndex index={index} heightPx={copyHeight} />
 
-        <div ref={copyRef} className="relative z-20 min-w-0">
-          <p className="font-ui text-[clamp(8px,1.6vw,12px)] font-semibold tracking-[0.22em] text-hnd-red uppercase">
-            {label}
-          </p>
+      <div ref={copyRef} className="relative z-20 min-w-0">
+        <p className="truncate font-ui text-[clamp(8px,2.4vw,11px)] font-semibold tracking-[0.18em] text-hnd-red uppercase">
+          {label}
+        </p>
 
-          <h2 className="mt-[0.2em] font-bebas text-[clamp(1.15rem,4.2vw,2.6rem)] leading-[0.88] text-hnd-black dark:text-hnd-white">
-            {titleLines.map((line) => (
-              <span key={`${href}-${line}`} className="block">
-                {line}
-              </span>
-            ))}
-          </h2>
-
-          {tagline ? (
-            <p className="mt-[0.35em] font-ui text-[clamp(8px,1.7vw,13px)] tracking-[0.16em] text-hnd-gray-500 uppercase">
-              {tagline}
-            </p>
-          ) : null}
-
-          <Link
-            href={href}
-            onClick={onNavigate}
-            className="group/cta relative z-30 mt-[0.55em] inline-flex items-center gap-1.5 font-ui text-[clamp(9px,1.7vw,14px)] tracking-[0.18em] text-hnd-black uppercase transition-colors hover:text-hnd-red dark:text-hnd-white dark:hover:text-hnd-red"
-          >
-            Explore
-            <span className="text-hnd-red transition-transform group-hover/cta:translate-x-0.5">
-              →
+        <h2 className="mt-[0.15em] font-bebas text-[clamp(1.05rem,5vw,2.35rem)] leading-[0.88] text-hnd-black dark:text-hnd-white">
+          {titleLines.map((line) => (
+            <span key={`${href}-${line}`} className="block truncate">
+              {line}
             </span>
-          </Link>
-        </div>
+          ))}
+        </h2>
+
+        {tagline ? (
+          <p className="mt-[0.3em] truncate font-ui text-[clamp(8px,2.2vw,12px)] tracking-[0.14em] text-hnd-gray-500 uppercase">
+            {tagline}
+          </p>
+        ) : null}
+
+        <Link
+          href={href}
+          onClick={onNavigate}
+          className="group/cta relative z-30 mt-[0.4em] inline-flex items-center gap-1 font-ui text-[clamp(9px,2.2vw,13px)] tracking-[0.16em] text-hnd-black uppercase transition-colors hover:text-hnd-red dark:text-hnd-white dark:hover:text-hnd-red"
+        >
+          Explore
+          <span className="text-hnd-red transition-transform group-hover/cta:translate-x-0.5">
+            →
+          </span>
+        </Link>
       </div>
 
       <Link
         href={href}
         onClick={onNavigate}
-        className="relative block min-w-0 flex-1 overflow-hidden"
-        style={{ height: "clamp(6.5rem, 28vw, 16rem)" }}
+        className="relative min-h-0 min-w-0 overflow-hidden"
+        style={{ height: "clamp(5.25rem, 32vw, 15rem)" }}
       >
         <AppImage
           src={image}
           alt={productName}
           fill
           unoptimized
-          className="object-contain object-left"
-          sizes="(max-width: 768px) 60vw, 55vw"
+          className="object-contain object-center"
+          sizes="(max-width: 768px) 62vw, 55vw"
         />
       </Link>
     </div>
