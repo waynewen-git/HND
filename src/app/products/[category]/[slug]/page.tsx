@@ -32,7 +32,7 @@ export default async function ProductDetailPage({
   if (!product || product.category !== category) notFound();
 
   return (
-    <div className="pt-24 md:pt-28">
+    <div className="pt-12 md:pt-14">
       <section className="section-padding container-max py-12 md:py-20">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <ProductImageGallery

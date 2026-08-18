@@ -46,7 +46,7 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="pt-24 md:pt-28">
+      <div className="pt-12 md:pt-14">
         <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24">
           <div className="w-full max-w-md">
             <TaobaoShopCard />
@@ -57,7 +57,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="pt-24 md:pt-28">
+    <div className="pt-12 md:pt-14">
       <div className="section-padding container-max py-16 md:py-24">
         <h1 className="font-bebas text-4xl md:text-5xl">Shopping Cart</h1>
         <p className="mt-3 font-ui text-sm tracking-wide text-hnd-gray-500">

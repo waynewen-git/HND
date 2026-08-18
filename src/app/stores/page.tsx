@@ -3,7 +3,7 @@ import { stores } from "@/data/products";
 
 export default function StoresPage() {
   return (
-    <div className="pt-24 md:pt-28">
+    <div className="pt-12 md:pt-14">
       <section className="section-padding container-max py-16 md:py-24">
         <h1 className="font-bebas text-4xl md:text-6xl">
           Experience Centers

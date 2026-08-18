@@ -30,7 +30,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
 
   return (
     <section
-      className="relative w-full max-w-[100vw] bg-hnd-black pt-24 md:pt-28"
+      className="relative w-full max-w-[100vw] bg-hnd-black pt-12 md:pt-14"
       aria-label="Featured products"
     >
       <div className="relative min-h-[70vh] w-full max-w-full md:min-h-[78vh] lg:min-h-[85vh]">

@@ -4,6 +4,7 @@ import AppImage from "@/components/ui/AppImage";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getProductsByCategory } from "@/data/products";
+import { navUtilityLinks } from "@/data/navUtility";
 import { cn } from "@/lib/utils";
 import type { ProductCategory } from "@/types";
 
@@ -17,32 +18,31 @@ interface NavCategoryDropdownProps {
   onNavigate?: () => void;
 }
 
-const sideLinksByCategory: Record<
-  ProductCategory,
-  { href: string; label: string }[]
-> = {
-  guitars: [
-    { href: "/products/guitars", label: "All Guitars" },
-    { href: "/configure", label: "Configure" },
-    { href: "/shop", label: "Shop" },
-    { href: "/support", label: "Support" },
-  ],
-  amps: [
-    { href: "/products/amps", label: "View All" },
-    { href: "/shop", label: "Shop" },
-    { href: "/support", label: "Support" },
-  ],
-  speakers: [
-    { href: "/products/speakers", label: "View All" },
-    { href: "/shop", label: "Shop" },
-    { href: "/support", label: "Support" },
-  ],
-  lifestyle: [
-    { href: "/products/lifestyle", label: "View All" },
-    { href: "/shop", label: "Shop" },
-    { href: "/support", label: "Support" },
-  ],
-};
+function UtilityLinks({
+  category,
+  onNavigate,
+  className,
+}: {
+  category: ProductCategory;
+  onNavigate?: () => void;
+  className?: string;
+}) {
+  return (
+    <ul className={cn("space-y-3", className)}>
+      {navUtilityLinks(category).map((link) => (
+        <li key={`${link.href}-${link.label}`}>
+          <Link
+            href={link.href}
+            onClick={onNavigate}
+            className="font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-red"
+          >
+            {link.label} →
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 /** Tall slender chapter index — stretched tall, compressed wide */
 function ChapterIndex({
@@ -172,7 +172,6 @@ export default function NavCategoryDropdown({
   onNavigate,
 }: NavCategoryDropdownProps) {
   const products = getProductsByCategory(category);
-  const sideLinks = sideLinksByCategory[category];
 
   if (layout === "chapter") {
     return (
@@ -192,6 +191,9 @@ export default function NavCategoryDropdown({
             </li>
           ))}
         </ul>
+        <div className="mt-4 border-t border-hnd-gray-300/40 pt-4 dark:border-hnd-gray-800/50">
+          <UtilityLinks category={category} onNavigate={onNavigate} />
+        </div>
       </div>
     );
   }
@@ -227,20 +229,8 @@ export default function NavCategoryDropdown({
         ))}
       </ul>
 
-      <aside className="hidden w-36 shrink-0 border-l border-hnd-gray-300 pl-5 pt-1 md:block lg:w-44 lg:pl-6 dark:border-hnd-gray-800">
-        <ul className="space-y-3">
-          {sideLinks.map((link) => (
-            <li key={`${link.href}-${link.label}`}>
-              <Link
-                href={link.href}
-                onClick={onNavigate}
-                className="font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-red"
-              >
-                {link.label} →
-              </Link>
-            </li>
-          ))}
-        </ul>
+      <aside className="hidden w-44 shrink-0 border-l border-hnd-gray-300 pl-5 pt-1 md:block lg:w-52 lg:pl-6 dark:border-hnd-gray-800">
+        <UtilityLinks category={category} onNavigate={onNavigate} />
       </aside>
     </div>
   );

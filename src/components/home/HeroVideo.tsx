@@ -78,7 +78,7 @@ export default function HeroVideo() {
       {!videoFailed && (
         <button
           onClick={toggleMute}
-          className="absolute top-24 right-6 z-20 flex items-center gap-2 rounded-full bg-black/40 px-4 py-2 text-sm text-white backdrop-blur-sm transition-colors hover:bg-black/60 md:top-28 md:right-12"
+          className="absolute top-12 right-6 z-20 flex items-center gap-2 rounded-full bg-black/40 px-4 py-2 text-sm text-white backdrop-blur-sm transition-colors hover:bg-black/60 md:top-14 md:right-12"
           aria-label={muted ? "Unmute video" : "Mute video"}
         >
           {muted ? (

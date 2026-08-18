@@ -3,6 +3,7 @@ import { Bebas_Neue, Oswald, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import ConfiguratorChrome from "@/components/layout/ConfiguratorChrome";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { NavMenuProvider } from "@/components/providers/NavMenuProvider";
 
@@ -79,7 +80,9 @@ export default function RootLayout({
           <NavMenuProvider>
             <Navbar />
             <main>{children}</main>
-            <Footer />
+            <ConfiguratorChrome>
+              <Footer />
+            </ConfiguratorChrome>
           </NavMenuProvider>
         </ThemeProvider>
       </body>

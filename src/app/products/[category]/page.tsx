@@ -34,7 +34,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const heroImage = chapter?.image ?? info.heroImage;
 
   return (
-    <div className="pt-24 md:pt-28">
+    <div className="pt-12 md:pt-14">
       <section
         className="relative w-full max-w-[100vw] overflow-x-clip bg-transparent"
         aria-label={info.name}

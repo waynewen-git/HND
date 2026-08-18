@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { useCartStore } from "@/store/cart";
+import ColorSwatch from "@/components/products/ColorSwatch";
 import type { ProductColor } from "@/types";
+import { COLOR_LABELS } from "@/types";
 import Button from "@/components/ui/Button";
 
 interface AddToCartButtonProps {
@@ -29,23 +31,16 @@ export default function AddToCartButton({
   return (
     <div className="space-y-4">
       <div>
-        <p className="mb-2 text-sm font-medium tracking-wide uppercase">
-          Color
-        </p>
-        <div className="mt-2 flex gap-2">
-          {colors.map((c) => (
-            <button
-              key={c}
-              onClick={() => setColor(c)}
-              className={`rounded-sm border px-4 py-2 text-sm capitalize transition-all ${
-                color === c
-                  ? "border-hnd-red bg-hnd-red/10 text-hnd-red"
-                  : "border-hnd-gray-300 dark:border-hnd-gray-700"
-              }`}
-            >
-              {c}
-            </button>
-          ))}
+        <div className="flex items-baseline justify-between gap-3">
+          <p className="text-sm font-medium tracking-wide uppercase">Color</p>
+          <p className="text-sm text-hnd-gray-500">{COLOR_LABELS[color]}</p>
+        </div>
+        <div className="mt-3">
+          <ColorSwatch
+            colors={colors}
+            selected={color}
+            onSelect={setColor}
+          />
         </div>
       </div>
       <Button

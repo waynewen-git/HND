@@ -3,7 +3,7 @@ import Button from "@/components/ui/Button";
 /** Static showcase page — no server searchParams (required for GitHub Pages export). */
 export default function OrderConfirmPage() {
   return (
-    <div className="pt-24 md:pt-28">
+    <div className="pt-12 md:pt-14">
       <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-hnd-red/10">
           <svg

@@ -78,6 +78,14 @@ const livePngs = [
 ];
 
 const guitarPrices = [699, 739, 779, 819, 859, 899];
+const guitarStrings = [
+  "9–42 Light",
+  "10–46 Regular",
+  "10–46 Regular",
+  "11–48 Heavy",
+  "11–48 Heavy",
+  "12–54 Extra Heavy",
+];
 const ampPrices = [599, 633, 666, 699, 729, 759];
 
 const guitarSeries = [
@@ -109,12 +117,13 @@ export const products: Product[] = [
       ? { video: `/videos/products/hero-hnd-g0${i + 1}-demo.mp4` }
       : {}),
     specs: [
-      { label: "Body", value: "Alder with maple top" },
+      { label: "Body", value: guitarSeries[i].body },
       { label: "Neck", value: "Maple, bolt-on" },
       { label: "Fingerboard", value: "Ebony, 24 frets" },
       { label: "Pickups", value: "HND Humbucker Set" },
       { label: "Bridge", value: "Fixed, string-through" },
       { label: "Scale Length", value: '25.5"' },
+      { label: "Strings", value: guitarStrings[i] },
       { label: "Weight", value: "3.8 kg" },
     ],
     highlights: [

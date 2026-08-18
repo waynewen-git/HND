@@ -163,10 +163,10 @@ export default function Navbar() {
         onMouseLeave={scheduleCloseMenu}
       >
         <nav
-          className="section-padding flex h-24 items-center gap-6 md:h-28 md:gap-8"
+          className="section-padding flex h-12 items-center gap-6 md:h-14 md:gap-8"
           aria-label="Main navigation"
         >
-          <Logo size="xl" />
+          <Logo size="md" />
 
           <ul className="hidden min-w-0 flex-1 items-center justify-center gap-1 md:flex lg:gap-3">
             {categoryNavItems.map((item) => (

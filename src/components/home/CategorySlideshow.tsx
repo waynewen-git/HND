@@ -38,7 +38,7 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
 
   return (
     <section
-      className="relative w-full max-w-[100vw] overflow-x-clip bg-hnd-white pt-24 text-hnd-black md:pt-28 dark:bg-transparent dark:text-hnd-white"
+      className="relative w-full max-w-[100vw] overflow-x-clip bg-hnd-white pt-12 text-hnd-black md:pt-14 dark:bg-transparent dark:text-hnd-white"
       aria-label="Product showcase"
       aria-roledescription="carousel"
     >

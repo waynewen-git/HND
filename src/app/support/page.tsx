@@ -9,7 +9,7 @@ export default function SupportPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="pt-24 md:pt-28">
+    <div className="pt-12 md:pt-14">
       <section className="section-padding container-max py-16 md:py-24">
         <h1 className="font-bebas text-4xl md:text-6xl">Support</h1>
         <p className="mt-4 max-w-2xl text-lg text-hnd-gray-500">
