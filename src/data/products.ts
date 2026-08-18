@@ -528,3 +528,8 @@ export function formatPrice(price: number): string {
     minimumFractionDigits: 0,
   }).format(price);
 }
+
+/** Whole-dollar sale price after a percent off. */
+export function salePrice(price: number, percentOff: number): number {
+  return Math.round(price * (1 - percentOff / 100));
+}

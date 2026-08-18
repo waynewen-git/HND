@@ -3,18 +3,53 @@
 import AppImage from "@/components/ui/AppImage";
 import Link from "next/link";
 import type { Product } from "@/types";
-import { formatPrice } from "@/data/products";
+import { formatPrice, salePrice } from "@/data/products";
+import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
   product: Product;
   variant?: "default" | "large";
   index?: number;
+  /** When set, list price is struck through and a sale price is shown. */
+  promoPercent?: number;
+}
+
+function PriceLine({
+  price,
+  promoPercent,
+  className,
+}: {
+  price: number;
+  promoPercent?: number;
+  className?: string;
+}) {
+  if (!promoPercent) {
+    return <p className={className}>{formatPrice(price)}</p>;
+  }
+
+  return (
+    <p
+      className={cn(
+        "flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5",
+        className,
+      )}
+    >
+      <span className="text-hnd-gray-500 line-through decoration-hnd-red decoration-1">
+        {formatPrice(price)}
+      </span>
+      <span>{formatPrice(salePrice(price, promoPercent))}</span>
+      <span className="font-ui text-xs tracking-[0.12em] text-hnd-red uppercase">
+        {promoPercent}% off
+      </span>
+    </p>
+  );
 }
 
 export default function ProductCard({
   product,
   variant = "default",
   index,
+  promoPercent,
 }: ProductCardProps) {
   const href = `/products/${product.category}/${product.slug}`;
   const num =
@@ -45,9 +80,11 @@ export default function ProductCard({
             <p className="mt-2 label-condensed text-hnd-gray-300">
               {product.tagline}
             </p>
-            <p className="mt-3 text-hnd-gray-300">
-              {formatPrice(product.price)}
-            </p>
+            <PriceLine
+              price={product.price}
+              promoPercent={promoPercent}
+              className="mt-3 text-hnd-gray-300"
+            />
             <span className="mt-5 inline-flex items-center gap-2 font-ui text-sm tracking-[0.14em] text-hnd-white uppercase transition-transform duration-300 group-hover:translate-x-1">
               Explore →
             </span>
@@ -78,9 +115,11 @@ export default function ProductCard({
               {product.name}
             </h3>
             <p className="mt-1 text-sm text-hnd-gray-500">{product.tagline}</p>
-            <p className="mt-2 text-sm text-hnd-gray-700 dark:text-hnd-gray-300">
-              {formatPrice(product.price)}
-            </p>
+            <PriceLine
+              price={product.price}
+              promoPercent={promoPercent}
+              className="mt-2 text-sm text-hnd-gray-700 dark:text-hnd-gray-300"
+            />
           </div>
         <span
           aria-hidden
