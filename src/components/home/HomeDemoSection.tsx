@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import CategoryDemoVideo from "@/components/home/CategoryDemoVideo";
+import { useI18n } from "@/i18n/useI18n";
 
 const demos = [
   {
@@ -45,7 +46,7 @@ const demos = [
     role: "Stage Session",
     instrument: "Electric Guitar",
     model: "HND Stage",
-    tagline: "Crafted for Heavy Rock",
+    tagline: "Crafted for Rock",
     href: "/products/guitars",
     quote:
       "From the first note, the room tightens up. Built for the stage, tuned for the kind of rock that doesn’t sit still.",
@@ -53,6 +54,7 @@ const demos = [
 ];
 
 export default function HomeDemoSection() {
+  const { t, ldemo } = useI18n();
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
 
@@ -139,9 +141,16 @@ export default function HomeDemoSection() {
     <section className="relative w-full max-w-[100vw] overflow-x-clip bg-hnd-white py-8 md:py-12 dark:bg-transparent">
       <div className="section-padding text-center">
         <h2 className="font-rock text-[clamp(1.35rem,3vw,2.15rem)] leading-tight text-hnd-black dark:text-hnd-white">
-          Crafted for Heavy <span className="text-hnd-red">Rock</span>
-          {" - "}
-          Built for the <span className="text-hnd-red">Stage</span>.
+          {t("home.headlineBefore")}{" "}
+          <span className="text-hnd-red">{t("home.headlineRock")}</span>
+          {t("home.headlineMid")}
+          {t("home.headlineBuilt") ? (
+            <>
+              {t("home.headlineBuilt")}{" "}
+            </>
+          ) : null}
+          <span className="text-hnd-red">{t("home.headlineStage")}</span>
+          {t("home.headlineEnd")}
         </h2>
       </div>
 
@@ -150,7 +159,14 @@ export default function HomeDemoSection() {
           ref={scrollerRef}
           className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 pb-2 sm:gap-5 sm:px-6 md:gap-6 md:px-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {demos.map((demo, i) => (
+          {demos.map((demo, i) => {
+            const localized = ldemo(demo.model, {
+              role: demo.role,
+              instrument: demo.instrument,
+              tagline: demo.tagline,
+              quote: demo.quote,
+            });
+            return (
             <article
               key={demo.model}
               className={`w-[calc(100%-2.75rem)] max-w-[36rem] shrink-0 sm:w-[calc(100%-5rem)] md:w-[calc(100%-6.5rem)] ${
@@ -167,33 +183,33 @@ export default function HomeDemoSection() {
 
               <div className="mt-4 px-1">
                 <p className="font-ui text-[10px] font-semibold tracking-[0.22em] text-hnd-red uppercase md:text-[11px]">
-                  On Stage
+                  {t("home.onStage")}
                 </p>
                 <h3 className="mt-2 font-bebas text-[clamp(1.5rem,2.4vw,2rem)] leading-[0.92] text-hnd-black dark:text-hnd-white">
                   {demo.name}
                 </h3>
                 <p className="mt-1.5 font-ui text-[11px] tracking-[0.14em] text-hnd-gray-500 uppercase md:text-xs">
-                  {demo.role}
+                  {localized.role}
                 </p>
 
                 <div className="mt-3 border-t border-hnd-gray-300/50 pt-3 dark:border-hnd-gray-700/50">
                   <p className="font-ui text-[10px] tracking-[0.2em] text-hnd-gray-500 uppercase">
-                    Instrument
+                    {t("home.instrument")}
                   </p>
                   <p className="mt-1 font-ui text-sm tracking-[0.08em] text-hnd-black dark:text-hnd-white">
-                    {demo.instrument}
+                    {localized.instrument}
                   </p>
                   <p className="mt-0.5 font-bebas text-xl tracking-wide text-hnd-red md:text-[1.35rem]">
                     {demo.model}
                   </p>
                   <p className="mt-0.5 font-ui text-[11px] tracking-[0.12em] text-hnd-gray-500 uppercase">
-                    {demo.tagline}
+                    {localized.tagline}
                   </p>
                 </div>
 
                 <blockquote className="mt-3 border-l-2 border-hnd-red pl-3">
                   <p className="font-ui text-[13px] leading-relaxed tracking-wide text-hnd-gray-700 dark:text-hnd-gray-300">
-                    “{demo.quote}”
+                    “{localized.quote}”
                   </p>
                 </blockquote>
 
@@ -201,14 +217,15 @@ export default function HomeDemoSection() {
                   href={demo.href}
                   className="group/cta mt-4 inline-flex items-center gap-2 font-ui text-xs tracking-[0.18em] text-hnd-black uppercase transition-colors hover:text-hnd-red dark:text-hnd-white dark:hover:text-hnd-red"
                 >
-                  Explore
+                  {t("common.explore")}
                   <span className="text-hnd-red transition-transform group-hover/cta:translate-x-0.5">
                     →
                   </span>
                 </Link>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
 
         <button
@@ -216,7 +233,7 @@ export default function HomeDemoSection() {
           onClick={prev}
           disabled={index === 0}
           className="absolute top-[10rem] left-1 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-sm transition-colors hover:bg-black/55 disabled:opacity-0 sm:left-3 sm:h-11 sm:w-11"
-          aria-label="Previous demo"
+          aria-label={t("common.previous")}
         >
           <ChevronLeft className="h-6 w-6" strokeWidth={1.5} />
         </button>
@@ -225,7 +242,7 @@ export default function HomeDemoSection() {
           onClick={next}
           disabled={index === demos.length - 1}
           className="absolute top-[10rem] right-1 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-sm transition-colors hover:bg-black/55 disabled:opacity-0 sm:right-3 sm:h-11 sm:w-11"
-          aria-label="Next demo"
+          aria-label={t("common.next")}
         >
           <ChevronRight className="h-6 w-6" strokeWidth={1.5} />
         </button>

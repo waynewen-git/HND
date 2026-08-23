@@ -6,11 +6,13 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, Menu, Moon, ShoppingBag, Sun, X } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { useI18n } from "@/i18n/useI18n";
 import { useNavMenu } from "@/components/providers/NavMenuProvider";
 import Logo from "@/components/layout/Logo";
 import NavCategoryDropdown from "@/components/layout/NavCategoryDropdown";
 import { cn } from "@/lib/utils";
 import { getProductsByCategory } from "@/data/products";
+import type { MessageKey } from "@/i18n/dictionaries";
 import type { ProductCategory } from "@/types";
 
 interface NavChild {
@@ -21,7 +23,8 @@ interface NavChild {
 }
 
 interface NavItem {
-  label: string;
+  labelKey: MessageKey;
+  category: ProductCategory;
   href: string;
   matchPath?: string;
   children: NavChild[];
@@ -36,9 +39,9 @@ function buildProductChildren(category: ProductCategory): NavChild[] {
   }));
 }
 
-const utilityLinks = [
-  { label: "Support", href: "/support" },
-  { label: "Account", href: "/account" },
+const utilityLinks: { labelKey: MessageKey; href: string }[] = [
+  { labelKey: "nav.support", href: "/support" },
+  { labelKey: "nav.account", href: "/account" },
 ];
 
 function isNavActive(pathname: string, item: NavItem) {
@@ -52,17 +55,19 @@ function isNavActive(pathname: string, item: NavItem) {
 
 function NavMenuItem({
   item,
+  label,
   pathname,
   openMenu,
   setOpenMenu,
 }: {
   item: NavItem;
+  label: string;
   pathname: string;
   openMenu: string | null;
   setOpenMenu: (label: string | null) => void;
 }) {
   const active = isNavActive(pathname, item);
-  const isOpen = openMenu === item.label;
+  const isOpen = openMenu === item.category;
   const labelClass = cn(
     "group relative font-ui px-3 py-2 text-xs tracking-[0.16em] uppercase transition-colors duration-300 lg:text-[13px]",
     isOpen || active
@@ -71,9 +76,9 @@ function NavMenuItem({
   );
 
   return (
-    <li onMouseEnter={() => setOpenMenu(item.label)}>
+    <li onMouseEnter={() => setOpenMenu(item.category)}>
       <button type="button" className={labelClass} aria-expanded={isOpen}>
-        {item.label}
+        {label}
         <span
           aria-hidden
           className={cn(
@@ -94,31 +99,36 @@ export default function Navbar() {
   const { openMenu, setOpenMenu, keepMenuOpen, scheduleCloseMenu } =
     useNavMenu();
   const { theme, toggleTheme } = useTheme();
+  const { locale, toggleLocale, t } = useI18n();
   const totalItems = useCartStore((s) => s.totalItems());
   const [mounted, setMounted] = useState(false);
 
   const categoryNavItems = useMemo<NavItem[]>(
     () => [
       {
-        label: "Guitars",
+        labelKey: "nav.guitars",
+        category: "guitars",
         href: "/products/guitars",
         matchPath: "/products/guitars",
         children: buildProductChildren("guitars"),
       },
       {
-        label: "Amps",
+        labelKey: "nav.amps",
+        category: "amps",
         href: "/products/amps",
         matchPath: "/products/amps",
         children: buildProductChildren("amps"),
       },
       {
-        label: "Speakers",
+        labelKey: "nav.speakers",
+        category: "speakers",
         href: "/products/speakers",
         matchPath: "/products/speakers",
         children: buildProductChildren("speakers"),
       },
       {
-        label: "Lifestyle",
+        labelKey: "nav.lifestyle",
+        category: "lifestyle",
         href: "/products/lifestyle",
         matchPath: "/products/lifestyle",
         children: buildProductChildren("lifestyle"),
@@ -127,7 +137,7 @@ export default function Navbar() {
     [],
   );
 
-  const activeItem = categoryNavItems.find((item) => item.label === openMenu);
+  const activeItem = categoryNavItems.find((item) => item.category === openMenu);
 
   useEffect(() => setMounted(true), []);
 
@@ -171,8 +181,9 @@ export default function Navbar() {
           <ul className="hidden min-w-0 flex-1 items-center justify-center gap-1 md:flex lg:gap-3">
             {categoryNavItems.map((item) => (
               <NavMenuItem
-                key={item.label}
+                key={item.category}
                 item={item}
+                label={t(item.labelKey)}
                 pathname={pathname}
                 openMenu={openMenu}
                 setOpenMenu={setOpenMenu}
@@ -193,16 +204,28 @@ export default function Navbar() {
                         : "text-hnd-gray-500 hover:text-hnd-black dark:hover:text-hnd-white",
                     )}
                   >
-                    {link.label}
+                    {t(link.labelKey)}
                   </Link>
                 </li>
               ))}
             </ul>
 
             <button
+              type="button"
+              onClick={toggleLocale}
+              className="min-w-[2rem] px-1.5 py-2 font-ui text-[11px] tracking-[0.12em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-black dark:hover:text-hnd-white"
+              aria-label={t("nav.switchLanguage")}
+              title={t("nav.switchLanguage")}
+            >
+              {locale === "en" ? "中文" : "EN"}
+            </button>
+
+            <button
               onClick={toggleTheme}
               className="p-2 text-hnd-gray-500 transition-colors hover:text-hnd-black dark:hover:text-hnd-white"
-              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              aria-label={
+                theme === "dark" ? t("nav.switchToLight") : t("nav.switchToDark")
+              }
             >
               {theme === "dark" ? (
                 <Sun className="h-4 w-4" />
@@ -214,7 +237,7 @@ export default function Navbar() {
             <Link
               href="/cart"
               className="relative p-2 text-hnd-gray-500 transition-colors hover:text-hnd-black dark:hover:text-hnd-white"
-              aria-label={`Shopping cart${mounted && totalItems > 0 ? `, ${totalItems} items` : ""}`}
+              aria-label={`${t("nav.cart")}${mounted && totalItems > 0 ? `, ${t("nav.cartItems", { count: totalItems })}` : ""}`}
             >
               <ShoppingBag className="h-4 w-4" />
               {mounted && totalItems > 0 && (
@@ -227,7 +250,7 @@ export default function Navbar() {
             <button
               onClick={() => setMobileOpen(true)}
               className="p-2 text-hnd-gray-500 transition-colors hover:text-hnd-black md:hidden dark:hover:text-hnd-white"
-              aria-label="Open menu"
+              aria-label={t("nav.openMenu")}
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -238,16 +261,8 @@ export default function Navbar() {
           <div className="hidden max-h-[min(82vh,820px)] overflow-y-auto border-t border-hnd-gray-300/60 bg-hnd-white md:block dark:border-hnd-gray-800/40 dark:bg-hnd-black/70 dark:backdrop-blur-md">
             <div className="section-padding container-max">
               <NavCategoryDropdown
-                category={
-                  activeItem.label === "Guitars"
-                    ? "guitars"
-                    : activeItem.label === "Amps"
-                      ? "amps"
-                      : activeItem.label === "Speakers"
-                        ? "speakers"
-                        : "lifestyle"
-                }
-                label={activeItem.label}
+                category={activeItem.category}
+                label={t(activeItem.labelKey)}
                 href={activeItem.href}
               />
             </div>
@@ -257,33 +272,43 @@ export default function Navbar() {
 
       {mobileOpen && (
         <div className="fixed inset-0 z-50 flex flex-col overflow-x-hidden overflow-y-auto bg-hnd-white px-5 pt-5 pb-10 md:hidden dark:bg-hnd-black">
-          <button
-            onClick={() => setMobileOpen(false)}
-            className="mb-4 self-end p-1 text-hnd-gray-700 dark:text-hnd-gray-300"
-            aria-label="Close menu"
-          >
-            <X className="h-6 w-6" />
-          </button>
+          <div className="mb-4 flex items-center justify-between">
+            <button
+              type="button"
+              onClick={toggleLocale}
+              className="font-ui text-sm tracking-[0.14em] text-hnd-gray-700 uppercase dark:text-hnd-gray-300"
+              aria-label={t("nav.switchLanguage")}
+            >
+              {locale === "en" ? "中文" : "EN"}
+            </button>
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="p-1 text-hnd-gray-700 dark:text-hnd-gray-300"
+              aria-label={t("nav.closeMenu")}
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
           <ul className="flex flex-col gap-2">
             {categoryNavItems.map((item) => {
-              const expanded = mobileExpanded === item.label;
+              const expanded = mobileExpanded === item.category;
               const active = isNavActive(pathname, item);
               return (
                 <li
-                  key={item.label}
+                  key={item.category}
                   className="border-b border-hnd-gray-300 pb-2 dark:border-hnd-gray-800"
                 >
                   <button
                     type="button"
                     onClick={() =>
-                      setMobileExpanded(expanded ? null : item.label)
+                      setMobileExpanded(expanded ? null : item.category)
                     }
                     className={cn(
                       "flex w-full items-center justify-between py-3 text-left font-ui text-lg tracking-[0.12em] uppercase",
                       active ? "text-hnd-red" : "text-hnd-gray-700 dark:text-hnd-gray-300",
                     )}
                   >
-                    {item.label}
+                    {t(item.labelKey)}
                     <ChevronDown
                       className={cn(
                         "h-4 w-4 transition-transform",
@@ -293,16 +318,8 @@ export default function Navbar() {
                   </button>
                   {expanded && (
                     <NavCategoryDropdown
-                      category={
-                        item.label === "Guitars"
-                          ? "guitars"
-                          : item.label === "Amps"
-                            ? "amps"
-                            : item.label === "Speakers"
-                              ? "speakers"
-                              : "lifestyle"
-                      }
-                      label={item.label}
+                      category={item.category}
+                      label={t(item.labelKey)}
                       href={item.href}
                       layout="chapter"
                       onNavigate={() => setMobileOpen(false)}
@@ -326,7 +343,7 @@ export default function Navbar() {
                       : "text-hnd-gray-700 dark:text-hnd-gray-300",
                   )}
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </Link>
               </li>
             ))}

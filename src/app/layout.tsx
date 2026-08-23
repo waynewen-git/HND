@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ConfiguratorChrome from "@/components/layout/ConfiguratorChrome";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { LocaleProvider } from "@/components/providers/LocaleProvider";
 import { NavMenuProvider } from "@/components/providers/NavMenuProvider";
 
 /** Bebas Neue — all display titles (HND VULTURE, chapters, Build Your Sound) */
@@ -71,19 +72,21 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("hnd-theme");if(t==="light"){document.documentElement.classList.remove("dark");document.documentElement.classList.add("light");document.documentElement.style.colorScheme="light";}}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem("hnd-theme");if(t==="light"){document.documentElement.classList.remove("dark");document.documentElement.classList.add("light");document.documentElement.style.colorScheme="light";}var l=localStorage.getItem("hnd-locale");if(l==="zh"){document.documentElement.lang="zh-CN";}else if(l==="en"){document.documentElement.lang="en";}}catch(e){}})();`,
           }}
         />
       </head>
   <body className={`${spaceGrotesk.className} font-bold antialiased`}>
         <ThemeProvider>
-          <NavMenuProvider>
-            <Navbar />
-            <main>{children}</main>
-            <ConfiguratorChrome>
-              <Footer />
-            </ConfiguratorChrome>
-          </NavMenuProvider>
+          <LocaleProvider>
+            <NavMenuProvider>
+              <Navbar />
+              <main>{children}</main>
+              <ConfiguratorChrome>
+                <Footer />
+              </ConfiguratorChrome>
+            </NavMenuProvider>
+          </LocaleProvider>
         </ThemeProvider>
       </body>
     </html>

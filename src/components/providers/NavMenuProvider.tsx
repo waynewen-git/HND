@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 
-export type NavMenuLabel = "Guitars" | "Amps" | "Speakers" | "Lifestyle";
+export type NavMenuLabel = "guitars" | "amps" | "speakers" | "lifestyle";
 
 interface NavMenuContextValue {
   openMenu: string | null;

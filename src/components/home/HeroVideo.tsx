@@ -4,11 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { withBasePath } from "@/lib/assetPath";
+import { useI18n } from "@/i18n/useI18n";
 
 const HERO_VIDEO = withBasePath("/videos/products/hero.mp4");
 const HERO_POSTER = withBasePath("/images/hero-guitar-1.webp");
 
 export default function HeroVideo() {
+  const { t } = useI18n();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
   const [videoFailed, setVideoFailed] = useState(false);
@@ -50,7 +52,7 @@ export default function HeroVideo() {
   return (
     <section
       className="relative min-h-[100svh] w-full overflow-hidden bg-hnd-black"
-      aria-label="HND hero"
+      aria-label={t("hero.ariaLabel")}
     >
       {!videoFailed ? (
         <video
@@ -79,28 +81,28 @@ export default function HeroVideo() {
         <button
           onClick={toggleMute}
           className="absolute top-12 right-6 z-20 flex items-center gap-2 rounded-full bg-black/40 px-4 py-2 text-sm text-white backdrop-blur-sm transition-colors hover:bg-black/60 md:top-14 md:right-12"
-          aria-label={muted ? "Unmute video" : "Mute video"}
+          aria-label={muted ? t("hero.unmute") : t("hero.mute")}
         >
           {muted ? (
             <VolumeX className="h-4 w-4" />
           ) : (
             <Volume2 className="h-4 w-4" />
           )}
-          {muted ? "Unmute" : "Sound On"}
+          {muted ? t("hero.unmuteLabel") : t("hero.soundOn")}
         </button>
       )}
 
       <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-end px-6 pb-28 text-center md:pb-36">
         <div className="max-w-4xl">
           <h1 className="font-bebas text-5xl tracking-tight text-white md:text-7xl lg:text-8xl">
-            Live is Life
+            {t("hero.liveIsLife")}
           </h1>
           <p className="mt-4 text-lg text-white/80 md:text-xl">
-            Precision electric guitars built for heavy rock
+            {t("hero.subtitle")}
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Button href="/products/guitars" size="lg">
-              Explore Guitars
+              {t("hero.exploreGuitars")}
             </Button>
             <Button
               href="/shop"
@@ -108,7 +110,7 @@ export default function HeroVideo() {
               size="lg"
               className="border-white text-white hover:bg-white/10"
             >
-              Shop All
+              {t("hero.shopAll")}
             </Button>
           </div>
         </div>
@@ -116,9 +118,11 @@ export default function HeroVideo() {
         <a
           href="#home-content"
           className="absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 text-white/50 transition-colors hover:text-white"
-          aria-label="Scroll to content"
+          aria-label={t("hero.scrollToContent")}
         >
-          <span className="text-[10px] tracking-[0.2em] uppercase">Scroll</span>
+          <span className="text-[10px] tracking-[0.2em] uppercase">
+            {t("hero.scroll")}
+          </span>
           <ChevronDown className="h-5 w-5 animate-bounce" />
         </a>
       </div>

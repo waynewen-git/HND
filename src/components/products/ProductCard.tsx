@@ -3,7 +3,8 @@
 import AppImage from "@/components/ui/AppImage";
 import Link from "next/link";
 import type { Product } from "@/types";
-import { formatPrice, salePrice } from "@/data/products";
+import { salePrice } from "@/data/products";
+import { useI18n } from "@/i18n/useI18n";
 import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
@@ -12,17 +13,23 @@ interface ProductCardProps {
   index?: number;
   /** When set, list price is struck through and a sale price is shown. */
   promoPercent?: number;
+  /** Localized “n% off” label; falls back to dictionary if omitted. */
+  promoLabel?: string;
 }
 
 function PriceLine({
   price,
   promoPercent,
+  promoLabel,
   className,
 }: {
   price: number;
   promoPercent?: number;
+  promoLabel?: string;
   className?: string;
 }) {
+  const { t, formatPrice } = useI18n();
+
   if (!promoPercent) {
     return <p className={className}>{formatPrice(price)}</p>;
   }
@@ -39,18 +46,21 @@ function PriceLine({
       </span>
       <span>{formatPrice(salePrice(price, promoPercent))}</span>
       <span className="font-ui text-xs tracking-[0.12em] text-hnd-red uppercase">
-        {promoPercent}% off
+        {promoLabel ?? t("offers.percentOff", { n: promoPercent })}
       </span>
     </p>
   );
 }
 
 export default function ProductCard({
-  product,
+  product: rawProduct,
   variant = "default",
   index,
   promoPercent,
+  promoLabel,
 }: ProductCardProps) {
+  const { t, lp } = useI18n();
+  const product = lp(rawProduct);
   const href = `/products/${product.category}/${product.slug}`;
   const num =
     index !== undefined
@@ -83,10 +93,11 @@ export default function ProductCard({
             <PriceLine
               price={product.price}
               promoPercent={promoPercent}
+              promoLabel={promoLabel}
               className="mt-3 text-hnd-gray-300"
             />
             <span className="mt-5 inline-flex items-center gap-2 font-ui text-sm tracking-[0.14em] text-hnd-white uppercase transition-transform duration-300 group-hover:translate-x-1">
-              Explore →
+              {t("common.explore")} →
             </span>
           </div>
         </div>
@@ -96,31 +107,30 @@ export default function ProductCard({
 
   return (
     <Link href={href} className="group block">
-        <div className="relative aspect-square overflow-hidden bg-transparent">
-          <AppImage
-            src={product.images[0]}
-            alt={product.name}
-            fill
-            unoptimized
-            className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
-            sizes="(max-width: 768px) 50vw, 25vw"
+      <div className="relative aspect-square overflow-hidden bg-transparent">
+        <AppImage
+          src={product.images[0]}
+          alt={product.name}
+          fill
+          unoptimized
+          className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+          sizes="(max-width: 768px) 50vw, 25vw"
+        />
+      </div>
+      <div className="mt-4 flex items-start justify-between gap-3">
+        <div>
+          {num && <p className="label-condensed text-hnd-red">{num}</p>}
+          <h3 className="mt-1 font-bebas text-lg tracking-tight transition-transform duration-300 group-hover:translate-x-0.5">
+            {product.name}
+          </h3>
+          <p className="mt-1 text-sm text-hnd-gray-500">{product.tagline}</p>
+          <PriceLine
+            price={product.price}
+            promoPercent={promoPercent}
+            promoLabel={promoLabel}
+            className="mt-2 text-sm text-hnd-gray-700 dark:text-hnd-gray-300"
           />
         </div>
-        <div className="mt-4 flex items-start justify-between gap-3">
-          <div>
-            {num && (
-              <p className="label-condensed text-hnd-red">{num}</p>
-            )}
-            <h3 className="mt-1 font-bebas text-lg tracking-tight transition-transform duration-300 group-hover:translate-x-0.5">
-              {product.name}
-            </h3>
-            <p className="mt-1 text-sm text-hnd-gray-500">{product.tagline}</p>
-            <PriceLine
-              price={product.price}
-              promoPercent={promoPercent}
-              className="mt-2 text-sm text-hnd-gray-700 dark:text-hnd-gray-300"
-            />
-          </div>
         <span
           aria-hidden
           className="mt-1 font-ui text-sm text-hnd-gray-500 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100 group-hover:text-hnd-red"

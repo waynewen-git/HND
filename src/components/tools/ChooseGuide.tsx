@@ -4,19 +4,14 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import AppImage from "@/components/ui/AppImage";
 import Button from "@/components/ui/Button";
-import { formatPrice, getProductsByCategory } from "@/data/products";
-import { CATEGORY_LABELS, type ProductCategory } from "@/types";
+import { getProductsByCategory } from "@/data/products";
+import { useI18n } from "@/i18n/useI18n";
+import type { ProductCategory } from "@/types";
 import { cn } from "@/lib/utils";
 
-const CATEGORIES: ProductCategory[] = ["guitars", "amps", "speakers"];
+const CATEGORIES: ProductCategory[] = ["guitars", "amps"];
 
 type UseCase = "stage" | "studio" | "everyday";
-
-const USE_CASES: { id: UseCase; label: string; hint: string }[] = [
-  { id: "stage", label: "Stage", hint: "Volume, presence, night after night." },
-  { id: "studio", label: "Studio", hint: "Clarity and control for recording." },
-  { id: "everyday", label: "Everyday", hint: "Ready without overbuilding." },
-];
 
 function isCategory(value: string | null): value is ProductCategory {
   return CATEGORIES.includes(value as ProductCategory);
@@ -32,6 +27,7 @@ function pickProduct(category: ProductCategory, useCase: UseCase) {
 }
 
 export default function ChooseGuide() {
+  const { t, lp, formatPrice, categoryLabel } = useI18n();
   const searchParams = useSearchParams();
   const initial = searchParams.get("category");
   const [category, setCategory] = useState<ProductCategory | null>(
@@ -39,15 +35,26 @@ export default function ChooseGuide() {
   );
   const [useCase, setUseCase] = useState<UseCase | null>(null);
 
-  const pick = useMemo(
+  const useCases: { id: UseCase; label: string; hint: string }[] = [
+    { id: "stage", label: t("choose.stage"), hint: t("choose.stageHint") },
+    { id: "studio", label: t("choose.studio"), hint: t("choose.studioHint") },
+    {
+      id: "everyday",
+      label: t("choose.everyday"),
+      hint: t("choose.everydayHint"),
+    },
+  ];
+
+  const rawPick = useMemo(
     () => (category && useCase ? pickProduct(category, useCase) : null),
     [category, useCase],
   );
+  const pick = rawPick ? lp(rawPick) : null;
 
   return (
     <div className="mt-12 max-w-3xl">
       <p className="font-ui text-xs tracking-[0.18em] text-hnd-red uppercase">
-        01 — Category
+        {t("choose.stepCategory")}
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
         {CATEGORIES.map((cat) => (
@@ -65,7 +72,7 @@ export default function ChooseGuide() {
                 : "text-hnd-gray-500 hover:text-hnd-black dark:hover:text-hnd-white",
             )}
           >
-            {CATEGORY_LABELS[cat]}
+            {categoryLabel(cat)}
           </button>
         ))}
       </div>
@@ -73,10 +80,10 @@ export default function ChooseGuide() {
       {category ? (
         <>
           <p className="mt-12 font-ui text-xs tracking-[0.18em] text-hnd-red uppercase">
-            02 — How you play
+            {t("choose.stepHowYouPlay")}
           </p>
           <div className="mt-4 grid gap-3 sm:grid-cols-3">
-            {USE_CASES.map((item) => (
+            {useCases.map((item) => (
               <button
                 key={item.id}
                 type="button"
@@ -101,7 +108,7 @@ export default function ChooseGuide() {
       {pick ? (
         <div className="mt-14 border-t border-hnd-gray-300/20 pt-10 dark:border-hnd-gray-800">
           <p className="font-ui text-xs tracking-[0.18em] text-hnd-red uppercase">
-            03 — Start here
+            {t("choose.stepStartHere")}
           </p>
           <div className="mt-6 flex flex-col items-start gap-8 sm:flex-row sm:items-center">
             <div className="relative aspect-square w-full max-w-[16rem] shrink-0">
@@ -125,13 +132,13 @@ export default function ChooseGuide() {
                 {pick.description}
               </p>
               <p className="mt-4 text-sm text-hnd-gray-700 dark:text-hnd-gray-300">
-                From {formatPrice(pick.price)}
+                {t("common.from")} {formatPrice(pick.price)}
               </p>
               <Button
                 href={`/products/${pick.category}/${pick.slug}`}
                 className="mt-6"
               >
-                Explore
+                {t("common.explore")}
               </Button>
             </div>
           </div>

@@ -1,17 +1,23 @@
 import type { ProductCategory } from "@/types";
+import type { MessageKey } from "@/i18n/dictionaries";
 
-export function navUtilityLinks(category: ProductCategory) {
-  const links = [{ href: "/offers", label: "Current Offers" }];
+export function navUtilityLinks(category: ProductCategory): {
+  href: string;
+  labelKey: MessageKey;
+}[] {
+  const links: { href: string; labelKey: MessageKey }[] = [
+    { href: "/offers", labelKey: "nav.offers" },
+  ];
 
   if (category !== "lifestyle") {
     links.push(
-      { href: `/compare?category=${category}`, label: "Compare" },
-      { href: `/choose?category=${category}`, label: "Help me Choose" },
+      { href: `/compare?category=${category}`, labelKey: "nav.compare" },
+      { href: `/choose?category=${category}`, labelKey: "nav.choose" },
     );
   }
 
   if (category === "guitars") {
-    links.push({ href: "/configure", label: "Custom" });
+    links.push({ href: "/configure", labelKey: "nav.custom" });
   }
   return links;
 }

@@ -1,4 +1,7 @@
+"use client";
+
 import { withBasePath } from "@/lib/assetPath";
+import { useI18n } from "@/i18n/useI18n";
 
 interface ProductDemoVideoProps {
   src: string;
@@ -11,14 +14,16 @@ export default function ProductDemoVideo({
   title,
   poster,
 }: ProductDemoVideoProps) {
+  const { t } = useI18n();
+
   return (
     <section className="bg-hnd-white dark:bg-transparent">
       <div className="section-padding container-max py-16 md:py-24">
         <h2 className="font-bebas text-2xl md:text-3xl">
-          Product Demo
+          {t("product.productDemo")}
         </h2>
         <p className="mt-2 text-hnd-gray-500">
-          See and hear {title} in action.
+          {t("product.seeAndHear", { name: title })}
         </p>
         <div
           className="relative mx-auto mt-8 overflow-hidden bg-hnd-gray-950"

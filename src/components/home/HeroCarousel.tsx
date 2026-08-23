@@ -5,12 +5,14 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { HeroSlide } from "@/types";
 import { withBasePath } from "@/lib/assetPath";
 import Button from "@/components/ui/Button";
+import { useI18n } from "@/i18n/useI18n";
 
 interface HeroCarouselProps {
   slides: HeroSlide[];
 }
 
 export default function HeroCarousel({ slides }: HeroCarouselProps) {
+  const { t } = useI18n();
   const [current, setCurrent] = useState(0);
 
   const goTo = useCallback((index: number) => {
@@ -31,7 +33,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
   return (
     <section
       className="relative w-full max-w-[100vw] bg-hnd-black pt-12 md:pt-14"
-      aria-label="Featured products"
+      aria-label={t("hero.featuredProducts")}
     >
       <div className="relative min-h-[70vh] w-full max-w-full md:min-h-[78vh] lg:min-h-[85vh]">
         <img
@@ -66,7 +68,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
               </p>
               <div className="mt-8">
                 <Button href={slide.ctaHref} variant="text" size="md">
-                  Explore
+                  {t("common.explore")}
                 </Button>
               </div>
             </div>
@@ -74,7 +76,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
             <p className="font-ui text-xs tracking-[0.2em] text-hnd-gray-300 uppercase sm:pb-1 sm:text-right sm:text-sm">
               <span className="text-hnd-red">{indexLabel}</span>
               <span className="mx-2 text-hnd-gray-700">/</span>
-              <span>2026 Collection</span>
+              <span>{t("hero.collection2026")}</span>
             </p>
           </div>
         </div>
@@ -83,7 +85,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
           type="button"
           onClick={prev}
           className="absolute top-1/2 left-[max(12px,2%)] z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-hnd-white/70 transition-colors hover:text-hnd-red md:h-11 md:w-11"
-          aria-label="Previous slide"
+          aria-label={t("common.previous")}
         >
           <ChevronLeft className="h-6 w-6" strokeWidth={1.5} />
         </button>
@@ -91,7 +93,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
           type="button"
           onClick={next}
           className="absolute top-1/2 right-[max(12px,2%)] z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-hnd-white/70 transition-colors hover:text-hnd-red md:h-11 md:w-11"
-          aria-label="Next slide"
+          aria-label={t("common.next")}
         >
           <ChevronRight className="h-6 w-6" strokeWidth={1.5} />
         </button>
@@ -105,7 +107,7 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
               className={`h-px transition-all duration-300 ${
                 i === current ? "w-8 bg-hnd-red" : "w-4 bg-hnd-white/30"
               }`}
-              aria-label={`Go to slide ${i + 1}`}
+              aria-label={t("hero.goToSlide", { n: i + 1 })}
             />
           ))}
         </div>

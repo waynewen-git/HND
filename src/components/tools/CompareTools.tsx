@@ -4,25 +4,28 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import AppImage from "@/components/ui/AppImage";
-import { formatPrice, getProductsByCategory } from "@/data/products";
-import { CATEGORY_LABELS, type ProductCategory } from "@/types";
+import { getProductsByCategory } from "@/data/products";
+import { useI18n } from "@/i18n/useI18n";
+import type { ProductCategory } from "@/types";
 import { cn } from "@/lib/utils";
 
-const CATEGORIES: ProductCategory[] = ["guitars", "amps", "speakers"];
+const CATEGORIES: ProductCategory[] = ["guitars", "amps"];
 
 function isCategory(value: string | null): value is ProductCategory {
   return CATEGORIES.includes(value as ProductCategory);
 }
 
 export default function CompareTools() {
+  const { t, lp, formatPrice, categoryLabel, lspec } = useI18n();
   const searchParams = useSearchParams();
   const initial = searchParams.get("category");
   const [category, setCategory] = useState<ProductCategory>(
     isCategory(initial) ? initial : "guitars",
   );
-  const products = getProductsByCategory(category);
+  const rawProducts = getProductsByCategory(category);
+  const products = rawProducts.map(lp);
   const [selected, setSelected] = useState<string[]>(() =>
-    products.slice(0, 2).map((p) => p.id),
+    rawProducts.slice(0, 2).map((p) => p.id),
   );
 
   const visible = useMemo(
@@ -45,11 +48,11 @@ export default function CompareTools() {
       ];
     }
     const labels = new Set<string>(["Price"]);
-    for (const product of visible) {
+    for (const product of rawProducts) {
       for (const spec of product.specs) labels.add(spec.label);
     }
     return [...labels];
-  }, [visible, category]);
+  }, [rawProducts, category]);
 
   function toggle(id: string) {
     setSelected((prev) => {
@@ -82,12 +85,12 @@ export default function CompareTools() {
                 : "text-hnd-gray-500 hover:text-hnd-black dark:hover:text-hnd-white",
             )}
           >
-            {CATEGORY_LABELS[cat]}
+            {categoryLabel(cat)}
           </button>
         ))}
       </div>
       <p className="mt-4 font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase">
-        Select 2–3 models
+        {t("compare.selectModels")}
       </p>
 
       <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
@@ -129,7 +132,7 @@ export default function CompareTools() {
           <thead>
             <tr className="border-b border-hnd-gray-300/30 dark:border-hnd-gray-800">
               <th className="py-4 pr-4 font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase">
-                Spec
+                {t("compare.spec")}
               </th>
               {visible.map((product) => (
                 <th key={product.id} className="px-4 py-4">
@@ -153,16 +156,24 @@ export default function CompareTools() {
                 className="border-b border-hnd-gray-300/20 dark:border-hnd-gray-800/80"
               >
                 <th className="py-4 pr-4 font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase">
-                  {label}
+                  {lspec(label)}
                 </th>
-                {visible.map((product) => (
-                  <td key={`${product.id}-${label}`} className="px-4 py-4 text-sm">
-                    {label === "Price"
+                {visible.map((product) => {
+                  const raw = rawProducts.find((r) => r.id === product.id);
+                  const specIndex =
+                    raw?.specs.findIndex((s) => s.label === label) ?? -1;
+                  const value =
+                    label === "Price"
                       ? formatPrice(product.price)
-                      : (product.specs.find((s) => s.label === label)?.value ??
-                        "—")}
-                  </td>
-                ))}
+                      : specIndex >= 0
+                        ? product.specs[specIndex]?.value
+                        : "—";
+                  return (
+                    <td key={`${product.id}-${label}`} className="px-4 py-4 text-sm">
+                      {value}
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>

@@ -1,23 +1,30 @@
+"use client";
+
 import Link from "next/link";
 import Logo from "@/components/layout/Logo";
 import SocialLinks from "@/components/layout/SocialLinks";
 import AppImage from "@/components/ui/AppImage";
+import { useLocale } from "@/components/providers/LocaleProvider";
 import { withBasePath } from "@/lib/assetPath";
+import type { MessageKey } from "@/i18n/dictionaries";
 
-const primaryLinks = [
-  { href: "/products/guitars", label: "Guitars" },
-  { href: "/products/amps", label: "Amps" },
-  { href: "/products/speakers", label: "Speakers" },
-  { href: "/products/lifestyle", label: "Lifestyle" },
+const primaryLinks: { href: string; labelKey: MessageKey }[] = [
+  { href: "/products/guitars", labelKey: "nav.guitars" },
+  { href: "/products/amps", labelKey: "nav.amps" },
+  { href: "/products/speakers", labelKey: "nav.speakers" },
+  { href: "/products/lifestyle", labelKey: "nav.lifestyle" },
 ];
 
-const secondaryLinks = [
-  { href: "/support", label: "Support" },
-  { href: "/account", label: "Account" },
-  { href: "/contact", label: "Contact" },
+const secondaryLinks: { href: string; labelKey: MessageKey }[] = [
+  { href: "/about", labelKey: "about.navLabel" },
+  { href: "/support", labelKey: "nav.support" },
+  { href: "/account", labelKey: "nav.account" },
+  { href: "/contact", labelKey: "nav.contact" },
 ];
 
 export default function Footer() {
+  const { t } = useLocale();
+
   return (
     <footer className="relative isolate overflow-hidden text-hnd-gray-500">
       {/* Stage background — footer only, anchored on the performer */}
@@ -109,7 +116,7 @@ export default function Footer() {
                     href={link.href}
                     className="group inline-flex items-center gap-2 font-ui text-sm tracking-[0.14em] text-hnd-gray-700 uppercase transition-colors hover:text-hnd-black dark:text-hnd-gray-300 dark:hover:text-hnd-white"
                   >
-                    {link.label}
+                    {t(link.labelKey)}
                     <span className="text-hnd-red transition-transform group-hover:translate-x-0.5">
                       →
                     </span>
@@ -124,7 +131,7 @@ export default function Footer() {
                     href={link.href}
                     className="group inline-flex items-center gap-2 font-ui text-sm tracking-[0.14em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-black dark:hover:text-hnd-white"
                   >
-                    {link.label}
+                    {t(link.labelKey)}
                     <span className="text-hnd-red transition-transform group-hover:translate-x-0.5">
                       →
                     </span>
@@ -135,27 +142,29 @@ export default function Footer() {
           </div>
 
           <div className="shrink-0 justify-self-start lg:justify-self-end lg:pt-0 lg:text-right">
-            <p className="label-condensed mb-5 text-hnd-gray-500">Follow HND</p>
+            <p className="label-condensed mb-5 text-hnd-gray-500">
+              {t("footer.follow")}
+            </p>
             <SocialLinks className="justify-start lg:justify-end" />
           </div>
         </div>
 
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-hnd-gray-300/80 pt-8 md:flex-row md:items-center dark:border-hnd-gray-700/80">
           <p className="font-ui text-[11px] tracking-[0.12em] text-hnd-gray-500 uppercase">
-            © {new Date().getFullYear()} HND Musical Instruments
+            © {new Date().getFullYear()} {t("footer.copyright")}
           </p>
           <div className="flex gap-6 font-ui text-[11px] tracking-[0.12em] uppercase">
             <Link
               href="/about"
               className="hover:text-hnd-black dark:hover:text-hnd-white"
             >
-              Privacy Policy
+              {t("footer.privacy")}
             </Link>
             <Link
               href="/about"
               className="hover:text-hnd-black dark:hover:text-hnd-white"
             >
-              Terms of Service
+              {t("footer.terms")}
             </Link>
           </div>
         </div>

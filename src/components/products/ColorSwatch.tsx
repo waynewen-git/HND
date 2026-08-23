@@ -1,6 +1,7 @@
 "use client";
 
-import { COLOR_HEX, COLOR_LABELS, type ProductColor } from "@/types";
+import { COLOR_HEX, type ProductColor } from "@/types";
+import { useI18n } from "@/i18n/useI18n";
 import { cn } from "@/lib/utils";
 
 interface ColorSwatchProps {
@@ -17,24 +18,26 @@ export default function ColorSwatch({
   onSelect,
   size = "md",
 }: ColorSwatchProps) {
+  const { t, lcolor } = useI18n();
   const sizeClass = size === "sm" ? "h-7 w-7" : "h-9 w-9 md:h-10 md:w-10";
 
   return (
     <div
       className="flex flex-wrap items-center gap-3"
       role="radiogroup"
-      aria-label="Color"
+      aria-label={t("product.color")}
     >
       {colors.map((color) => {
         const on = selected === color;
+        const label = lcolor(color);
         return (
           <button
             key={color}
             type="button"
             role="radio"
             aria-checked={on}
-            aria-label={COLOR_LABELS[color]}
-            title={COLOR_LABELS[color]}
+            aria-label={label}
+            title={label}
             onClick={() => onSelect(color)}
             className={cn(
               sizeClass,

@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
-import { formatPrice, getProductById } from "@/data/products";
+import { getProductById } from "@/data/products";
+import { useI18n } from "@/i18n/useI18n";
 import { useCartStore } from "@/store/cart";
-import { COLOR_LABELS } from "@/types";
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const { t, lp, lcolor, formatPrice } = useI18n();
   const { items, totalPrice, clearCart } = useCartStore();
   const [processing, setProcessing] = useState(false);
 
@@ -16,9 +17,9 @@ export default function CheckoutPage() {
     return (
       <div className="pt-12 md:pt-14">
         <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
-          <h1 className="font-bebas text-3xl">Nothing to Checkout</h1>
+          <h1 className="font-bebas text-3xl">{t("checkout.empty")}</h1>
           <Button href="/shop" size="lg" className="mt-8">
-            Continue Shopping
+            {t("checkout.continueShopping")}
           </Button>
         </div>
       </div>
@@ -37,59 +38,57 @@ export default function CheckoutPage() {
   return (
     <div className="pt-12 md:pt-14">
       <div className="section-padding container-max py-16 md:py-24">
-        <h1 className="font-bebas text-4xl md:text-5xl">Checkout</h1>
+        <h1 className="font-bebas text-4xl md:text-5xl">{t("checkout.title")}</h1>
 
         <form onSubmit={handleSubmit} className="mt-12 grid gap-12 lg:grid-cols-2">
           <div className="space-y-8">
             <fieldset>
               <legend className="font-bebas text-xl">
-                Shipping Information
+                {t("checkout.shippingInfo")}
               </legend>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <input
                   required
-                  placeholder="First Name"
+                  placeholder={t("checkout.firstName")}
                   className="rounded-sm border border-hnd-gray-300 bg-transparent px-4 py-3 text-sm dark:border-hnd-gray-700"
                 />
                 <input
                   required
-                  placeholder="Last Name"
+                  placeholder={t("checkout.lastName")}
                   className="rounded-sm border border-hnd-gray-300 bg-transparent px-4 py-3 text-sm dark:border-hnd-gray-700"
                 />
                 <input
                   required
                   type="email"
-                  placeholder="Email"
+                  placeholder={t("checkout.email")}
                   className="col-span-2 rounded-sm border border-hnd-gray-300 bg-transparent px-4 py-3 text-sm dark:border-hnd-gray-700"
                 />
                 <input
                   required
-                  placeholder="Address"
+                  placeholder={t("checkout.address")}
                   className="col-span-2 rounded-sm border border-hnd-gray-300 bg-transparent px-4 py-3 text-sm dark:border-hnd-gray-700"
                 />
                 <input
                   required
-                  placeholder="City"
+                  placeholder={t("checkout.city")}
                   className="rounded-sm border border-hnd-gray-300 bg-transparent px-4 py-3 text-sm dark:border-hnd-gray-700"
                 />
                 <input
                   required
-                  placeholder="ZIP / Postal Code"
+                  placeholder={t("checkout.zip")}
                   className="rounded-sm border border-hnd-gray-300 bg-transparent px-4 py-3 text-sm dark:border-hnd-gray-700"
                 />
               </div>
             </fieldset>
 
             <fieldset>
-              <legend className="font-bebas text-xl">
-                Payment
-              </legend>
+              <legend className="font-bebas text-xl">{t("checkout.payment")}</legend>
               <div className="mt-4 rounded-sm border border-dashed border-hnd-gray-300 p-8 text-center dark:border-hnd-gray-700">
                 <p className="text-sm text-hnd-gray-500">
-                  Payment integration placeholder
+                  {t("checkout.paymentPlaceholder")}
                 </p>
                 <p className="mt-2 text-xs text-hnd-gray-500">
-                  Stripe / PayPal will be connected in production
+                  {t("checkout.paymentNote")}
                 </p>
               </div>
             </fieldset>
@@ -97,11 +96,12 @@ export default function CheckoutPage() {
 
           <div>
             <div className="rounded-sm border border-hnd-gray-300/20 p-8 dark:border-hnd-gray-700/50">
-              <h2 className="font-bebas text-xl">Order Summary</h2>
+              <h2 className="font-bebas text-xl">{t("checkout.orderSummary")}</h2>
               <ul className="mt-6 space-y-4">
                 {items.map((item) => {
-                  const product = getProductById(item.productId);
-                  if (!product) return null;
+                  const raw = getProductById(item.productId);
+                  if (!raw) return null;
+                  const product = lp(raw);
                   return (
                     <li
                       key={`${item.productId}-${item.color}`}
@@ -110,7 +110,7 @@ export default function CheckoutPage() {
                       <span>
                         {product.name} × {item.quantity}
                         <span className="ml-1 text-hnd-gray-500">
-                          ({COLOR_LABELS[item.color]})
+                          ({lcolor(item.color)})
                         </span>
                       </span>
                       <span>
@@ -121,7 +121,7 @@ export default function CheckoutPage() {
                 })}
               </ul>
               <div className="mt-6 flex justify-between border-t border-hnd-gray-300/20 pt-6 dark:border-hnd-gray-700/50">
-                <span className="font-semibold">Total</span>
+                <span className="font-semibold">{t("checkout.total")}</span>
                 <span className="text-xl font-bold">
                   {formatPrice(totalPrice())}
                 </span>
@@ -132,7 +132,7 @@ export default function CheckoutPage() {
                 className="mt-8 w-full"
                 disabled={processing}
               >
-                {processing ? "Processing..." : "Place Order"}
+                {processing ? t("checkout.processing") : t("checkout.placeOrder")}
               </Button>
             </div>
           </div>

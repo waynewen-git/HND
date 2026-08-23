@@ -1,6 +1,10 @@
+"use client";
+
 import AppImage from "@/components/ui/AppImage";
 import Link from "next/link";
-import { formatPrice, getProductsByCategory } from "@/data/products";
+import { getProductsByCategory } from "@/data/products";
+import { navUtilityLinks } from "@/data/navUtility";
+import { useI18n } from "@/i18n/useI18n";
 import { cn } from "@/lib/utils";
 
 interface GuitarLineupProps {
@@ -8,19 +12,14 @@ interface GuitarLineupProps {
   className?: string;
 }
 
-const navSideLinks = [
-  { href: "/offers", label: "Current Offers" },
-  { href: "/compare?category=guitars", label: "Compare" },
-  { href: "/choose?category=guitars", label: "Help me Choose" },
-  { href: "/configure", label: "Custom" },
-];
-
 export default function GuitarLineup({
   variant = "nav",
   className,
 }: GuitarLineupProps) {
-  const guitars = getProductsByCategory("guitars");
+  const { t, lp, formatPrice, lcolor } = useI18n();
+  const guitars = getProductsByCategory("guitars").map(lp);
   const isNav = variant === "nav";
+  const sideLinks = navUtilityLinks("guitars");
 
   if (isNav) {
     return (
@@ -58,13 +57,13 @@ export default function GuitarLineup({
 
         <aside className="hidden w-48 shrink-0 border-l border-hnd-gray-300 pl-8 md:block lg:w-56 lg:pl-10 dark:border-hnd-gray-800">
           <ul className="space-y-4">
-            {navSideLinks.map((link) => (
-              <li key={link.href}>
+            {sideLinks.map((link) => (
+              <li key={`${link.href}-${link.labelKey}`}>
                 <Link
                   href={link.href}
                   className="font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-red"
                 >
-                  {link.label} →
+                  {t(link.labelKey)} →
                 </Link>
               </li>
             ))}
@@ -104,16 +103,16 @@ export default function GuitarLineup({
                 {product.tagline}
               </p>
               <p className="mt-2 text-sm text-hnd-gray-700 md:text-base dark:text-hnd-gray-300">
-                From {formatPrice(product.price)}
+                {t("common.from")} {formatPrice(product.price)}
               </p>
               <div
                 className="mt-4 flex justify-center gap-2.5"
-                aria-label="Available colors"
+                aria-label={t("product.availableColors")}
               >
                 {product.colors.map((color) => (
                   <span
                     key={color}
-                    title={color}
+                    title={lcolor(color)}
                     className="h-4 w-4 rounded-full border border-black/10 md:h-[18px] md:w-[18px]"
                     style={{
                       backgroundColor:

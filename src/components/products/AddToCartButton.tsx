@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useCartStore } from "@/store/cart";
 import ColorSwatch from "@/components/products/ColorSwatch";
 import type { ProductColor } from "@/types";
-import { COLOR_LABELS } from "@/types";
 import Button from "@/components/ui/Button";
+import { useI18n } from "@/i18n/useI18n";
 
 interface AddToCartButtonProps {
   productId: string;
@@ -18,6 +18,7 @@ export default function AddToCartButton({
   defaultColor,
   colors,
 }: AddToCartButtonProps) {
+  const { t, lcolor } = useI18n();
   const [color, setColor] = useState<ProductColor>(defaultColor);
   const [added, setAdded] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
@@ -32,15 +33,13 @@ export default function AddToCartButton({
     <div className="space-y-4">
       <div>
         <div className="flex items-baseline justify-between gap-3">
-          <p className="text-sm font-medium tracking-wide uppercase">Color</p>
-          <p className="text-sm text-hnd-gray-500">{COLOR_LABELS[color]}</p>
+          <p className="text-sm font-medium tracking-wide uppercase">
+            {t("product.color")}
+          </p>
+          <p className="text-sm text-hnd-gray-500">{lcolor(color)}</p>
         </div>
         <div className="mt-3">
-          <ColorSwatch
-            colors={colors}
-            selected={color}
-            onSelect={setColor}
-          />
+          <ColorSwatch colors={colors} selected={color} onSelect={setColor} />
         </div>
       </div>
       <Button
@@ -49,7 +48,7 @@ export default function AddToCartButton({
         className="w-full"
         disabled={added}
       >
-        {added ? "Added to Cart" : "Add to Cart"}
+        {added ? t("product.addedToCart") : t("product.addToCart")}
       </Button>
     </div>
   );

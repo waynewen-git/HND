@@ -14,6 +14,7 @@ import {
   type GuitarBodyColorId,
   type GuitarSelections,
 } from "@/data/guitarCustom";
+import { useLocale } from "@/components/providers/LocaleProvider";
 import { cn } from "@/lib/utils";
 
 function optionCardClass(on: boolean) {
@@ -35,6 +36,7 @@ function optionDotClass(on: boolean) {
 }
 
 export default function GuitarCustomizer() {
+  const { t } = useLocale();
   const [selections, setSelections] = useState<GuitarSelections>(() =>
     defaultGuitarSelections(),
   );
@@ -77,15 +79,17 @@ export default function GuitarCustomizer() {
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 md:px-7 md:py-8">
           <header>
             <h1 className="font-ui text-[1.75rem] font-bold tracking-tight md:text-[2rem]">
-              Custom Guitar
+              {t("configure.title")}
             </h1>
             <p className="mt-1.5 text-sm text-hnd-gray-500">
-              Built to order · Estimated 8–12 weeks
+              {t("configure.subtitle")}
             </p>
           </header>
 
           <section className="mt-6 md:mt-8">
-            <h2 className="font-ui text-lg font-bold md:text-xl">Body Shape</h2>
+            <h2 className="font-ui text-lg font-bold md:text-xl">
+              {t("configure.bodyShape")}
+            </h2>
             <ul className="mt-3 space-y-2 md:mt-4">
               {guitarBodyOptions.map((option) => {
                 const on = selections.body === option.value;
@@ -119,7 +123,9 @@ export default function GuitarCustomizer() {
 
           <section className="mt-6 md:mt-8">
             <div className="flex items-baseline justify-between gap-3">
-              <h2 className="font-ui text-lg font-bold md:text-xl">Paint</h2>
+              <h2 className="font-ui text-lg font-bold md:text-xl">
+                {t("configure.paint")}
+              </h2>
               <p className="font-ui text-sm text-hnd-gray-500">
                 {selectedColor.label}
               </p>
@@ -136,7 +142,9 @@ export default function GuitarCustomizer() {
 
           <section className="mt-6 md:mt-8">
             <div className="flex items-baseline justify-between gap-3">
-              <h2 className="font-ui text-lg font-bold md:text-xl">Neck</h2>
+              <h2 className="font-ui text-lg font-bold md:text-xl">
+                {t("configure.neck")}
+              </h2>
               <p className="font-ui text-sm text-hnd-gray-500">
                 {selectedNeck.value}
               </p>
@@ -173,8 +181,8 @@ export default function GuitarCustomizer() {
           </section>
 
           <p className="mt-6 text-xs leading-relaxed text-hnd-gray-500 md:mt-8 md:text-sm">
-            Next: {guitarCustomUpcoming.join(" · ")}. All choices update the
-            preview above.
+            {t("configure.nextPrefix")} {guitarCustomUpcoming.join(" · ")}.{" "}
+            {t("configure.nextSuffix")}
           </p>
         </div>
 
@@ -182,7 +190,7 @@ export default function GuitarCustomizer() {
           <div className="flex items-center justify-between gap-4">
             <div className="min-w-0">
               <p className="font-ui text-[11px] tracking-wide text-hnd-gray-500 uppercase">
-                Your build
+                {t("configure.yourBuild")}
               </p>
               <p className="truncate font-ui text-sm font-bold md:text-base">
                 {selectedBody.value} · {selectedColor.label} ·{" "}
@@ -195,7 +203,7 @@ export default function GuitarCustomizer() {
               className="shrink-0 rounded-full px-6 normal-case tracking-normal md:px-8"
               disabled
             >
-              Continue
+              {t("configure.continue")}
             </Button>
           </div>
         </footer>

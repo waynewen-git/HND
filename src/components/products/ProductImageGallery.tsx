@@ -4,6 +4,7 @@ import AppImage from "@/components/ui/AppImage";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/i18n/useI18n";
 
 interface ProductImageGalleryProps {
   images: string[];
@@ -14,6 +15,7 @@ export default function ProductImageGallery({
   images,
   productName,
 }: ProductImageGalleryProps) {
+  const { t } = useI18n();
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -58,7 +60,7 @@ export default function ProductImageGallery({
           type="button"
           onClick={() => openLightbox(0)}
           className="relative aspect-square w-full cursor-zoom-in overflow-hidden rounded-sm bg-transparent"
-          aria-label={`Enlarge ${productName} main image`}
+          aria-label={t("gallery.enlargeMain", { name: productName })}
         >
           <AppImage
             src={images[0]}
@@ -81,11 +83,17 @@ export default function ProductImageGallery({
                   type="button"
                   onClick={() => openLightbox(index)}
                   className="relative aspect-square cursor-zoom-in overflow-hidden rounded-sm bg-transparent"
-                  aria-label={`Enlarge ${productName} view ${index + 1}`}
+                  aria-label={t("gallery.enlargeView", {
+                    name: productName,
+                    n: index + 1,
+                  })}
                 >
                   <AppImage
                     src={img}
-                    alt={`${productName} view ${index + 1}`}
+                    alt={t("gallery.view", {
+                      name: productName,
+                      n: index + 1,
+                    })}
                     fill
                     unoptimized
                     className="object-contain transition-transform duration-300 hover:scale-[1.03]"
@@ -104,13 +112,13 @@ export default function ProductImageGallery({
           onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
-          aria-label={`${productName} image gallery`}
+          aria-label={t("gallery.gallery", { name: productName })}
         >
           <button
             type="button"
             onClick={closeLightbox}
             className="absolute top-4 right-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-            aria-label="Close"
+            aria-label={t("gallery.close")}
           >
             <X className="h-6 w-6" />
           </button>
@@ -124,7 +132,7 @@ export default function ProductImageGallery({
                   goPrev();
                 }}
                 className="absolute top-1/2 left-3 z-10 -translate-y-1/2 rounded-full bg-white/10 p-2.5 text-white transition-colors hover:bg-white/20 md:left-6"
-                aria-label="Previous image"
+                aria-label={t("gallery.previousImage")}
               >
                 <ChevronLeft className="h-6 w-6" />
               </button>
@@ -135,7 +143,7 @@ export default function ProductImageGallery({
                   goNext();
                 }}
                 className="absolute top-1/2 right-3 z-10 -translate-y-1/2 rounded-full bg-white/10 p-2.5 text-white transition-colors hover:bg-white/20 md:right-6"
-                aria-label="Next image"
+                aria-label={t("gallery.nextImage")}
               >
                 <ChevronRight className="h-6 w-6" />
               </button>
@@ -148,7 +156,10 @@ export default function ProductImageGallery({
           >
             <AppImage
               src={images[activeIndex]}
-              alt={`${productName} enlarged view ${activeIndex + 1}`}
+              alt={t("gallery.enlargedView", {
+                name: productName,
+                n: activeIndex + 1,
+              })}
               fill
               unoptimized
               className="object-contain"
@@ -171,7 +182,7 @@ export default function ProductImageGallery({
                     "h-1.5 rounded-full transition-all",
                     i === activeIndex ? "w-8 bg-white" : "w-3 bg-white/40",
                   )}
-                  aria-label={`Go to image ${i + 1}`}
+                  aria-label={t("gallery.goToImage", { n: i + 1 })}
                 />
               ))}
             </div>

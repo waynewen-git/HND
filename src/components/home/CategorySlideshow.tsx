@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { withBasePath } from "@/lib/assetPath";
 import type { CategorySlide } from "@/types/categorySlide";
+import { useI18n } from "@/i18n/useI18n";
 
 const AUTO_MS = 5000;
 
@@ -12,6 +13,7 @@ interface CategorySlideshowProps {
 }
 
 export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
+  const { t } = useI18n();
   const [current, setCurrent] = useState(0);
 
   const goTo = useCallback((index: number) => {
@@ -39,7 +41,7 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
   return (
     <section
       className="relative w-full max-w-[100vw] overflow-x-clip bg-hnd-white pt-12 text-hnd-black md:pt-14 dark:bg-transparent dark:text-hnd-white"
-      aria-label="Product showcase"
+      aria-label={t("hero.productShowcase")}
       aria-roledescription="carousel"
     >
       {/* Fixed 500px on desktop; width-only crop via object-cover */}
@@ -62,7 +64,7 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
           type="button"
           onClick={prev}
           className="absolute top-1/2 left-1 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center text-hnd-black/50 transition-colors hover:text-hnd-red md:left-[max(8px,1.5%)] md:h-11 md:w-11 dark:text-hnd-white/70"
-          aria-label="Previous slide"
+          aria-label={t("common.previous")}
         >
           <ChevronLeft className="h-6 w-6" strokeWidth={1.5} />
         </button>
@@ -70,7 +72,7 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
           type="button"
           onClick={next}
           className="absolute top-1/2 right-1 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center text-hnd-black/50 transition-colors hover:text-hnd-red md:right-[max(8px,1.5%)] md:h-11 md:w-11 dark:text-hnd-white/70"
-          aria-label="Next slide"
+          aria-label={t("common.next")}
         >
           <ChevronRight className="h-6 w-6" strokeWidth={1.5} />
         </button>
@@ -86,7 +88,7 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
                   ? "w-8 bg-hnd-red"
                   : "w-4 bg-hnd-black/25 dark:bg-hnd-white/30"
               }`}
-              aria-label={`Go to ${s.label}`}
+              aria-label={t("hero.goToCategory", { label: s.label })}
               aria-current={i === current ? "true" : undefined}
             />
           ))}

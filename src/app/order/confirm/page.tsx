@@ -1,7 +1,12 @@
+"use client";
+
 import Button from "@/components/ui/Button";
+import { useI18n } from "@/i18n/useI18n";
 
 /** Static showcase page — no server searchParams (required for GitHub Pages export). */
 export default function OrderConfirmPage() {
+  const { t } = useI18n();
+
   return (
     <div className="pt-12 md:pt-14">
       <div className="section-padding container-max flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
@@ -21,17 +26,15 @@ export default function OrderConfirmPage() {
           </svg>
         </div>
         <h1 className="mt-8 font-bebas text-3xl md:text-4xl">
-          Order Confirmed
+          {t("order.confirmed")}
         </h1>
-        <p className="mt-4 text-hnd-gray-500">
-          Thank you for your purchase. A confirmation email will be sent shortly.
-        </p>
+        <p className="mt-4 text-hnd-gray-500">{t("order.thankYou")}</p>
         <div className="mt-8 flex flex-col gap-4 sm:flex-row">
           <Button href="/shop" size="lg">
-            Continue Shopping
+            {t("order.continueShopping")}
           </Button>
           <Button href="/account" variant="outline" size="lg">
-            View Account
+            {t("order.viewAccount")}
           </Button>
         </div>
       </div>

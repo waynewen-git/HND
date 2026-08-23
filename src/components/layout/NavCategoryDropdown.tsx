@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getProductsByCategory } from "@/data/products";
 import { navUtilityLinks } from "@/data/navUtility";
+import { useI18n } from "@/i18n/useI18n";
 import { cn } from "@/lib/utils";
 import type { ProductCategory } from "@/types";
 
@@ -27,16 +28,17 @@ function UtilityLinks({
   onNavigate?: () => void;
   className?: string;
 }) {
+  const { t } = useI18n();
   return (
     <ul className={cn("space-y-3", className)}>
       {navUtilityLinks(category).map((link) => (
-        <li key={`${link.href}-${link.label}`}>
+        <li key={`${link.href}-${link.labelKey}`}>
           <Link
             href={link.href}
             onClick={onNavigate}
             className="font-ui text-xs tracking-[0.14em] text-hnd-gray-500 uppercase transition-colors hover:text-hnd-red"
           >
-            {link.label} →
+            {t(link.labelKey)} →
           </Link>
         </li>
       ))}
@@ -81,6 +83,7 @@ function ProductChapterRow({
   image,
   href,
   onNavigate,
+  exploreLabel,
 }: {
   index: string;
   label: string;
@@ -89,6 +92,7 @@ function ProductChapterRow({
   image: string;
   href: string;
   onNavigate?: () => void;
+  exploreLabel: string;
 }) {
   const copyRef = useRef<HTMLDivElement>(null);
   const [copyHeight, setCopyHeight] = useState(0);
@@ -138,7 +142,7 @@ function ProductChapterRow({
           onClick={onNavigate}
           className="group/cta relative z-30 mt-[0.4em] inline-flex items-center gap-1 font-ui text-[clamp(9px,2.2vw,13px)] tracking-[0.16em] text-hnd-black uppercase transition-colors hover:text-hnd-red dark:text-hnd-white dark:hover:text-hnd-red"
         >
-          Explore
+          {exploreLabel}
           <span className="text-hnd-red transition-transform group-hover/cta:translate-x-0.5">
             →
           </span>
@@ -171,7 +175,28 @@ export default function NavCategoryDropdown({
   layout = "grid",
   onNavigate,
 }: NavCategoryDropdownProps) {
-  const products = getProductsByCategory(category);
+  const { lp, t } = useI18n();
+  const products = getProductsByCategory(category).map(lp);
+
+  if (category === "speakers") {
+    return (
+      <div
+        className={cn(
+          "flex min-h-[12rem] items-center justify-center py-10 md:min-h-[16rem] md:py-14",
+          className,
+        )}
+      >
+        <div className="text-center">
+          <p className="font-bebas text-3xl tracking-wide md:text-4xl">
+            {t("cart.comingSoon")}
+          </p>
+          <p className="mt-2 font-ui text-xs tracking-[0.16em] text-hnd-gray-500 uppercase">
+            {label}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   if (layout === "chapter") {
     return (
@@ -187,6 +212,7 @@ export default function NavCategoryDropdown({
                 image={product.navImage ?? product.images[0]}
                 href={`/products/${product.category}/${product.slug}`}
                 onNavigate={onNavigate}
+                exploreLabel={t("common.explore")}
               />
             </li>
           ))}
