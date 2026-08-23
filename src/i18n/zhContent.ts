@@ -57,9 +57,9 @@ function ampProduct(index: number) {
   const power = 50 + index * 10;
   const weight = 18 + index;
   return {
-    tagline: `专业音箱头 0${n}`,
+    tagline: `专业箱头 0${n}`,
     description:
-      "专业电子管音箱头，提供巨大增益与清晰的 clean 音色。优质元件，巡演与录音室皆宜。",
+      "专业电子管箱头，提供巨大增益与清晰的 clean 音色。优质元件，巡演与录音室皆宜。",
     highlights: [
       "全电子管电路，真实音色",
       "可切换音色，现代与复古兼备",
@@ -84,9 +84,9 @@ export const zhContent = {
         "六款为重型摇滚打造的精密电吉他。激进音色、冷金属美学、舞台级表现。",
     },
     amps: {
-      name: "音箱头",
+      name: "箱头",
       description:
-        "七款专业音箱头， crushing 增益与 pristine 清晰度。为录音室与舞台而生。",
+        "三款专业箱头， crushing 增益与 pristine 清晰度。为录音室与舞台而生。",
     },
     speakers: {
       name: "蓝牙音箱",
@@ -100,7 +100,46 @@ export const zhContent = {
   } satisfies Record<ProductCategory, { name?: string; description?: string }>,
 
   products: {
-    "guitar-01": guitarProduct(0),
+    "guitar-01": {
+      tagline: "经典 S 型 HSS",
+      description:
+        "经典 S 型电吉他：桤木琴体、烤枫木 Modern C 琴颈、印度玫瑰木指板，以及 Seymour Duncan HSS 拾音器（TB4 / SSL-6 / SSL-6）。配备 GOTOH 510TS-FE1 颤音系统、不锈钢背锁式弦钮与高光聚酯漆，兼顾舞台音色与稳定性。",
+      highlights: [
+        "桤木琴体，高光聚酯漆面",
+        "烤枫木 Modern C 琴颈与印度玫瑰木指板",
+        "Seymour Duncan HSS（TB4 / SSL-6 / SSL-6），超级五档切换",
+        "GOTOH 510TS-FE1 颤音与不锈钢背锁式弦钮",
+      ],
+      specValues: {
+        "body::Wood": "Alder",
+        "body::Shape": "Classic 经典",
+        "body::Finish": "高光聚酯漆",
+        "neck::Wood": "烤枫木",
+        "neck::Shape": 'Modern C（.800"–.880"）',
+        "neck::Frets": "22品",
+        "neck::Fingerboard": "印度玫瑰木",
+        "neck::Neck Finish": "手工涂油处理（Oil Finish）",
+        "neck::Fret Wire": "不锈钢，大号（2.97mm × 1.45mm）",
+        "neck::Nut": "TUSQ",
+        "neck::Nut Width": '1.650"（42 mm）',
+        "neck::Scale Length": '25.5"（64.77 cm）',
+        "electronics::Bridge Pickup": "Seymour Duncan TB4",
+        "electronics::Middle Pickup": "Seymour Duncan SSL-6",
+        "electronics::Neck Pickup": "Seymour Duncan SSL-6",
+        "electronics::Pickup Config": "HSS",
+        "electronics::Controls": "音量控制 Master Volume",
+        "electronics::Switching":
+          "超级五档控制\n1. Bridge Pickup\n2. Bridge and Middle Pickup\n3. Middle Pickup\n4. Middle and Neck Pickup\n5. Neck Pickup",
+        "hardware::Bridge": "GOTOH 510TS-FE1",
+        "hardware::Block": "不锈钢底座 Block Height:42mm",
+        "hardware::String Spacing": "String Spacing:10.8mm",
+        "hardware::Saddle Material": "不锈钢（Saddle Material:Steel）",
+        "hardware::Tuners": "不锈钢背锁式",
+        "hardware::Pickguard": "三层奶油色",
+        "other::Strings": "达达里奥 .010–.046",
+        "other::Gig Bag": "牛津布黑色加厚琴包",
+      },
+    },
     "guitar-02": guitarProduct(1),
     "guitar-03": guitarProduct(2),
     "guitar-04": guitarProduct(3),
@@ -109,9 +148,6 @@ export const zhContent = {
     "amp-01": ampProduct(0),
     "amp-02": ampProduct(1),
     "amp-03": ampProduct(2),
-    "amp-04": ampProduct(3),
-    "amp-05": ampProduct(4),
-    "amp-06": ampProduct(5),
     "speaker-01": {
       tagline: "二极管蓝牙音箱",
       description:

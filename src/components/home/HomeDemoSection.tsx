@@ -54,7 +54,7 @@ const demos = [
 ];
 
 export default function HomeDemoSection() {
-  const { t, ldemo } = useI18n();
+  const { t, ldemo, locale } = useI18n();
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
 
@@ -140,15 +140,17 @@ export default function HomeDemoSection() {
   return (
     <section className="relative w-full max-w-[100vw] overflow-x-clip bg-hnd-white py-8 md:py-12 dark:bg-transparent">
       <div className="section-padding text-center">
-        <h2 className="font-rock text-[clamp(1.35rem,3vw,2.15rem)] leading-tight text-hnd-black dark:text-hnd-white">
-          {t("home.headlineBefore")}{" "}
+        <h2
+          className={`font-rock leading-tight text-hnd-black dark:text-hnd-white ${
+            locale === "zh"
+              ? "text-[clamp(1.85rem,4.5vw,2.85rem)] tracking-[0.14em]"
+              : "text-[clamp(1.35rem,3vw,2.15rem)]"
+          }`}
+        >
+          {t("home.headlineBefore")}
           <span className="text-hnd-red">{t("home.headlineRock")}</span>
           {t("home.headlineMid")}
-          {t("home.headlineBuilt") ? (
-            <>
-              {t("home.headlineBuilt")}{" "}
-            </>
-          ) : null}
+          {t("home.headlineBuilt")}
           <span className="text-hnd-red">{t("home.headlineStage")}</span>
           {t("home.headlineEnd")}
         </h2>

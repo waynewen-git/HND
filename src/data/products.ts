@@ -19,7 +19,7 @@ export const categories: CategoryInfo[] = [
     slug: "amps",
     name: "Amp Heads",
     description:
-      "Seven professional amp heads delivering crushing gain and pristine clarity. Built for the studio and the stage.",
+      "Three professional amp heads delivering crushing gain and pristine clarity. Built for the studio and the stage.",
     heroImage: "/images/hnd-3.webp",
   },
   {
@@ -48,22 +48,19 @@ const guitarPngs = [
 ];
 
 const guitarDetailImages = [
-  "/images/guitar-detail-1.webp",
-  "/images/guitar-detail-2.webp",
-  "/images/guitar-detail-3.webp",
-  "/images/guitar-detail-4.webp",
-  "/images/guitar-detail-5.webp",
-  "/images/guitar-detail-6.webp",
-  "/images/guitar-detail-7.webp",
+  "/images/Detail-1.PNG",
+  "/images/Detail-2.PNG",
+  "/images/Detail-3.PNG",
+  "/images/Detail-4.PNG",
+  "/images/Detail-5.PNG",
 ];
+
+const guitarDemoVideo = "/videos/products/hero-Testing-Demo-2.mp4";
 
 const ampPngs = [
   "/images/hero-amps-1.webp",
   "/images/hero-amps-2.webp",
   "/images/hero-amps-3.webp",
-  "/images/hero-amps-4.webp",
-  "/images/hero-amps-5.webp",
-  "/images/hero-amps-6.webp",
 ];
 
 const speakerImage = "/images/hero-speaker-0.webp";
@@ -86,7 +83,7 @@ const guitarStrings = [
   "11–48 Heavy",
   "12–54 Extra Heavy",
 ];
-const ampPrices = [599, 633, 666, 699, 729, 759];
+const ampPrices = [599, 633, 666];
 
 const guitarSeries = [
   { tagline: "Classic Single-Cut", body: "Mahogany set-neck" },
@@ -98,32 +95,158 @@ const guitarSeries = [
 ];
 
 export const products: Product[] = [
-  ...Array.from({ length: 6 }, (_, i) => {
-    const guitarImage = guitarPngs[i % guitarPngs.length];
+  {
+    id: "guitar-01",
+    slug: "hnd-g01",
+    sku: "HND-G01",
+    category: "guitars",
+    name: "HND-G01",
+    tagline: "Classic S-Style HSS",
+    description:
+      "A classic S-style electric guitar with an alder body, roasted maple Modern C neck, Indian rosewood fingerboard, and Seymour Duncan HSS pickups (TB4 / SSL-6 / SSL-6). GOTOH 510TS-FE1 tremolo, stainless locking tuners, and a high-gloss polyester finish deliver stage-ready tone and stability.",
+    price: 699,
+    colors: ["black", "pink", "lightBlue", "teal", "white"],
+    images: ["/images/hero-guitar-1.webp", ...guitarDetailImages],
+    navImage: "/images/hero-guitar-1.webp",
+    video: guitarDemoVideo,
+    specs: [
+      { group: "body", label: "Wood", value: "Alder" },
+      { group: "body", label: "Shape", value: "Classic" },
+      { group: "body", label: "Finish", value: "High-gloss polyester" },
+      { group: "neck", label: "Wood", value: "Roasted maple" },
+      {
+        group: "neck",
+        label: "Shape",
+        value: 'Modern C (.800"–.880")',
+      },
+      { group: "neck", label: "Frets", value: "22" },
+      {
+        group: "neck",
+        label: "Fingerboard",
+        value: "Indian rosewood",
+      },
+      {
+        group: "neck",
+        label: "Neck Finish",
+        value: "Hand-rubbed oil finish",
+      },
+      {
+        group: "neck",
+        label: "Fret Wire",
+        value: "Stainless steel jumbo (2.97 × 1.45 mm)",
+      },
+      { group: "neck", label: "Nut", value: "TUSQ" },
+      {
+        group: "neck",
+        label: "Nut Width",
+        value: '1.650" (42 mm)',
+      },
+      {
+        group: "neck",
+        label: "Scale Length",
+        value: '25.5" (64.77 cm)',
+      },
+      {
+        group: "electronics",
+        label: "Bridge Pickup",
+        value: "Seymour Duncan TB4",
+      },
+      {
+        group: "electronics",
+        label: "Middle Pickup",
+        value: "Seymour Duncan SSL-6",
+      },
+      {
+        group: "electronics",
+        label: "Neck Pickup",
+        value: "Seymour Duncan SSL-6",
+      },
+      {
+        group: "electronics",
+        label: "Pickup Config",
+        value: "HSS",
+      },
+      {
+        group: "electronics",
+        label: "Controls",
+        value: "Master Volume",
+      },
+      {
+        group: "electronics",
+        label: "Switching",
+        value:
+          "Super 5-way\n1. Bridge\n2. Bridge + Middle\n3. Middle\n4. Middle + Neck\n5. Neck",
+      },
+      { group: "hardware", label: "Bridge", value: "GOTOH 510TS-FE1" },
+      {
+        group: "hardware",
+        label: "Block",
+        value: "Stainless steel, height 42 mm",
+      },
+      {
+        group: "hardware",
+        label: "String Spacing",
+        value: "10.8 mm",
+      },
+      {
+        group: "hardware",
+        label: "Saddle Material",
+        value: "Stainless steel",
+      },
+      {
+        group: "hardware",
+        label: "Tuners",
+        value: "Stainless steel locking",
+      },
+      {
+        group: "hardware",
+        label: "Pickguard",
+        value: "3-ply cream",
+      },
+      {
+        group: "other",
+        label: "Strings",
+        value: "D'Addario .010–.046",
+      },
+      {
+        group: "other",
+        label: "Gig Bag",
+        value: "Black oxford padded gig bag",
+      },
+    ],
+    highlights: [
+      "Alder body with high-gloss polyester finish",
+      "Roasted maple Modern C neck and Indian rosewood fingerboard",
+      "Seymour Duncan HSS (TB4 / SSL-6 / SSL-6) with super 5-way switching",
+      "GOTOH 510TS-FE1 tremolo and stainless locking tuners",
+    ],
+    featured: true,
+  },
+  ...Array.from({ length: 5 }, (_, i) => {
+    const n = i + 2;
+    const guitarImage = guitarPngs[(n - 1) % guitarPngs.length];
     return {
-    id: `guitar-0${i + 1}`,
-    slug: `hnd-g0${i + 1}`,
-    sku: `HND-G0${i + 1}`,
+    id: `guitar-0${n}`,
+    slug: `hnd-g0${n}`,
+    sku: `HND-G0${n}`,
     category: "guitars" as const,
-    name: `HND-G0${i + 1}`,
-    tagline: guitarSeries[i].tagline,
+    name: `HND-G0${n}`,
+    tagline: guitarSeries[n - 1].tagline,
     description:
       "A precision-crafted electric guitar built for heavy rock. Features a contoured body, high-output pickups, and a fast-playing neck designed for aggressive riffing and soaring solos.",
-    price: guitarPrices[i],
+    price: guitarPrices[n - 1],
     colors: ["black", "white", "red", "blue"] as ProductColor[],
     images: [guitarImage, ...guitarDetailImages],
     navImage: guitarImage,
-    ...(i < 3
-      ? { video: `/videos/products/hero-hnd-g0${i + 1}-demo.mp4` }
-      : {}),
+    video: guitarDemoVideo,
     specs: [
-      { label: "Body", value: guitarSeries[i].body },
+      { label: "Body", value: guitarSeries[n - 1].body },
       { label: "Neck", value: "Maple, bolt-on" },
       { label: "Fingerboard", value: "Ebony, 24 frets" },
       { label: "Pickups", value: "HND Humbucker Set" },
       { label: "Bridge", value: "Fixed, string-through" },
       { label: "Scale Length", value: '25.5"' },
-      { label: "Strings", value: guitarStrings[i] },
+      { label: "Strings", value: guitarStrings[n - 1] },
       { label: "Weight", value: "3.8 kg" },
     ],
     highlights: [
@@ -131,10 +254,10 @@ export const products: Product[] = [
       "Fast C-profile neck for technical playing",
       "Stage-ready hardware and electronics",
     ],
-    featured: i < 3,
+    featured: n < 4,
   };
   }),
-  ...Array.from({ length: 6 }, (_, i) => {
+  ...Array.from({ length: 3 }, (_, i) => {
     const ampImage = ampPngs[i];
     const n = i + 1;
     return {

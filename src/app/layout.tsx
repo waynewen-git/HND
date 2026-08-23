@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Oswald, Space_Grotesk } from "next/font/google";
+import { Bebas_Neue, Ma_Shan_Zheng, Oswald, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -21,6 +21,14 @@ const oswald = Oswald({
   weight: ["600", "700"],
   subsets: ["latin"],
   variable: "--font-oswald",
+  display: "swap",
+});
+
+/** Ma Shan Zheng — expressive Chinese rock display */
+const maShanZheng = Ma_Shan_Zheng({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-zh-display",
   display: "swap",
 });
 
@@ -66,7 +74,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${bebasNeue.variable} ${oswald.variable} ${spaceGrotesk.variable}`}
+      className={`dark ${bebasNeue.variable} ${oswald.variable} ${maShanZheng.variable} ${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
       <head>

@@ -115,6 +115,16 @@
     text-transform: uppercase;
   }
 
+  /* Chinese rock headline — brush display, no Latin uppercase */
+  :lang(zh-CN) .font-rock,
+  :lang(zh) .font-rock {
+    font-family: var(--font-zh-display), "Ma Shan Zheng", "STKaiti", "KaiTi",
+      cursive !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.12em;
+    text-transform: none;
+  }
+
   .font-ui,
   .font-body {
     font-family: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;

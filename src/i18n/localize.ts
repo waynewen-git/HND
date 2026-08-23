@@ -15,8 +15,29 @@ const specLabelKeys: Record<string, MessageKey> = {
   Body: "specs.body",
   Neck: "specs.neck",
   Fingerboard: "specs.fingerboard",
+  Frets: "specs.frets",
+  Radius: "specs.radius",
+  Nut: "specs.nut",
+  "Nut Width": "specs.nutWidth",
+  "Neck Finish": "specs.neckFinish",
+  "Fret Wire": "specs.fretWire",
+  Wood: "specs.wood",
+  Shape: "specs.shape",
+  Finish: "specs.finish",
+  "Bridge Pickup": "specs.bridgePickup",
+  "Middle Pickup": "specs.middlePickup",
+  "Neck Pickup": "specs.neckPickup",
+  "Pickup Config": "specs.pickupConfig",
+  Switching: "specs.switching",
+  Block: "specs.block",
+  "String Spacing": "specs.stringSpacing",
+  "Saddle Material": "specs.saddleMaterial",
+  Pickguard: "specs.pickguard",
+  "Gig Bag": "specs.gigBag",
   Pickups: "specs.pickups",
+  Controls: "specs.controls",
   Bridge: "specs.bridge",
+  Tuners: "specs.tuners",
   "Scale Length": "specs.scaleLength",
   Strings: "specs.strings",
   Weight: "specs.weight",
@@ -81,10 +102,17 @@ export function localizeProduct(product: Product, locale: Locale): Product {
   const zh = zhContent.products[product.id];
   if (!zh) return product;
 
-  const specs: ProductSpec[] = product.specs.map((spec) => ({
-    label: localizeSpecLabel(spec.label, locale),
-    value: zh.specValues?.[spec.label] ?? spec.value,
-  }));
+  const specs: ProductSpec[] = product.specs.map((spec) => {
+    const keyed =
+      (spec.group
+        ? zh.specValues?.[`${spec.group}::${spec.label}`]
+        : undefined) ?? zh.specValues?.[spec.label];
+    return {
+      ...spec,
+      label: localizeSpecLabel(spec.label, locale),
+      value: keyed ?? spec.value,
+    };
+  });
 
   return {
     ...product,

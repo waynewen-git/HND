@@ -1,8 +1,8 @@
 "use client";
 
+import PaintSphereButton from "@/components/ui/PaintSphereButton";
 import { COLOR_HEX, type ProductColor } from "@/types";
 import { useI18n } from "@/i18n/useI18n";
-import { cn } from "@/lib/utils";
 
 interface ColorSwatchProps {
   colors: ProductColor[];
@@ -11,7 +11,7 @@ interface ColorSwatchProps {
   size?: "sm" | "md";
 }
 
-/** Tesla-style color balls — shared by product detail & list reference. */
+/** Tesla-style 3D paint spheres — product detail & cart color pickers. */
 export default function ColorSwatch({
   colors,
   selected,
@@ -19,40 +19,23 @@ export default function ColorSwatch({
   size = "md",
 }: ColorSwatchProps) {
   const { t, lcolor } = useI18n();
-  const sizeClass = size === "sm" ? "h-7 w-7" : "h-9 w-9 md:h-10 md:w-10";
 
   return (
     <div
-      className="flex flex-wrap items-center gap-3"
+      className="flex flex-wrap items-center gap-3 sm:gap-3.5"
       role="radiogroup"
       aria-label={t("product.color")}
     >
-      {colors.map((color) => {
-        const on = selected === color;
-        const label = lcolor(color);
-        return (
-          <button
-            key={color}
-            type="button"
-            role="radio"
-            aria-checked={on}
-            aria-label={label}
-            title={label}
-            onClick={() => onSelect(color)}
-            className={cn(
-              sizeClass,
-              "shrink-0 rounded-full border transition-all duration-200",
-              on
-                ? "scale-110 border-hnd-black ring-2 ring-hnd-black ring-offset-2 ring-offset-hnd-white dark:ring-offset-hnd-black"
-                : "border-black/10 hover:scale-105 hover:border-black/25",
-              color === "white" &&
-                !on &&
-                "shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)]",
-            )}
-            style={{ backgroundColor: COLOR_HEX[color] }}
-          />
-        );
-      })}
+      {colors.map((color) => (
+        <PaintSphereButton
+          key={color}
+          selected={selected === color}
+          label={lcolor(color)}
+          swatch={COLOR_HEX[color]}
+          onSelect={() => onSelect(color)}
+          size={size}
+        />
+      ))}
     </div>
   );
 }

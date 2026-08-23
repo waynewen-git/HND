@@ -1,10 +1,19 @@
 export type ProductCategory = "guitars" | "amps" | "speakers" | "lifestyle";
 
-export type ProductColor = "black" | "white" | "red" | "blue";
+export type ProductColor =
+  | "black"
+  | "white"
+  | "red"
+  | "blue"
+  | "pink"
+  | "lightBlue"
+  | "teal";
 
 export interface ProductSpec {
   label: string;
   value: string;
+  /** Optional section key for grouped spec layouts (e.g. body | neck | electronics). */
+  group?: string;
 }
 
 export interface Product {
@@ -67,6 +76,9 @@ export const COLOR_LABELS: Record<ProductColor, string> = {
   white: "White",
   red: "Red",
   blue: "Blue",
+  pink: "Pink",
+  lightBlue: "Light Blue",
+  teal: "Teal",
 };
 
 export const COLOR_HEX: Record<ProductColor, string> = {
@@ -74,6 +86,9 @@ export const COLOR_HEX: Record<ProductColor, string> = {
   white: "#f5f5f5",
   red: "#c41e3a",
   blue: "#2d4a6f",
+  pink: "#e8b4b8",
+  lightBlue: "#7ec8d4",
+  teal: "#5fb3a3",
 };
 
 export const CATEGORY_LABELS: Record<ProductCategory, string> = {

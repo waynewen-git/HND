@@ -1,8 +1,8 @@
 "use client";
 
 import AddToCartButton from "@/components/products/AddToCartButton";
-import ProductDemoVideo from "@/components/products/ProductDemoVideo";
 import ProductImageGallery from "@/components/products/ProductImageGallery";
+import ProductSpecs from "@/components/products/ProductSpecs";
 import { useI18n } from "@/i18n/useI18n";
 import type { Product } from "@/types";
 
@@ -11,7 +11,7 @@ interface ProductDetailProps {
 }
 
 export default function ProductDetail({ product: rawProduct }: ProductDetailProps) {
-  const { lp, lcolor, formatPrice, categoryLabel, t } = useI18n();
+  const { lp, formatPrice, categoryLabel, t } = useI18n();
   const product = lp(rawProduct);
 
   if (product.category === "speakers") {
@@ -34,6 +34,8 @@ export default function ProductDetail({ product: rawProduct }: ProductDetailProp
           <ProductImageGallery
             images={product.images}
             productName={product.name}
+            video={product.video}
+            videoPoster={product.images[0]}
           />
 
           <div className="flex flex-col justify-center">
@@ -47,17 +49,6 @@ export default function ProductDetail({ product: rawProduct }: ProductDetailProp
             <p className="mt-6 text-3xl font-semibold">
               {formatPrice(product.price)}
             </p>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              {product.colors.map((c) => (
-                <span
-                  key={c}
-                  className="rounded-sm border border-hnd-gray-300 px-3 py-1 text-xs capitalize dark:border-hnd-gray-700"
-                >
-                  {lcolor(c)}
-                </span>
-              ))}
-            </div>
 
             <p className="mt-8 leading-relaxed text-hnd-gray-500">
               {product.description}
@@ -73,14 +64,6 @@ export default function ProductDetail({ product: rawProduct }: ProductDetailProp
           </div>
         </div>
       </section>
-
-      {product.video && (
-        <ProductDemoVideo
-          src={product.video}
-          title={product.name}
-          poster={product.images[0]}
-        />
-      )}
 
       <section className="section-padding container-max py-16 md:py-24">
         <h2 className="font-bebas text-2xl md:text-3xl">
