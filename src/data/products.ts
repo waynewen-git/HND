@@ -55,7 +55,7 @@ const guitarDetailImages = [
   "/images/Detail-5.PNG",
 ];
 
-const guitarDemoVideo = "/videos/products/hero-Testing-Demo-2.mp4";
+const guitarDemoVideo = "/videos/hero-Testing-Demo-2.mp4";
 
 const ampPngs = [
   "/images/hero-amps-1.webp",
