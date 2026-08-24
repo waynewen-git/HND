@@ -8,7 +8,7 @@ import { useI18n } from "@/i18n/useI18n";
 
 const demos = [
   {
-    src: "/videos/products/hero-hnd-g01-demo.mp4",
+    src: "/videos/products/hero-Testing-Demo-1.mp4",
     name: "Alex Rowe",
     role: "Rhythm Guitarist · Iron Circuit",
     instrument: "Electric Guitar",
@@ -19,7 +19,7 @@ const demos = [
       "Warm mahogany punch that still cuts through a dense mix. Built for the riff that holds the whole set together.",
   },
   {
-    src: "/videos/products/hero-hnd-g02-demo.mp4",
+    src: "/videos/products/hero-Testing-Demo-2.mp4",
     name: "Rin Vale",
     role: "Lead Guitarist · Static Room",
     instrument: "Electric Guitar",
@@ -30,7 +30,7 @@ const demos = [
       "Fast neck, tight attack, and enough clarity to stay articulate when the gain goes all the way up.",
   },
   {
-    src: "/videos/products/hero-hnd-g03-demo.mp4",
+    src: "/videos/products/hero-Testing-Demo-3.mp4",
     name: "Kai Mercer",
     role: "Lead Guitarist · Night Circuit",
     instrument: "Electric Guitar",
@@ -41,7 +41,7 @@ const demos = [
       "Tight low end, cutting mids, and zero fluff on stage. This is the guitar that keeps up when the room gets loud.",
   },
   {
-    src: "/videos/products/hero-Testing-Demo-1.mp4",
+    src: "/videos/products/hero-Testing-Demo-4.mp4",
     name: "HND Live",
     role: "Stage Session",
     instrument: "Electric Guitar",
