@@ -9,4 +9,6 @@ export interface CategorySlide {
   href: string;
   cta: string;
   imageScale?: number;
+  /** cover crops to fill; contain shows the full image (default: cover) */
+  fit?: "cover" | "contain";
 }

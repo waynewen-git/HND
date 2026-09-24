@@ -44,8 +44,8 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
       aria-label={t("hero.productShowcase")}
       aria-roledescription="carousel"
     >
-      {/* Fixed 500px on desktop; width-only crop via object-cover */}
-      <div className="relative h-[min(42svh,500px)] w-full overflow-hidden md:h-[500px]">
+      {/* Fixed 500px on desktop; cover crops wide banners, contain keeps full frame */}
+      <div className="relative h-[min(42svh,500px)] w-full overflow-hidden bg-hnd-white md:h-[500px] dark:bg-transparent">
         <div
           key={slide.id}
           className="absolute inset-0 bg-hnd-white dark:bg-transparent"
@@ -53,7 +53,9 @@ export default function CategorySlideshow({ slides }: CategorySlideshowProps) {
           <img
             src={withBasePath(slide.image)}
             alt={slide.title || "HND"}
-            className="h-full w-full object-cover object-center"
+            className={`h-full w-full object-center ${
+              slide.fit === "contain" ? "object-contain" : "object-cover"
+            }`}
             decoding="async"
             fetchPriority="high"
             sizes="100vw"
