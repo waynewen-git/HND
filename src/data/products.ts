@@ -438,7 +438,7 @@ export const heroSlides: HeroSlide[] = [
   },
 ];
 
-/** Homepage slideshow — hnd-0…3, full-width, 500px tall on desktop */
+/** Homepage slideshow — hnd-0…4, full-width, 500px tall on desktop */
 export const categorySlides = [
   {
     id: "hnd-0",
@@ -475,6 +475,15 @@ export const categorySlides = [
     image: "/images/hnd-3.webp",
     href: "/products/amps",
     cta: "Explore Amps",
+  },
+  {
+    id: "hnd-4",
+    label: "Lifestyle",
+    title: "Lifestyle",
+    tagline: "Bring rock closer to life.",
+    image: "/images/hnd-4.webp",
+    href: "/products/lifestyle",
+    cta: "Explore Lifestyle",
   },
 ];
 
